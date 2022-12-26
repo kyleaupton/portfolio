@@ -10,7 +10,7 @@ function App() {
           <div class="gear-rotate-left"></div>
       </div>
         <p>
-          Under contruction...
+          Under construction...
         </p>
       </header>
     </div>
