@@ -22,5 +22,7 @@ module.exports = {
   rules: {
     'react/jsx-filename-extension': 0,
     'react/destructuring-assignment': 0,
+    'import/no-unresolved': 0,
+    'import/extensions': 0,
   },
 };
