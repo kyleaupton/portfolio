@@ -11,6 +11,7 @@ import JavaScript from './items/JavaScript.vue';
 import LinkedIn from './items/LinkedIn.vue';
 import Node from './items/Node.vue';
 import Npm from './items/Npm.vue'
+import Python from './items/Python.vue';
 import TypeScript from './items/TypeScript.vue';
 import Vue from './items/Vue.vue'
 
@@ -43,6 +44,8 @@ import Vue from './items/Vue.vue'
             return Node
           case 'npm':
             return Npm
+          case 'python':
+            return Python
           case 'typescript':
             return TypeScript
           case 'vue':

@@ -1,8 +1,8 @@
 <template>
   <div class="technologies">
-    <p>Technologies</p>
+    <p class="technology-title">Technologies</p>
 
-    <p>|</p>
+    <p class="technologies-divider">|</p>
 
     <template v-for="tech in techs" :key="tech.key">
       <ClickableIcon class="technology" :class="`technology-${tech.key}`" :icon="tech.icon" :clickable="false" />
@@ -43,6 +43,10 @@ import ClickableIcon from './icons/ClickableIcon.vue';
           {
             key: 'electron',
             icon: 'electron'
+          },
+          {
+            key: 'python',
+            icon: 'python'
           }
         ]
       }
@@ -53,14 +57,14 @@ import ClickableIcon from './icons/ClickableIcon.vue';
 <style>
 .technologies {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   gap: 2rem;
 }
 
 .technology {
-  height: 3rem !important;
-  width: 3rem !important;
+  min-height: 3rem !important;
+  min-width: 3rem !important;
 }
 
 .technology img {
@@ -69,5 +73,24 @@ import ClickableIcon from './icons/ClickableIcon.vue';
 
 .technology-vue img {
   height: 22px;
+}
+
+@media only screen and (max-width: 460px) {
+  .technologies {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    place-items: center;
+    gap: 1rem;
+  }
+
+  .technology-title {
+    grid-column-start: 1;
+    grid-column-end: 4;
+  }
+
+  .technologies-divider {
+    display: none;
+  }
 }
 </style>

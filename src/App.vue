@@ -14,7 +14,9 @@ import Technologies from './components/Technologies.vue';
       Full Stack Dev | Open-Source Contributer | TypeScript Enthusiast
     </div>
 
-    <Technologies />
+    <div class="tech-wrapper">
+      <Technologies />
+    </div>
   </div>
 
 </template>
@@ -127,6 +129,11 @@ button:focus-visible {
 
 .text-1 {
   font-weight: 500;
+}
+
+.tech-wrapper {
+  width: 100%;
+  overflow: scroll;
 }
 
 
