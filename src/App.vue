@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Titlebar from './components/Titlebar.vue';
 import LandingAnimation from './components/LandingAnimation.vue';
+import Technologies from './components/Technologies.vue';
 </script>
 
 <template>
@@ -12,7 +13,10 @@ import LandingAnimation from './components/LandingAnimation.vue';
     <div class="text-1">
       Full Stack Dev | Open-Source Contributer | TypeScript Enthusiast
     </div>
+
+    <Technologies />
   </div>
+
 </template>
 
 <style scoped>

@@ -1,5 +1,5 @@
 <template>
-  <div class="clickable-icon">
+  <div class="clickable-icon" :class="[{ 'clickable': clickable }]">
     <Icon :icon="icon" />
   </div>
 </template>
@@ -19,6 +19,11 @@ import Icon from './Icon.vue';
       icon: {
         type: String,
         required: true,
+      },
+
+      clickable: {
+        type: Boolean,
+        default: true,
       }
     },
   })
@@ -36,14 +41,14 @@ import Icon from './Icon.vue';
 }
 
 .clickable-icon svg {
-  height: 18px;
+  height: 22px;
 }
 
 .clickable-icon:hover {
   border-radius: 8px;
 }
 
-.clickable-icon:active {
+.clickable.clickable-icon:active {
   background: var(--surface-min-30);
 }
 </style>

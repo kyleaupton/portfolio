@@ -4,8 +4,15 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import GitHub from './GitHub.vue';
-import LinkedIn from './LinkedIn.vue';
+
+import Electron from './items/Electron.vue'
+import GitHub from './items/GitHub.vue';
+import JavaScript from './items/JavaScript.vue';
+import LinkedIn from './items/LinkedIn.vue';
+import Node from './items/Node.vue';
+import Npm from './items/Npm.vue'
+import TypeScript from './items/TypeScript.vue';
+import Vue from './items/Vue.vue'
 
   export default defineComponent({
     name: 'Icon',
@@ -23,13 +30,26 @@ import LinkedIn from './LinkedIn.vue';
 
     computed: {
       component() {
-        if (this.icon === 'github') {
-          return GitHub
-        } else if (this.icon === 'linkedin') {
-          return LinkedIn
+        switch (this.icon) {
+          case 'electron':
+            return Electron
+          case 'github':
+            return GitHub
+          case 'javascript':
+            return JavaScript
+          case 'linkedin':
+            return LinkedIn
+          case 'node':
+            return Node
+          case 'npm':
+            return Npm
+          case 'typescript':
+            return TypeScript
+          case 'vue':
+            return Vue
+          default:
+            throw Error()
         }
-
-        throw Error()
       }
     }
   })
