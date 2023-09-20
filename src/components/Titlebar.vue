@@ -33,3 +33,9 @@ import ClickableIcon from './icons/ClickableIcon.vue'
   padding: 24px;
 }
 </style>
+
+<style>
+.titlebar svg {
+  fill: var(--surface-plus-40);
+}
+</style>
