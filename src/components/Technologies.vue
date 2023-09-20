@@ -5,7 +5,7 @@
     <p>|</p>
 
     <template v-for="tech in techs" :key="tech.key">
-      <ClickableIcon class="technology" :class="`technology-${tech.key}`" :icon="tech.icon" />
+      <ClickableIcon class="technology" :class="`technology-${tech.key}`" :icon="tech.icon" :clickable="false" />
     </template>
   </div>
 </template>
