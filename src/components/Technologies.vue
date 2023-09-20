@@ -75,7 +75,7 @@ import ClickableIcon from './icons/ClickableIcon.vue';
   height: 22px;
 }
 
-@media only screen and (max-width: 460px) {
+@media only screen and (max-width: 674px) {
   .technologies {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
