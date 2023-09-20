@@ -6,6 +6,7 @@
 </template>
 
 <script lang="ts">
+// @ts-ignore
 import VueWriter from 'vue-writer';
 
 export default {
