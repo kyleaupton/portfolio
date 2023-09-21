@@ -34,14 +34,14 @@ import Icon from './Icon.vue';
   background: var(--surface-min-20);
   display: grid;
   place-content: center;
-  height: 2rem;
-  width: 2rem;
+  height: 3rem;
+  width: 3rem;
   border-radius: 100%;
   transition: all .2s linear;
 }
 
 .clickable-icon svg {
-  height: 22px;
+  height: 24px;
 }
 
 .clickable-icon:hover {
