@@ -62,9 +62,8 @@ import ClickableIcon from './icons/ClickableIcon.vue';
   gap: 2rem;
 }
 
-.technology {
-  min-height: 3rem !important;
-  min-width: 3rem !important;
+.technology-title {
+  font-weight: 600;
 }
 
 .technology img {
