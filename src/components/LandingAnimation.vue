@@ -1,17 +1,29 @@
 <template>
   <div class="wrapper">
+    <!-- Actual content -->
     <VueWriter
       class="writer-text"
+      :style="{ width: `${width}px`, fontSize: `${fontSize}px` }"
       :array="[message]"
       :iterations="1"
       caret="underscore"
       :type-speed="100"
     />
-    <!-- <div ref="template" class="is-typed landing-template">{{ message }}</div> -->
+
+    <!-- Width template -->
+    <div
+      id="animation-template"
+      ref="template"
+      class="is-typed writer-text landing-template"
+    >
+      <span class="typed">{{ message }}</span>
+      <span class="underscore [object Object]">&nbsp;</span>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
+import fitty, { FittyInstance } from 'fitty';
 // @ts-ignore
 import VueWriter from 'vue-writer';
 
@@ -22,15 +34,31 @@ export default {
 
   data() {
     return {
+      fitty: null as null | FittyInstance[],
       message: "console.log('Hi, I\\'m Kyle Upton');",
       width: -1,
+      fontSize: -1,
     };
   },
 
   mounted() {
-    // // @ts-ignore
-    // this.width = this.$refs.template.clientWidth
-    // console.log(this.width, JSON.parse(JSON.stringify(this.$refs)))
+    this.fitty = fitty('#animation-template', { minSize: 12, maxSize: 32 });
+    this.fitty[0].element.addEventListener('fit', this.eventHandler);
+  },
+
+  beforeUnmount() {
+    if (this.fitty) {
+      this.fitty[0].element.removeEventListener('fit', this.eventHandler);
+    }
+  },
+
+  methods: {
+    eventHandler(e: unknown) {
+      // @ts-ignore
+      this.width = this.$refs.template.getBoundingClientRect().width;
+      // @ts-ignore
+      this.fontSize = e.detail.newValue;
+    },
   },
 };
 </script>
@@ -44,7 +72,6 @@ export default {
 
 .writer-text {
   text-align: start;
-  width: 602px;
 }
 
 .is-typed {
@@ -56,19 +83,11 @@ export default {
   .is-typed {
     font-size: 14px;
   }
-
-  .writer-text {
-    width: 308px;
-  }
 }
 
 @media only screen and (max-width: 360px) {
   .is-typed {
     font-size: 12px;
-  }
-
-  .writer-text {
-    width: 266px;
   }
 }
 
