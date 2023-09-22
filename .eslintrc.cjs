@@ -1,32 +1,41 @@
+/* eslint-env node */
+// require("@rushstack/eslint-patch/modern-module-resolution");
+
 module.exports = {
-  "env": {
-    "browser": true,
-    "es2021": true
+  env: {
+    node: true,
   },
-  "extends": [
-    "standard-with-typescript",
-    "plugin:vue/vue3-essential"
-  ],
-  "overrides": [
-    {
-      "env": {
-        "node": true
-      },
-      "files": [
-        ".eslintrc.{js,cjs}"
-      ],
-      "parserOptions": {
-        "sourceType": "script"
-      }
-    }
-  ],
-  "parserOptions": {
-    "ecmaVersion": "latest",
-    "sourceType": "module"
+  parser: 'vue-eslint-parser',
+  parserOptions: {
+    parser: '@typescript-eslint/parser',
+    ecmaVersion: 2020,
+    sourceType: 'module',
   },
-  "plugins": [
-    "vue"
+  extends: [
+    'plugin:vue/vue3-recommended',
+    '@vue/typescript/recommended',
+    'eslint:recommended',
+    'prettier',
   ],
-  "rules": {
-  }
-}
+  plugins: ['prettier'],
+  rules: {
+    // Required rules
+    //////////////////////////////////////////////
+    'prettier/prettier': 'error',
+    'arrow-body-style': 0,
+    'prefer-arrow-callback': 0,
+    // "vue/order-in-components": "error",
+    //////////////////////////////////////////////
+
+    // Non-required rules
+    // Vue rules
+    'vue/no-reserved-component-names': 0,
+    'vue/multi-word-component-names': 0,
+    // @typescript-eslint rules
+    '@typescript-eslint/ban-ts-comment': 0,
+    '@typescript-eslint/no-empty-function': 0,
+    // other rules
+    'no-async-promise-executor': 0,
+    'vue/no-v-html': 0,
+  },
+};
