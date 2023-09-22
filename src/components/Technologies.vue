@@ -63,6 +63,7 @@ import ClickableIcon from './icons/ClickableIcon.vue';
 }
 
 .technology-title {
+  font-size: 22px;
   font-weight: 600;
 }
 

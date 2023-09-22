@@ -2,6 +2,7 @@
 import Titlebar from './components/Titlebar.vue';
 import LandingAnimation from './components/LandingAnimation.vue';
 import Technologies from './components/Technologies.vue';
+import Projects from './components/projects/Projects.vue';
 </script>
 
 <template>
@@ -16,6 +17,10 @@ import Technologies from './components/Technologies.vue';
 
     <div class="tech-wrapper">
       <Technologies />
+    </div>
+
+    <div class="projects-wrapper">
+      <Projects />
     </div>
   </div>
 
@@ -58,12 +63,14 @@ import Technologies from './components/Technologies.vue';
   --surface-plus-70: #0b0b0b;
   --surface-plus-80: #070707;
 
+  --text1: rgba(255, 255, 255, 0.87);
+
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color: var(--text1);
   background-color: var(--surface-0);
 
   font-synthesis: none;
@@ -118,8 +125,8 @@ button:focus-visible {
   flex-direction: column;
   gap: 4rem;
   max-width: 1000px;
-  margin: 2rem auto;
-  padding: 2rem;
+  margin: 0 auto;
+  padding: 12px;
   text-align: center;
 }
 
@@ -133,7 +140,7 @@ button:focus-visible {
 
 .tech-wrapper {
   width: 100%;
-  overflow: scroll;
+  overflow: auto;
 }
 
 
