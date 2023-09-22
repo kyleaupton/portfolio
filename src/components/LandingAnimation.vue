@@ -2,7 +2,7 @@
   <div class="wrapper">
     <!-- Actual content -->
     <VueWriter
-      class="writer-text"
+      class="fit writer-text"
       :style="{ width: `${width}px`, fontSize: `${fontSize}px` }"
       :array="[message]"
       :iterations="1"
@@ -14,7 +14,7 @@
     <div
       id="animation-template"
       ref="template"
-      class="is-typed writer-text landing-template"
+      class="fit is-typed writer-text landing-template"
     >
       <span class="typed">{{ message }}</span>
       <span class="underscore [object Object]">&nbsp;</span>
@@ -42,6 +42,9 @@ export default {
   },
 
   mounted() {
+    // @ts-ignore
+    fitty.observeWindowDelay = 0;
+
     this.fitty = fitty('#animation-template', { minSize: 12, maxSize: 32 });
     this.fitty[0].element.addEventListener('fit', this.eventHandler);
   },
@@ -64,6 +67,11 @@ export default {
 </script>
 
 <style>
+.fit {
+  display: inline-block;
+  white-space: nowrap;
+}
+
 .wrapper {
   display: flex;
   justify-content: center;
@@ -104,9 +112,9 @@ export default {
 
 .is-typed span.underscore {
   display: inline-flex;
-  width: 12px;
-  height: 2px;
   align-items: flex-end;
+  width: 4%;
+  height: 0.06em;
   background-color: rgba(255, 255, 255, 0.87);
   animation: blink 1s infinite;
 }
