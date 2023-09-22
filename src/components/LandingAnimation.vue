@@ -99,10 +99,6 @@ export default {
   }
 }
 
-.is-typed span.typed {
-  /* color: black; */
-}
-
 .is-typed span.cursor {
   display: inline-block;
   width: 3px;
