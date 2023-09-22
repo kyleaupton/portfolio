@@ -1,0 +1,50 @@
+<template>
+  <div class="projects">
+    <p class="projects-title">Projects</p>
+
+    <div class="projects-card">
+      <Project class="projects-card-project" v-for="project of projects" :key="project" :project="project" />
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+import Project from './Project.vue';
+
+  export default defineComponent({
+    name: 'Projects',
+
+    components: {
+      Project,
+    },
+
+    data() {
+      return {
+        projects: ['kyleaupton/portfolio', 'kyleaupton/node-rsync'],
+      }
+    },
+  })
+</script>
+
+<style scoped>
+.projects-title {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.projects-card {
+  background-color: var(--surface-min-10);
+  border-radius: 8px;
+}
+
+.projects-card-project:first-child {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.projects-card-project:last-child {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+</style>

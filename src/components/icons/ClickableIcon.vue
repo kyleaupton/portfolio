@@ -51,4 +51,8 @@ import Icon from './Icon.vue';
 .clickable.clickable-icon:active {
   background: var(--surface-min-30);
 }
+
+.clickable-icon svg {
+  fill: var(--surface-plus-40);
+}
 </style>

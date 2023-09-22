@@ -5,6 +5,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
+import Chevron from './items/Chevron.vue';
 import Electron from './items/Electron.vue'
 import GitHub from './items/GitHub.vue';
 import JavaScript from './items/JavaScript.vue';
@@ -32,6 +33,8 @@ import Vue from './items/Vue.vue'
     computed: {
       component() {
         switch (this.icon) {
+          case 'chevron':
+            return Chevron
           case 'electron':
             return Electron
           case 'github':
