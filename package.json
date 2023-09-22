@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "floating-vue": "^2.0.0-beta.24",
     "highlight.js": "^11.8.0",
     "marked": "^9.0.3",
     "marked-highlight": "^2.0.6",
