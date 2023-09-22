@@ -5,7 +5,7 @@
     <p class="technologies-divider">|</p>
 
     <template v-for="tech in techs" :key="tech.key">
-      <ClickableIcon class="technology" :class="`technology-${tech.key}`" :icon="tech.icon" :clickable="false" />
+      <ClickableIcon class="technology" :class="`technology-${tech.key}`" :icon="tech.icon" :clickable="false" v-tooltip="tech.tooltip" />
     </template>
   </div>
 </template>
@@ -26,27 +26,33 @@ import ClickableIcon from './icons/ClickableIcon.vue';
         techs: [
           {
             key: 'js',
-            icon: 'javascript'
+            icon: 'javascript',
+            tooltip: 'JavaScript'
           },
           {
             key: 'ts',
-            icon: 'typescript'
+            icon: 'typescript',
+            tooltip: 'TypeScript'
           },
           {
             key: 'vue',
-            icon: 'vue'
+            icon: 'vue',
+            tooltip: 'Vue'
           },
           {
             key: 'node',
-            icon: 'node'
+            icon: 'node',
+            tooltip: 'Node.js'
           },
           {
             key: 'electron',
-            icon: 'electron'
+            icon: 'electron',
+            tooltip: 'Electron.js'
           },
           {
             key: 'python',
-            icon: 'python'
+            icon: 'python',
+            tooltip: 'Python'
           }
         ]
       }
