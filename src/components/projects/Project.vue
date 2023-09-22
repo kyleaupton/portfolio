@@ -1,5 +1,9 @@
 <template>
-  <div class="project" :class="[{ 'project-expanded': expanded }]" @click.self="expanded = !expanded">
+  <div
+    class="project"
+    :class="[{ 'project-expanded': expanded }]"
+    @click.self="expanded = !expanded"
+  >
     <template v-if="loading">
       <p>loading...</p>
     </template>
@@ -7,11 +11,18 @@
       <div class="project-header" @click.self="expanded = !expanded">
         <div class="project-header-title-wrapper" @click="expanded = !expanded">
           <Icon class="project-chevron" icon="chevron" />
-          <Icon class="project-language" :icon="repository.language.toLowerCase()" />
+          <Icon
+            class="project-language"
+            :icon="repository.language.toLowerCase()"
+          />
           <p class="project-header-title">{{ repository.name }}</p>
         </div>
 
-        <ClickableIcon icon="github" v-tooltip="{ content: 'View on GitHub', delay: 800 }" @click="goToLink" />
+        <ClickableIcon
+          v-tooltip="{ content: 'View on GitHub', delay: 800 }"
+          icon="github"
+          @click="goToLink"
+        />
       </div>
 
       <div v-show="expanded" class="project-extra">
@@ -19,84 +30,84 @@
       </div>
     </template>
   </div>
-</template> 
+</template>
 
-<script lang=ts>
+<script lang="ts">
 import { defineComponent } from 'vue';
 import { mapState, mapActions } from 'pinia';
 
 import { Marked } from 'marked';
 import { markedHighlight } from 'marked-highlight';
-import hljs from 'highlight.js/lib/common'
+import hljs from 'highlight.js/lib/common';
 import javascript from 'highlight.js/lib/languages/javascript';
 
 import { useGitHubStore } from '../../stores/github';
 import Icon from '../icons/Icon.vue';
 import ClickableIcon from '../icons/ClickableIcon.vue';
 
-  export default defineComponent({
-    name: 'Project',
+export default defineComponent({
+  name: 'Project',
 
-    props: {
-      project: {
-        type: String,
-        required: true
-      }
+  components: {
+    Icon,
+    ClickableIcon,
+  },
+
+  props: {
+    project: {
+      type: String,
+      required: true,
+    },
+  },
+
+  data() {
+    return {
+      loading: true,
+      expanded: false,
+    };
+  },
+
+  computed: {
+    ...mapState(useGitHubStore, ['repos']),
+
+    id() {
+      return `project-markdown-${this.project}`;
     },
 
-    components: {
-      Icon,
-      ClickableIcon,
+    repository() {
+      return this.repos[this.project];
     },
 
-    data() {
-      return {
-        loading: true,
-        expanded: false,
-      }
+    markdown() {
+      const marked = new Marked(
+        markedHighlight({
+          langPrefix: 'hljs language-',
+          highlight(code, lang) {
+            const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+            hljs.registerLanguage('javascript', javascript);
+            return hljs.highlight(code, { language }).value;
+          },
+        }),
+      );
+
+      return this.repository ? marked.parse(this.repository.readme) : '';
     },
+  },
 
-    computed: {
-      ...mapState(useGitHubStore, ['repos']),
+  async created() {
+    this.loading = true;
+    await this.getRepo(this.project);
+    this.loading = false;
+  },
 
-      id() {
-        return `project-markdown-${this.project}`;
-      },
+  methods: {
+    ...mapActions(useGitHubStore, ['getRepo']),
 
-      repository() {
-        return this.repos[this.project]
-      },
-
-      markdown() {
-        const marked = new Marked(
-          markedHighlight({
-            langPrefix: 'hljs language-',
-            highlight(code, lang) {
-              const language = hljs.getLanguage(lang) ? lang : 'plaintext';
-              hljs.registerLanguage('javascript', javascript);
-              return hljs.highlight(code, { language }).value;
-            }
-          })
-        );
-
-        return this.repository ? marked.parse(this.repository.readme) : '';
-      }
+    goToLink() {
+      window.open(this.repository?.html_url);
     },
-
-    async created() {
-      this.loading = true;
-      await this.getRepo(this.project)
-      this.loading = false
-    },
-
-    methods: {
-      ...mapActions(useGitHubStore, ['getRepo']),
-
-      goToLink() {
-        window.open(this.repository?.html_url);
-      }
-    }
-  })
+  },
+});
 </script>
 
 <style scoped>

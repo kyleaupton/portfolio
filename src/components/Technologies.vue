@@ -5,7 +5,13 @@
     <p class="technologies-divider">|</p>
 
     <template v-for="tech in techs" :key="tech.key">
-      <ClickableIcon class="technology" :class="`technology-${tech.key}`" :icon="tech.icon" :clickable="false" v-tooltip="{ content: tech.tooltip, delay: 800 }" />
+      <ClickableIcon
+        v-tooltip="{ content: tech.tooltip, delay: 800 }"
+        class="technology"
+        :class="`technology-${tech.key}`"
+        :icon="tech.icon"
+        :clickable="false"
+      />
     </template>
   </div>
 </template>
@@ -14,50 +20,50 @@
 import { defineComponent } from 'vue';
 import ClickableIcon from './icons/ClickableIcon.vue';
 
-  export default defineComponent({
-    name: 'Technologies',
+export default defineComponent({
+  name: 'Technologies',
 
-    components: {
-      ClickableIcon,
-    },
+  components: {
+    ClickableIcon,
+  },
 
-    data() {
-      return {
-        techs: [
-          {
-            key: 'js',
-            icon: 'javascript',
-            tooltip: 'JavaScript'
-          },
-          {
-            key: 'ts',
-            icon: 'typescript',
-            tooltip: 'TypeScript'
-          },
-          {
-            key: 'vue',
-            icon: 'vue',
-            tooltip: 'Vue'
-          },
-          {
-            key: 'node',
-            icon: 'node',
-            tooltip: 'Node.js'
-          },
-          {
-            key: 'electron',
-            icon: 'electron',
-            tooltip: 'Electron.js'
-          },
-          {
-            key: 'python',
-            icon: 'python',
-            tooltip: 'Python'
-          }
-        ]
-      }
-    },
-  })
+  data() {
+    return {
+      techs: [
+        {
+          key: 'js',
+          icon: 'javascript',
+          tooltip: 'JavaScript',
+        },
+        {
+          key: 'ts',
+          icon: 'typescript',
+          tooltip: 'TypeScript',
+        },
+        {
+          key: 'vue',
+          icon: 'vue',
+          tooltip: 'Vue',
+        },
+        {
+          key: 'node',
+          icon: 'node',
+          tooltip: 'Node.js',
+        },
+        {
+          key: 'electron',
+          icon: 'electron',
+          tooltip: 'Electron.js',
+        },
+        {
+          key: 'python',
+          icon: 'python',
+          tooltip: 'Python',
+        },
+      ],
+    };
+  },
+});
 </script>
 
 <style>

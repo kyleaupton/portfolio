@@ -1,5 +1,5 @@
 <template>
-  <div class="clickable-icon" :class="[{ 'clickable': clickable }]">
+  <div class="clickable-icon" :class="[{ clickable: clickable }]">
     <Icon :icon="icon" />
   </div>
 </template>
@@ -8,25 +8,25 @@
 import { defineComponent } from 'vue';
 import Icon from './Icon.vue';
 
-  export default defineComponent({
-    name: 'ClickableIcon',
+export default defineComponent({
+  name: 'ClickableIcon',
 
-    components: {
-      Icon
+  components: {
+    Icon,
+  },
+
+  props: {
+    icon: {
+      type: String,
+      required: true,
     },
 
-    props: {
-      icon: {
-        type: String,
-        required: true,
-      },
-
-      clickable: {
-        type: Boolean,
-        default: true,
-      }
+    clickable: {
+      type: Boolean,
+      default: true,
     },
-  })
+  },
+});
 </script>
 
 <style scoped>
@@ -37,7 +37,7 @@ import Icon from './Icon.vue';
   height: 3rem;
   width: 3rem;
   border-radius: 100%;
-  transition: all .2s linear;
+  transition: all 0.2s linear;
 }
 
 .clickable-icon.clickable {

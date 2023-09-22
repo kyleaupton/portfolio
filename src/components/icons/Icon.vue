@@ -6,61 +6,59 @@
 import { defineComponent } from 'vue';
 
 import Chevron from './items/Chevron.vue';
-import Electron from './items/Electron.vue'
+import Electron from './items/Electron.vue';
 import GitHub from './items/GitHub.vue';
 import JavaScript from './items/JavaScript.vue';
 import LinkedIn from './items/LinkedIn.vue';
 import Node from './items/Node.vue';
-import Npm from './items/Npm.vue'
+import Npm from './items/Npm.vue';
 import Python from './items/Python.vue';
 import TypeScript from './items/TypeScript.vue';
-import Vue from './items/Vue.vue'
+import Vue from './items/Vue.vue';
 
-  export default defineComponent({
-    name: 'Icon',
+export default defineComponent({
+  name: 'Icon',
 
-    components: {
-      GitHub,
+  components: {
+    GitHub,
+  },
+
+  props: {
+    icon: {
+      type: String,
+      required: true,
     },
+  },
 
-    props: {
-      icon: {
-        type: String,
-        required: true,
+  computed: {
+    component() {
+      switch (this.icon) {
+        case 'chevron':
+          return Chevron;
+        case 'electron':
+          return Electron;
+        case 'github':
+          return GitHub;
+        case 'javascript':
+          return JavaScript;
+        case 'linkedin':
+          return LinkedIn;
+        case 'node':
+          return Node;
+        case 'npm':
+          return Npm;
+        case 'python':
+          return Python;
+        case 'typescript':
+          return TypeScript;
+        case 'vue':
+          return Vue;
+        default:
+          throw Error();
       }
     },
-
-    computed: {
-      component() {
-        switch (this.icon) {
-          case 'chevron':
-            return Chevron
-          case 'electron':
-            return Electron
-          case 'github':
-            return GitHub
-          case 'javascript':
-            return JavaScript
-          case 'linkedin':
-            return LinkedIn
-          case 'node':
-            return Node
-          case 'npm':
-            return Npm
-          case 'python':
-            return Python
-          case 'typescript':
-            return TypeScript
-          case 'vue':
-            return Vue
-          default:
-            throw Error()
-        }
-      }
-    }
-  })
+  },
+});
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

@@ -1,6 +1,12 @@
 <template>
   <div class="wrapper">
-    <VueWriter class="writer-text" :array="[message]" :iterations="1" caret="underscore" :typeSpeed="100" />
+    <VueWriter
+      class="writer-text"
+      :array="[message]"
+      :iterations="1"
+      caret="underscore"
+      :type-speed="100"
+    />
     <!-- <div ref="template" class="is-typed landing-template">{{ message }}</div> -->
   </div>
 </template>
@@ -16,17 +22,17 @@ export default {
 
   data() {
     return {
-      message: 'console.log(\'Hi, I\\\'m Kyle Upton\');',
+      message: "console.log('Hi, I\\'m Kyle Upton');",
       width: -1,
-    }
+    };
   },
 
   mounted() {
     // // @ts-ignore
     // this.width = this.$refs.template.clientWidth
     // console.log(this.width, JSON.parse(JSON.stringify(this.$refs)))
-  }
-}
+  },
+};
 </script>
 
 <style>
@@ -42,7 +48,7 @@ export default {
 }
 
 .is-typed {
-  font-family: "Monaco";
+  font-family: 'Monaco';
   font-size: 28px;
 }
 
@@ -81,7 +87,7 @@ export default {
   display: inline-flex;
   width: 12px;
   height: 2px;
-  align-items:flex-end;
+  align-items: flex-end;
   background-color: rgba(255, 255, 255, 0.87);
   animation: blink 1s infinite;
 }

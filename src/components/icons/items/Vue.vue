@@ -1,13 +1,11 @@
 <template>
-  <img src="../../../assets/vue.png">
+  <img src="../../../assets/vue.png" />
 </template>
 
 <script lang="ts">
-  export default {
-    name: 'Vue'
-  }
+export default {
+  name: 'Vue',
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

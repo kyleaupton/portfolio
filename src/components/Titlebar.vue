@@ -1,27 +1,36 @@
 <template>
   <div class="titlebar">
-    <ClickableIcon icon="linkedin" v-tooltip="{ content: 'Open LinkedIn', delay: 800 }" @click="openLink('https://linkedin.com/in/kyle-upton-50bb1a188')" />
-    <ClickableIcon icon="github" v-tooltip="{ content: 'Open GitHub', delay: 800 }" @click="openLink('https://github.com/kyleaupton')" />
+    <ClickableIcon
+      v-tooltip="{ content: 'Open LinkedIn', delay: 800 }"
+      icon="linkedin"
+      @click="openLink('https://linkedin.com/in/kyle-upton-50bb1a188')"
+    />
+
+    <ClickableIcon
+      v-tooltip="{ content: 'Open GitHub', delay: 800 }"
+      icon="github"
+      @click="openLink('https://github.com/kyleaupton')"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import ClickableIcon from './icons/ClickableIcon.vue'
+import ClickableIcon from './icons/ClickableIcon.vue';
 
-  export default defineComponent({
-    name: 'Titlebar',
+export default defineComponent({
+  name: 'Titlebar',
 
-    components: {
-      ClickableIcon
+  components: {
+    ClickableIcon,
+  },
+
+  methods: {
+    openLink(link: string) {
+      window.open(link);
     },
-
-    methods: {
-      openLink(link: string) {
-        window.open(link)
-      }
-    }
-  })
+  },
+});
 </script>
 
 <style scoped>

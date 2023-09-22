@@ -1,13 +1,11 @@
 <template>
-  <img src="../../../assets/electron.png">
+  <img src="../../../assets/electron.png" />
 </template>
 
 <script lang="ts">
-  export default {
-    name: 'Electron'
-  }
+export default {
+  name: 'Electron',
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
