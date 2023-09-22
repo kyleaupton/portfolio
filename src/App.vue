@@ -3,6 +3,7 @@ import Titlebar from './components/Titlebar.vue';
 import LandingAnimation from './components/LandingAnimation.vue';
 import Technologies from './components/Technologies.vue';
 import Projects from './components/projects/Projects.vue';
+import Toasts from './components/toasts/Toasts.vue';
 </script>
 
 <template>
@@ -23,6 +24,8 @@ import Projects from './components/projects/Projects.vue';
       <Projects />
     </div>
   </div>
+
+  <Toasts />
 </template>
 
 <style scoped>

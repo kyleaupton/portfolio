@@ -57,7 +57,7 @@ interface Repo {
   ssh_url: string;
   clone_url: string;
   svn_url: string;
-  homepage: any;
+  homepage: null | string;
   size: number;
   stargazers_count: number;
   watchers_count: number;
@@ -69,7 +69,7 @@ interface Repo {
   has_pages: boolean;
   has_discussions: boolean;
   forks_count: number;
-  mirror_url: any;
+  mirror_url: null | string;
   archived: boolean;
   disabled: boolean;
   open_issues_count: number;
@@ -77,13 +77,13 @@ interface Repo {
   allow_forking: boolean;
   is_template: boolean;
   web_commit_signoff_required: boolean;
-  topics: any[];
+  topics: string[];
   visibility: string;
   forks: number;
   open_issues: number;
   watchers: number;
   default_branch: string;
-  temp_clone_token: any;
+  temp_clone_token: null | string;
   network_count: number;
   subscribers_count: number;
   readme: string;
@@ -137,6 +137,7 @@ export const useGitHubStore = defineStore('gitHub', {
       const res = (
         await octokit.request(`GET /repos/${repo}/contents/README.md`)
       ).data;
+
       this.repos[repo].readme = atob(res.content);
     },
   },

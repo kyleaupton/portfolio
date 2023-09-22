@@ -5,8 +5,10 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
+import Check from './items/Check.vue';
 import Chevron from './items/Chevron.vue';
 import Electron from './items/Electron.vue';
+import Envelope from './items/Envelope.vue';
 import GitHub from './items/GitHub.vue';
 import JavaScript from './items/JavaScript.vue';
 import LinkedIn from './items/LinkedIn.vue';
@@ -33,10 +35,14 @@ export default defineComponent({
   computed: {
     component() {
       switch (this.icon) {
+        case 'check':
+          return Check;
         case 'chevron':
           return Chevron;
         case 'electron':
           return Electron;
+        case 'envelope':
+          return Envelope;
         case 'github':
           return GitHub;
         case 'javascript':
@@ -60,5 +66,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style lang="scss" scoped></style>
