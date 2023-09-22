@@ -3,7 +3,12 @@
     <p class="projects-title">Projects</p>
 
     <div class="projects-card">
-      <Project class="projects-card-project" v-for="project of projects" :key="project" :project="project" />
+      <Project
+        v-for="project of projects"
+        :key="project"
+        class="projects-card-project"
+        :project="project"
+      />
     </div>
   </div>
 </template>
@@ -12,19 +17,19 @@
 import { defineComponent } from 'vue';
 import Project from './Project.vue';
 
-  export default defineComponent({
-    name: 'Projects',
+export default defineComponent({
+  name: 'Projects',
 
-    components: {
-      Project,
-    },
+  components: {
+    Project,
+  },
 
-    data() {
-      return {
-        projects: ['kyleaupton/portfolio', 'kyleaupton/node-rsync'],
-      }
-    },
-  })
+  data() {
+    return {
+      projects: ['kyleaupton/portfolio', 'kyleaupton/node-rsync'],
+    };
+  },
+});
 </script>
 
 <style scoped>

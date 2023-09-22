@@ -1,13 +1,11 @@
 <template>
-  <img src="../../../assets/node.png">
+  <img src="../../../assets/node.png" />
 </template>
 
 <script lang="ts">
-  export default {
-    name: 'Node'
-  }
+export default {
+  name: 'Node',
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

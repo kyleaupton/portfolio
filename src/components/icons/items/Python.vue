@@ -1,13 +1,11 @@
 <template>
-  <img src="../../../assets/python.png">
+  <img src="../../../assets/python.png" />
 </template>
 
 <script lang="ts">
-  export default {
-    name: 'Python'
-  }
+export default {
+  name: 'Python',
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

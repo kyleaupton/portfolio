@@ -10,7 +10,7 @@ import Projects from './components/projects/Projects.vue';
 
   <div class="content">
     <LandingAnimation />
-    
+
     <div class="text-1">
       Full Stack Dev | Open-Source Contributer | TypeScript Enthusiast
     </div>
@@ -23,7 +23,6 @@ import Projects from './components/projects/Projects.vue';
       <Projects />
     </div>
   </div>
-
 </template>
 
 <style scoped>
@@ -142,7 +141,6 @@ button:focus-visible {
   width: 100%;
   overflow: auto;
 }
-
 
 /* @media (prefers-color-scheme: light) {
   :root {
