@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
-    <VueWriter class="writer-text" :style="{ width: `${width + 13}px` }" :array="[message]" :iterations="1" caret="underscore" :typeSpeed="100" />
-    <div ref="template" class="is-typed landing-template">{{ message }}</div>
+    <VueWriter class="writer-text" :array="[message]" :iterations="1" caret="underscore" :typeSpeed="100" />
+    <!-- <div ref="template" class="is-typed landing-template">{{ message }}</div> -->
   </div>
 </template>
 
@@ -22,8 +22,9 @@ export default {
   },
 
   mounted() {
-    // @ts-ignore
-    this.width = this.$refs.template.clientWidth
+    // // @ts-ignore
+    // this.width = this.$refs.template.clientWidth
+    // console.log(this.width, JSON.parse(JSON.stringify(this.$refs)))
   }
 }
 </script>
@@ -37,6 +38,7 @@ export default {
 
 .writer-text {
   text-align: start;
+  width: 602px;
 }
 
 .is-typed {
@@ -48,11 +50,19 @@ export default {
   .is-typed {
     font-size: 14px;
   }
+
+  .writer-text {
+    width: 308px;
+  }
 }
 
 @media only screen and (max-width: 360px) {
   .is-typed {
     font-size: 12px;
+  }
+
+  .writer-text {
+    width: 266px;
   }
 }
 
