@@ -5,7 +5,7 @@
     <p class="technologies-divider">|</p>
 
     <template v-for="tech in techs" :key="tech.key">
-      <ClickableIcon class="technology" :class="`technology-${tech.key}`" :icon="tech.icon" :clickable="false" v-tooltip="tech.tooltip" />
+      <ClickableIcon class="technology" :class="`technology-${tech.key}`" :icon="tech.icon" :clickable="false" v-tooltip="{ content: tech.tooltip, delay: 800 }" />
     </template>
   </div>
 </template>

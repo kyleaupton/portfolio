@@ -1,7 +1,7 @@
 <template>
   <div class="titlebar">
-    <ClickableIcon icon="linkedin" @click="openLink('https://linkedin.com/in/kyle-upton-50bb1a188')" />
-    <ClickableIcon icon="github" @click="openLink('https://github.com/kyleaupton')" />
+    <ClickableIcon icon="linkedin" v-tooltip="{ content: 'Open LinkedIn', delay: 800 }" @click="openLink('https://linkedin.com/in/kyle-upton-50bb1a188')" />
+    <ClickableIcon icon="github" v-tooltip="{ content: 'Open GitHub', delay: 800 }" @click="openLink('https://github.com/kyleaupton')" />
   </div>
 </template>
 

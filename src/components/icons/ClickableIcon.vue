@@ -40,6 +40,10 @@ import Icon from './Icon.vue';
   transition: all .2s linear;
 }
 
+.clickable-icon.clickable {
+  cursor: pointer;
+}
+
 .clickable-icon svg {
   height: 24px;
 }
