@@ -6,17 +6,19 @@
       @click="copyEmail"
     />
 
-    <ClickableIcon
-      v-tooltip="{ content: 'Open LinkedIn', delay: 800 }"
-      icon="linkedin"
-      @click="openLink('https://linkedin.com/in/kyle-upton-50bb1a188')"
-    />
+    <a href="https://linkedin.com/in/kyle-upton-50bb1a188" target="_blank">
+      <ClickableIcon
+        v-tooltip="{ content: 'Open LinkedIn', delay: 800 }"
+        icon="linkedin"
+      />
+    </a>
 
-    <ClickableIcon
-      v-tooltip="{ content: 'Open GitHub', delay: 800 }"
-      icon="github"
-      @click="openLink('https://github.com/kyleaupton')"
-    />
+    <a href="https://github.com/kyleaupton" target="_blank">
+      <ClickableIcon
+        v-tooltip="{ content: 'Open GitHub', delay: 800 }"
+        icon="github"
+      />
+    </a>
   </div>
 </template>
 

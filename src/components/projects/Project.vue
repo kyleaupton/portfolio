@@ -18,11 +18,13 @@
           <p class="project-header-title">{{ repository.name }}</p>
         </div>
 
-        <ClickableIcon
-          v-tooltip="{ content: 'View on GitHub', delay: 800 }"
-          icon="github"
-          @click="goToLink"
-        />
+        <a :href="repository?.html_url" target="_blank">
+          <ClickableIcon
+            v-tooltip="{ content: 'View on GitHub', delay: 800 }"
+            class="project-github-icon"
+            icon="github"
+          />
+        </a>
       </div>
 
       <div v-show="expanded" class="project-extra">
