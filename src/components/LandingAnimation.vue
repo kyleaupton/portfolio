@@ -87,18 +87,6 @@ export default {
   font-size: 28px;
 }
 
-@media only screen and (max-width: 460px) {
-  .is-typed {
-    font-size: 14px;
-  }
-}
-
-@media only screen and (max-width: 360px) {
-  .is-typed {
-    font-size: 12px;
-  }
-}
-
 .is-typed span.cursor {
   display: inline-block;
   width: 3px;
