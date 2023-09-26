@@ -57,6 +57,6 @@ export default defineComponent({
 }
 
 .clickable-icon svg {
-  fill: var(--surface-plus-40);
+  fill: var(--surface-0);
 }
 </style>
