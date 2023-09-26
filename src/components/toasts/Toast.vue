@@ -46,10 +46,10 @@ export default defineComponent({
 
 .toast-normal {
   background: #4bb543;
-  color: var(--surface-0);
+  color: var(--text1);
 }
 
 .toast-icon svg {
-  fill: var(--surface-0);
+  fill: var(--text1);
 }
 </style>
