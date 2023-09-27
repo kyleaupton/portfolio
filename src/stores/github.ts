@@ -3,7 +3,7 @@ import { Octokit } from 'octokit';
 
 const octokit = new Octokit();
 
-interface Repo {
+export interface Repo {
   id: number;
   node_id: string;
   name: string;

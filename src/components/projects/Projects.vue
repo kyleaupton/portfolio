@@ -30,13 +30,15 @@ export default defineComponent({
       projects: [
         {
           id: 'kyleaupton/windows-install-maker',
-          icon: 'electron',
+          icons: ['typescript', 'vue', 'electron'],
+          npm: 'https://www.npmjs.com/package/@kyleupton/node-rsync',
         },
         {
           id: 'kyleaupton/node-rsync',
         },
         {
           id: 'kyleaupton/portfolio',
+          icons: ['typescript', 'vue'],
         },
       ] as t_project[],
     };
@@ -51,7 +53,8 @@ export default defineComponent({
 }
 
 .projects-card {
-  background-color: var(--surface-min-10);
+  /* background-color: var(--surface-min-10); */
+  border: 1px solid var(--surface-min-20);
   border-radius: 8px;
 }
 
@@ -63,5 +66,9 @@ export default defineComponent({
 .projects-card-project:last-child {
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
+}
+
+.projects-card-project:not(:last-child) {
+  border-bottom: 1px solid var(--surface-min-20);
 }
 </style>
