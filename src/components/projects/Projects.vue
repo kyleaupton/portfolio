@@ -5,7 +5,7 @@
     <div class="projects-card">
       <Project
         v-for="project of projects"
-        :key="project"
+        :key="project.id"
         class="projects-card-project"
         :project="project"
       />
@@ -15,6 +15,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { t_project } from '../../types/project';
 import Project from './Project.vue';
 
 export default defineComponent({
@@ -26,7 +27,18 @@ export default defineComponent({
 
   data() {
     return {
-      projects: ['kyleaupton/portfolio', 'kyleaupton/node-rsync'],
+      projects: [
+        {
+          id: 'kyleaupton/windows-install-maker',
+          icon: 'electron',
+        },
+        {
+          id: 'kyleaupton/node-rsync',
+        },
+        {
+          id: 'kyleaupton/portfolio',
+        },
+      ] as t_project[],
     };
   },
 });
