@@ -13,7 +13,8 @@
           <Icon class="project-chevron" icon="chevron" />
           <Icon
             class="project-language"
-            :icon="repository.language.toLowerCase()"
+            :class="`project-language-${icon}`"
+            :icon="icon"
           />
           <p class="project-header-title">{{ repository.name }}</p>
         </div>
@@ -35,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import { mapState, mapActions } from 'pinia';
 
 import { Marked } from 'marked';
@@ -43,6 +44,7 @@ import { markedHighlight } from 'marked-highlight';
 import hljs from 'highlight.js/lib/common';
 import javascript from 'highlight.js/lib/languages/javascript';
 
+import { t_project } from '../../types/project';
 import { useGitHubStore } from '../../stores/github';
 import Icon from '../icons/Icon.vue';
 import ClickableIcon from '../icons/ClickableIcon.vue';
@@ -57,7 +59,7 @@ export default defineComponent({
 
   props: {
     project: {
-      type: String,
+      type: Object as PropType<t_project>,
       required: true,
     },
   },
@@ -72,12 +74,16 @@ export default defineComponent({
   computed: {
     ...mapState(useGitHubStore, ['repos']),
 
+    icon() {
+      return this.project.icon || this.repository.language.toLowerCase();
+    },
+
     id() {
       return `project-markdown-${this.project}`;
     },
 
     repository() {
-      return this.repos[this.project];
+      return this.repos[this.project.id];
     },
 
     markdown() {
@@ -98,7 +104,7 @@ export default defineComponent({
 
   async created() {
     this.loading = true;
-    await this.getRepo(this.project);
+    await this.getRepo(this.project.id);
     this.loading = false;
   },
 
@@ -169,6 +175,11 @@ svg.project-chevron {
 
 .project-extra {
   cursor: default;
+}
+
+.project-language-electron {
+  height: 28px;
+  width: 28px;
 }
 </style>
 
