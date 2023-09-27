@@ -30,7 +30,7 @@ export default defineComponent({
       projects: [
         {
           id: 'kyleaupton/windows-install-maker',
-          icons: ['typescript', 'vue', 'electron'],
+          icons: ['vue', 'electron', 'typescript'],
           npm: 'https://www.npmjs.com/package/@kyleupton/node-rsync',
         },
         {
@@ -38,7 +38,14 @@ export default defineComponent({
         },
         {
           id: 'kyleaupton/portfolio',
-          icons: ['typescript', 'vue'],
+          icons: ['vue', 'typescript'],
+        },
+        {
+          id: 'kyleaupton/TransactionTracker',
+        },
+        {
+          id: 'kyleaupton/zerotier-utility',
+          icons: ['vue', 'electron', 'javascript'],
         },
       ] as t_project[],
     };

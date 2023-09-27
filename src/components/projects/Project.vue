@@ -121,6 +121,7 @@ export default defineComponent({
   margin: 0 -16px;
   padding: 16px;
   border-top: 1px solid var(--surface-min-20);
+  cursor: default;
 }
 
 .project-expanded-actions {
