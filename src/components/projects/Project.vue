@@ -8,28 +8,38 @@
       <p>loading...</p>
     </template>
     <template v-else>
-      <div class="project-header" @click.self="expanded = !expanded">
-        <div class="project-header-title-wrapper" @click="expanded = !expanded">
-          <Icon class="project-chevron" icon="chevron" />
-          <Icon
-            class="project-language"
-            :class="`project-language-${icon}`"
-            :icon="icon"
-          />
-          <p class="project-header-title">{{ repository.name }}</p>
+      <ProjectHeader
+        :repository="repository"
+        :project="project"
+        @toggle-expanded="expanded = !expanded"
+      />
+
+      <div v-show="expanded" class="project-extended-wrap">
+        <div class="project-expanded-actions">
+          <!-- NPM -->
+          <a v-if="project.npm" :href="project.npm" target="_blank">
+            <ClickableIcon
+              v-tooltip="{ content: 'View on npm', delay: 800 }"
+              class="project-expanded-icon project-expanded-icon-npm"
+              icon="npm"
+            />
+          </a>
+
+          <!-- GitHub -->
+          <a :href="repository?.html_url" target="_blank">
+            <ClickableIcon
+              v-tooltip="{ content: 'View on GitHub', delay: 800 }"
+              class="project-expanded-icon project-expanded-icon-github"
+              icon="github"
+            />
+          </a>
         </div>
 
-        <a :href="repository?.html_url" target="_blank">
-          <ClickableIcon
-            v-tooltip="{ content: 'View on GitHub', delay: 800 }"
-            class="project-github-icon"
-            icon="github"
-          />
-        </a>
-      </div>
-
-      <div v-show="expanded" class="project-extra">
-        <div class="project-markdown" v-html="markdown"></div>
+        <ProjectReadMe
+          class="project-expanded-markdown"
+          :repository="repository"
+          :markdown="repository.readme"
+        />
       </div>
     </template>
   </div>
@@ -39,21 +49,19 @@
 import { defineComponent, PropType } from 'vue';
 import { mapState, mapActions } from 'pinia';
 
-import { Marked } from 'marked';
-import { markedHighlight } from 'marked-highlight';
-import hljs from 'highlight.js/lib/common';
-import javascript from 'highlight.js/lib/languages/javascript';
-
 import { t_project } from '../../types/project';
 import { useGitHubStore } from '../../stores/github';
-import Icon from '../icons/Icon.vue';
+
+import ProjectHeader from './ProjectHeader.vue';
+import ProjectReadMe from './ProjectReadMe.vue';
 import ClickableIcon from '../icons/ClickableIcon.vue';
 
 export default defineComponent({
   name: 'Project',
 
   components: {
-    Icon,
+    ProjectHeader,
+    ProjectReadMe,
     ClickableIcon,
   },
 
@@ -74,31 +82,12 @@ export default defineComponent({
   computed: {
     ...mapState(useGitHubStore, ['repos']),
 
-    icon() {
-      return this.project.icon || this.repository.language.toLowerCase();
-    },
-
     id() {
       return `project-markdown-${this.project}`;
     },
 
     repository() {
       return this.repos[this.project.id];
-    },
-
-    markdown() {
-      const marked = new Marked(
-        markedHighlight({
-          langPrefix: 'hljs language-',
-          highlight(code, lang) {
-            const language = hljs.getLanguage(lang) ? lang : 'plaintext';
-            hljs.registerLanguage('javascript', javascript);
-            return hljs.highlight(code, { language }).value;
-          },
-        }),
-      );
-
-      return this.repository ? marked.parse(this.repository.readme) : '';
     },
   },
 
@@ -128,66 +117,27 @@ export default defineComponent({
   cursor: pointer;
 }
 
-.project:hover {
-  background-color: var(--surface-min-30);
+.project-extended-wrap {
+  margin: 0 -16px;
+  padding: 16px;
+  border-top: 1px solid var(--surface-min-20);
 }
 
-.project-header {
+.project-expanded-actions {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  cursor: pointer;
+  justify-content: flex-end;
+  gap: 8px;
 }
 
-svg.project-chevron {
-  fill: var(--text1);
-  transform: rotate(90deg);
-  transition: all 0.2s ease;
-}
-
-.project-expanded svg.project-chevron {
-  transform: rotate(180deg);
-}
-
-.project-header-title-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.project-language {
-  height: 22px;
-  width: 22px;
-}
-
-.project-header-title {
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.project-markdown {
-  padding: 1rem 2rem;
-  background: var(--surface-plus-10);
-  border-radius: 8px;
-  overflow: auto;
-}
-
-.project-extra {
-  cursor: default;
-}
-
-.project-language-electron {
-  height: 28px;
-  width: 28px;
+.project-expanded-icon {
+  height: 2.5rem;
+  width: 2.5rem;
 }
 </style>
 
 <style>
-.project pre {
-  background: var(--surface-min-20);
-  border-radius: 4px;
-  padding: 16px;
-  min-width: fit-content;
+.project-expanded-icon-npm svg {
+  height: 32px !important;
+  width: 32px !important;
 }
 </style>
