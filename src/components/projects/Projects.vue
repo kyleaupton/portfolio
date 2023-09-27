@@ -47,6 +47,10 @@ export default defineComponent({
           id: 'kyleaupton/zerotier-utility',
           icons: ['vue', 'electron', 'javascript'],
         },
+        {
+          id: 'kyleaupton/witte-quote-generator-desktop',
+          icons: ['vue', 'electron', 'javascript'],
+        },
       ] as t_project[],
     };
   },
