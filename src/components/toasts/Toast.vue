@@ -49,7 +49,7 @@ export default defineComponent({
   color: var(--text1);
 }
 
-.toast-icon svg {
+svg.toast-icon {
   fill: var(--text1);
 }
 </style>
