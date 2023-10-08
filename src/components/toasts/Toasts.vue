@@ -25,7 +25,7 @@ export default defineComponent({
 
 <style scoped>
 .toasts {
-  position: absolute;
+  position: fixed;
   height: 100vh;
   width: 100vw;
   top: 0;
