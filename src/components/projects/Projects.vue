@@ -29,12 +29,12 @@ export default defineComponent({
     return {
       projects: [
         {
-          id: 'kyleaupton/windows-install-maker',
+          id: 'kyleaupton/os-install-maker',
           icons: ['vue', 'electron', 'typescript'],
-          npm: 'https://www.npmjs.com/package/@kyleupton/node-rsync',
         },
         {
           id: 'kyleaupton/node-rsync',
+          npm: 'https://www.npmjs.com/package/@kyleupton/node-rsync',
         },
         {
           id: 'kyleaupton/portfolio',
