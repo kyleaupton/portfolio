@@ -38,9 +38,13 @@ export default defineComponent({
   methods: {
     ...mapActions(useToastsStore, ['showToast']),
 
-    copyEmail() {
-      navigator.clipboard.writeText('kyleaupton@gmail.com');
-      this.showToast({ message: 'Email Copied to Clipboard' });
+    async copyEmail() {
+      try {
+        await navigator.clipboard.writeText('kyleaupton@gmail.com');
+        this.showToast({ message: 'Email Copied to Clipboard' });
+      } catch (e) {
+        this.showToast({ message: 'Failed to Copy Email', type: 'error' });
+      }
     },
 
     openLink(link: string) {

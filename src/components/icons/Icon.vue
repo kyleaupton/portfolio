@@ -17,6 +17,7 @@ import Npm from './items/Npm.vue';
 import Python from './items/Python.vue';
 import TypeScript from './items/TypeScript.vue';
 import Vue from './items/Vue.vue';
+import Xmark from './items/Xmark.vue';
 
 export default defineComponent({
   name: 'Icon',
@@ -59,6 +60,8 @@ export default defineComponent({
           return TypeScript;
         case 'vue':
           return Vue;
+        case 'xmark':
+          return Xmark;
         default:
           throw Error();
       }
