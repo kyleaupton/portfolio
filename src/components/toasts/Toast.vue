@@ -7,9 +7,11 @@
       { 'toast-error': toast.type === 'error' },
     ]"
   >
-    <Icon class="toast-icon" icon="check" />
+    <Icon class="toast-icon" :icon="icon" />
 
-    <div>{{ toast.message }}</div>
+    <div class="toast-text-container">
+      <div>{{ toast.message }}</div>
+    </div>
   </div>
 </template>
 
@@ -31,21 +33,42 @@ export default defineComponent({
       required: true,
     },
   },
+
+  computed: {
+    icon() {
+      if (this.toast.type === 'normal') return 'check';
+      else if (this.toast.type === 'error') return 'xmark';
+
+      throw Error('No Icon for toast type');
+    },
+  },
 });
 </script>
 
 <style scoped>
 .toast {
   display: flex;
-  gap: 12px;
+  gap: 16px;
   align-items: center;
-  padding: 8px 12px;
+  padding: 8px 16px;
   border-radius: 8px;
   font-weight: 600;
+  min-width: 250px;
+  box-sizing: border-box;
+}
+
+.toast-text-container {
+  flex-grow: 2;
+  /* text-align: center; */
 }
 
 .toast-normal {
   background: #4bb543;
+  color: var(--text1);
+}
+
+.toast-error {
+  background: #e34f4f;
   color: var(--text1);
 }
 
