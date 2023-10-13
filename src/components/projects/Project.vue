@@ -4,44 +4,41 @@
     :class="[{ 'project-expanded': expanded }]"
     @click.self="expanded = !expanded"
   >
-    <template v-if="loading">
-      <p>loading...</p>
-    </template>
-    <template v-else>
-      <ProjectHeader
-        :repository="repository"
-        :project="project"
-        @toggle-expanded="expanded = !expanded"
-      />
+    <ProjectHeader
+      :repository="repository"
+      :project="project"
+      @toggle-expanded="expanded = !expanded"
+    />
 
-      <div v-show="expanded" class="project-extended-wrap">
-        <div class="project-expanded-actions">
-          <!-- NPM -->
-          <a v-if="project.npm" :href="project.npm" target="_blank">
-            <ClickableIcon
-              v-tooltip="{ content: 'View on npm', delay: 800 }"
-              class="project-expanded-icon project-expanded-icon-npm"
-              icon="npm"
-            />
-          </a>
+    <div v-if="expanded" class="project-extended-wrap">
+      <div class="project-expanded-actions">
+        <!-- NPM -->
+        <a v-if="project.npm" :href="project.npm" target="_blank">
+          <ClickableIcon
+            v-tooltip="{ content: 'View on npm', delay: 800 }"
+            class="project-expanded-icon project-expanded-icon-npm"
+            icon="npm"
+          />
+        </a>
 
-          <!-- GitHub -->
-          <a :href="repository?.html_url" target="_blank">
-            <ClickableIcon
-              v-tooltip="{ content: 'View on GitHub', delay: 800 }"
-              class="project-expanded-icon project-expanded-icon-github"
-              icon="github"
-            />
-          </a>
-        </div>
+        <!-- GitHub -->
+        <a :href="repository?.html_url" target="_blank">
+          <ClickableIcon
+            v-tooltip="{ content: 'View on GitHub', delay: 800 }"
+            class="project-expanded-icon project-expanded-icon-github"
+            icon="github"
+          />
+        </a>
+      </div>
 
+      <template v-if="repository.readme">
         <ProjectReadMe
           class="project-expanded-markdown"
           :repository="repository"
           :markdown="repository.readme"
         />
-      </div>
-    </template>
+      </template>
+    </div>
   </div>
 </template>
 

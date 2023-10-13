@@ -5,18 +5,20 @@
     <!-- Title -->
     <div class="project-header-title-wrapper" @click="handleExpanded">
       <!-- Name -->
-      <div class="project-header-title">{{ repository.name }}</div>
+      <div class="project-header-title">{{ name }}</div>
 
       <!-- Language Icons -->
-      <div class="project-header-language-wrapper">
-        <Icon
-          v-for="icon of icons"
-          :key="icon"
-          class="project-language"
-          :class="`project-language-${icon}`"
-          :icon="icon"
-        />
-      </div>
+      <template v-if="repository">
+        <div class="project-header-language-wrapper">
+          <Icon
+            v-for="icon of icons"
+            :key="icon"
+            class="project-language"
+            :class="`project-language-${icon}`"
+            :icon="icon"
+          />
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -28,6 +30,8 @@ import { t_project } from '../../types/project';
 
 import Icon from '../icons/Icon.vue';
 
+type prop_repo = Repo | undefined;
+
 export default defineComponent({
   name: 'ProjectHeader',
 
@@ -37,8 +41,8 @@ export default defineComponent({
 
   props: {
     repository: {
-      type: Object as PropType<Repo>,
-      required: true,
+      type: Object as PropType<prop_repo>,
+      default: undefined,
     },
 
     project: {
@@ -51,7 +55,15 @@ export default defineComponent({
 
   computed: {
     icons() {
-      return this.project.icons || [this.repository.language.toLowerCase()];
+      return (
+        this.project.icons || [
+          this.repository ? this.repository.language.toLowerCase() : '',
+        ]
+      );
+    },
+
+    name() {
+      return this.project.id.split('/')[1];
     },
   },
 
