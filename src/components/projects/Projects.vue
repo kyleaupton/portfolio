@@ -37,6 +37,10 @@ export default defineComponent({
           npm: 'https://www.npmjs.com/package/@kyleupton/node-rsync',
         },
         {
+          id: 'kyleaupton/glob-copy',
+          npm: 'https://www.npmjs.com/package/@kyleupton/glob-copy',
+        },
+        {
           id: 'kyleaupton/portfolio',
           icons: ['vue', 'typescript'],
         },
