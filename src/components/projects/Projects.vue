@@ -48,6 +48,9 @@ export default defineComponent({
           id: 'kyleaupton/TransactionTracker',
         },
         {
+          id: 'kyleaupton/schedule-widget',
+        },
+        {
           id: 'kyleaupton/zerotier-utility',
           icons: ['vue', 'electron', 'javascript'],
         },
