@@ -15,6 +15,7 @@ import LinkedIn from './items/LinkedIn.vue';
 import Node from './items/Node.vue';
 import Npm from './items/Npm.vue';
 import Python from './items/Python.vue';
+import React from './items/React.vue';
 import TypeScript from './items/TypeScript.vue';
 import Vue from './items/Vue.vue';
 import Xmark from './items/Xmark.vue';
@@ -56,6 +57,8 @@ export default defineComponent({
           return Npm;
         case 'python':
           return Python;
+        case 'react':
+          return React;
         case 'typescript':
           return TypeScript;
         case 'vue':

@@ -118,6 +118,11 @@ svg.project-header-chevron {
   width: 28px;
 }
 
+.project-language-react {
+  height: 30px;
+  width: 30px;
+}
+
 .project-header-language-wrapper {
   display: flex;
   align-items: center;
