@@ -33,6 +33,10 @@ export default defineComponent({
           icons: ['vue', 'electron', 'typescript'],
         },
         {
+          id: 'kyleaupton/resume',
+          icons: ['react'],
+        },
+        {
           id: 'kyleaupton/node-rsync',
           npm: 'https://www.npmjs.com/package/@kyleupton/node-rsync',
         },
