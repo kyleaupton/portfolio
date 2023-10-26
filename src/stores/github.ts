@@ -208,10 +208,11 @@ export const useGitHubStore = defineStore('gitHub', {
         `GET /repos/${raw.id}/commits?sha={branch}&per_page=1&page=1`,
       );
 
-      const match = countRes.headers.link?.split(',')[1].match(/(?<=<).+(?=>)/);
+      const match = countRes.headers.link?.split(',')[1].match(/<.+>/);
 
       if (match && match[0]) {
-        data.commits = +(new URL(match[0]).searchParams.get('page') || 0);
+        const raw = match[0].replace('<', '').replace('>', '');
+        data.commits = +(new URL(raw).searchParams.get('page') || 0);
       }
 
       this.repos[raw.id] = {
