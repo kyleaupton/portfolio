@@ -2,12 +2,16 @@
   <div class="projects">
     <p class="projects-title">Projects</p>
 
-    <div class="projects-card">
+    <div v-if="loading">
+      <Spinner />
+    </div>
+
+    <div v-else class="projects-card">
       <Project
-        v-for="project of projects"
-        :key="project.id"
+        v-for="repo of sortedProjects"
+        :key="repo.data.id"
         class="projects-card-project"
-        :project="project"
+        :project="repo"
       />
     </div>
   </div>
@@ -15,55 +19,46 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { t_project } from '../../types/project';
+import { mapState, mapActions } from 'pinia';
 import Project from './Project.vue';
+import Spinner from '../Spinner.vue';
+import { useGitHubStore } from '../../stores/github';
 
 export default defineComponent({
   name: 'Projects',
 
   components: {
     Project,
+    Spinner,
   },
 
   data() {
     return {
-      projects: [
-        {
-          id: 'kyleaupton/os-install-maker',
-          icons: ['vue', 'electron', 'typescript'],
-        },
-        {
-          id: 'kyleaupton/resume',
-          icons: ['react'],
-        },
-        {
-          id: 'kyleaupton/node-rsync',
-          npm: 'https://www.npmjs.com/package/@kyleupton/node-rsync',
-        },
-        {
-          id: 'kyleaupton/glob-copy',
-          npm: 'https://www.npmjs.com/package/@kyleupton/glob-copy',
-        },
-        {
-          id: 'kyleaupton/portfolio',
-          icons: ['vue', 'typescript'],
-        },
-        {
-          id: 'kyleaupton/TransactionTracker',
-        },
-        {
-          id: 'kyleaupton/schedule-widget',
-        },
-        {
-          id: 'kyleaupton/zerotier-utility',
-          icons: ['vue', 'electron', 'javascript'],
-        },
-        {
-          id: 'kyleaupton/witte-quote-generator-desktop',
-          icons: ['vue', 'electron', 'javascript'],
-        },
-      ] as t_project[],
+      loading: true,
     };
+  },
+
+  computed: {
+    ...mapState(useGitHubStore, ['repos', 'allLoaded']),
+
+    sortedProjects() {
+      const arr = Object.keys(this.repos).map((key) => this.repos[key]);
+      return arr.sort((a, b) => {
+        const aTime = new Date(a.data.pushed_at);
+        const bTime = new Date(b.data.pushed_at);
+
+        return +bTime - +aTime;
+      });
+    },
+  },
+
+  async created() {
+    await this.getRepos();
+    this.loading = false;
+  },
+
+  methods: {
+    ...mapActions(useGitHubStore, ['getRepos']),
   },
 });
 </script>

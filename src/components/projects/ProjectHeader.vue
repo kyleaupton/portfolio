@@ -4,11 +4,11 @@
 
     <!-- Title -->
     <div class="project-header-title-wrapper" @click="handleExpanded">
-      <!-- Name -->
-      <div class="project-header-title">{{ name }}</div>
+      <div class="project-header-title-container">
+        <!-- Name -->
+        <div class="project-header-title">{{ name }}</div>
 
-      <!-- Language Icons -->
-      <template v-if="repository">
+        <!-- Language Icons -->
         <div class="project-header-language-wrapper">
           <Icon
             v-for="icon of icons"
@@ -18,19 +18,44 @@
             :icon="icon"
           />
         </div>
-      </template>
+      </div>
+
+      <div class="project-header-title-extra-wrapper">
+        <div
+          class="project-header-title-extra-item project-header-title-extra-small"
+        >
+          <fa-icon :icon="['fas', 'clock-rotate-left']" />
+          <div>{{ commits }}</div>
+        </div>
+
+        <div
+          class="project-header-title-extra-item project-header-title-extra-small"
+        >
+          <fa-icon :icon="['far', 'star']" />
+          <div>{{ stars }}</div>
+        </div>
+
+        <div
+          class="project-header-title-extra-item project-header-title-extra-small"
+        >
+          <fa-icon :icon="['far', 'eye']" />
+          <div>{{ stars }}</div>
+        </div>
+
+        <div class="project-header-title-extra-item">
+          <div>{{ updatedText }}</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { Repo } from '../../stores/github';
-import { t_project } from '../../types/project';
+import moment from 'moment';
+import { t_project } from '../../stores/github';
 
 import Icon from '../icons/Icon.vue';
-
-type prop_repo = Repo | undefined;
 
 export default defineComponent({
   name: 'ProjectHeader',
@@ -40,11 +65,6 @@ export default defineComponent({
   },
 
   props: {
-    repository: {
-      type: Object as PropType<prop_repo>,
-      default: undefined,
-    },
-
     project: {
       type: Object as PropType<t_project>,
       required: true,
@@ -55,15 +75,27 @@ export default defineComponent({
 
   computed: {
     icons() {
-      return (
-        this.project.icons || [
-          this.repository ? this.repository.language.toLowerCase() : '',
-        ]
-      );
+      return this.project.icons || [this.project.data.language.toLowerCase()];
     },
 
     name() {
-      return this.project.id.split('/')[1];
+      return this.project.data.name;
+    },
+
+    commits() {
+      return this.project.data.commits;
+    },
+
+    stars() {
+      return this.project.data.stargazers_count;
+    },
+
+    watchers() {
+      return this.project.data.watchers_count;
+    },
+
+    updatedText() {
+      return `Updated ${moment(this.project.data.pushed_at).fromNow()}`;
     },
   },
 
@@ -96,7 +128,13 @@ svg.project-header-chevron {
 }
 
 .project-header-title-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   flex-grow: 2;
+}
+
+.project-header-title-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -109,7 +147,7 @@ svg.project-header-chevron {
 }
 
 .project-header-title {
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 600;
 }
 
@@ -133,5 +171,23 @@ svg.project-header-chevron {
 .project-github-icon {
   height: 2rem;
   width: 2rem;
+}
+
+.project-header-title-extra-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.project-header-title-extra-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text2);
+  font-size: 14px;
+}
+
+.project-header-title-extra-small {
+  flex-basis: 42px;
 }
 </style>
