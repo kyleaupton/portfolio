@@ -87,6 +87,7 @@ export interface Repo {
   network_count: number;
   subscribers_count: number;
   readme: string;
+  commits: number;
 }
 
 interface Owner {
@@ -118,8 +119,54 @@ interface License {
   node_id: string;
 }
 
+const rawRepos = [
+  {
+    id: 'kyleaupton/os-install-maker',
+    icons: ['vue', 'electron', 'typescript'],
+  },
+  {
+    id: 'kyleaupton/resume',
+    icons: ['react'],
+  },
+  {
+    id: 'kyleaupton/node-rsync',
+    npm: 'https://www.npmjs.com/package/@kyleupton/node-rsync',
+  },
+  {
+    id: 'kyleaupton/glob-copy',
+    npm: 'https://www.npmjs.com/package/@kyleupton/glob-copy',
+  },
+  {
+    id: 'kyleaupton/portfolio',
+    icons: ['vue', 'typescript'],
+  },
+  {
+    id: 'kyleaupton/TransactionTracker',
+  },
+  {
+    id: 'kyleaupton/schedule-widget',
+  },
+  {
+    id: 'kyleaupton/zerotier-utility',
+    icons: ['vue', 'electron', 'javascript'],
+  },
+  {
+    id: 'kyleaupton/witte-quote-generator-desktop',
+    icons: ['vue', 'electron', 'javascript'],
+  },
+];
+
+export type t_project = {
+  data: Repo;
+  loaded: boolean;
+  icons?: string[];
+  npm?: string;
+};
+
 type state = {
-  repos: { [key: string]: Repo };
+  repos: {
+    [key: string]: t_project;
+  };
 };
 
 export const useGitHubStore = defineStore('gitHub', {
@@ -128,17 +175,51 @@ export const useGitHubStore = defineStore('gitHub', {
       repos: {},
     }) as state,
 
+  getters: {
+    allLoaded(state) {
+      const arr = Object.keys(state.repos);
+      return arr.length > 0 && !arr.find((x) => !state.repos[x].loaded);
+    },
+  },
+
   actions: {
-    async getRepo(repo: string) {
+    async getRepos() {
+      await Promise.all(rawRepos.map((raw) => this.getRepo(raw)));
+    },
+
+    async getRepo(raw: (typeof rawRepos)[0]) {
       // Main repo data
-      this.repos[repo] = (await octokit.request(`GET /repos/${repo}`)).data;
+      const repoData = (await octokit.request(`GET /repos/${raw.id}`)).data;
 
       // README.md request
-      const res = (
-        await octokit.request(`GET /repos/${repo}/contents/README.md`)
+      const readmeRes = (
+        await octokit.request(`GET /repos/${raw.id}/contents/README.md`)
       ).data;
 
-      this.repos[repo].readme = atob(res.content);
+      const data: Repo = {
+        ...repoData,
+        readme: atob(readmeRes.content),
+        commits: 0,
+      };
+
+      // Commit number request
+      // https://stackoverflow.com/questions/27931139/how-to-use-github-v3-api-to-get-commit-count-for-a-repo
+      const countRes = await octokit.request(
+        `GET /repos/${raw.id}/commits?sha={branch}&per_page=1&page=1`,
+      );
+
+      const match = countRes.headers.link?.split(',')[1].match(/(?<=<).+(?=>)/);
+
+      if (match && match[0]) {
+        data.commits = +(new URL(match[0]).searchParams.get('page') || 0);
+      }
+
+      this.repos[raw.id] = {
+        data,
+        loaded: true,
+        icons: raw.icons,
+        npm: raw.npm,
+      };
     },
   },
 });

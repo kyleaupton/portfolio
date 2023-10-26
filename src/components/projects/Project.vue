@@ -4,11 +4,7 @@
     :class="[{ 'project-expanded': expanded }]"
     @click.self="expanded = !expanded"
   >
-    <ProjectHeader
-      :repository="repository"
-      :project="project"
-      @toggle-expanded="expanded = !expanded"
-    />
+    <ProjectHeader :project="project" @toggle-expanded="expanded = !expanded" />
 
     <div v-if="expanded" class="project-extended-wrap">
       <div class="project-expanded-actions">
@@ -22,7 +18,7 @@
         </a>
 
         <!-- GitHub -->
-        <a :href="repository?.html_url" target="_blank">
+        <a :href="project.data.html_url" target="_blank">
           <ClickableIcon
             v-tooltip="{ content: 'View on GitHub', delay: 800 }"
             class="project-expanded-icon project-expanded-icon-github"
@@ -31,11 +27,11 @@
         </a>
       </div>
 
-      <template v-if="repository.readme">
+      <template v-if="project.data.readme">
         <ProjectReadMe
           class="project-expanded-markdown"
-          :repository="repository"
-          :markdown="repository.readme"
+          :repository="project.data"
+          :markdown="project.data.readme"
         />
       </template>
     </div>
@@ -44,10 +40,9 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { mapState, mapActions } from 'pinia';
+import { mapState } from 'pinia';
 
-import { t_project } from '../../types/project';
-import { useGitHubStore } from '../../stores/github';
+import { useGitHubStore, t_project } from '../../stores/github';
 
 import ProjectHeader from './ProjectHeader.vue';
 import ProjectReadMe from './ProjectReadMe.vue';
@@ -71,7 +66,6 @@ export default defineComponent({
 
   data() {
     return {
-      loading: true,
       expanded: false,
     };
   },
@@ -82,23 +76,11 @@ export default defineComponent({
     id() {
       return `project-markdown-${this.project}`;
     },
-
-    repository() {
-      return this.repos[this.project.id];
-    },
-  },
-
-  async created() {
-    this.loading = true;
-    await this.getRepo(this.project.id);
-    this.loading = false;
   },
 
   methods: {
-    ...mapActions(useGitHubStore, ['getRepo']),
-
     goToLink() {
-      window.open(this.repository?.html_url);
+      window.open(this.project.data.html_url);
     },
   },
 });
