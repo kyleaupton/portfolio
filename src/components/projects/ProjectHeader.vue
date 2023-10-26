@@ -20,29 +20,33 @@
         </div>
       </div>
 
-      <div class="project-header-title-extra-wrapper">
-        <div
-          class="project-header-title-extra-item project-header-title-extra-small"
-        >
-          <fa-icon :icon="['fas', 'clock-rotate-left']" />
-          <div>{{ commits }}</div>
+      <div class="project-header-title-extra-container">
+        <div class="project-header-title-extra-wrapper">
+          <div
+            class="project-header-title-extra-item project-header-title-extra-small"
+          >
+            <fa-icon :icon="['fas', 'clock-rotate-left']" />
+            <div>{{ commits }}</div>
+          </div>
+
+          <div
+            class="project-header-title-extra-item project-header-title-extra-small"
+          >
+            <fa-icon :icon="['far', 'star']" />
+            <div>{{ stars }}</div>
+          </div>
+
+          <div
+            class="project-header-title-extra-item project-header-title-extra-small"
+          >
+            <fa-icon :icon="['far', 'eye']" />
+            <div>{{ stars }}</div>
+          </div>
         </div>
 
         <div
-          class="project-header-title-extra-item project-header-title-extra-small"
+          class="project-header-title-extra-item project-header-title-extra-updated"
         >
-          <fa-icon :icon="['far', 'star']" />
-          <div>{{ stars }}</div>
-        </div>
-
-        <div
-          class="project-header-title-extra-item project-header-title-extra-small"
-        >
-          <fa-icon :icon="['far', 'eye']" />
-          <div>{{ stars }}</div>
-        </div>
-
-        <div class="project-header-title-extra-item">
           <div>{{ updatedText }}</div>
         </div>
       </div>
@@ -189,5 +193,15 @@ svg.project-header-chevron {
 
 .project-header-title-extra-small {
   flex-basis: 42px;
+}
+
+.project-header-title-extra-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.project-header-title-extra-updated {
+  text-align: right;
 }
 </style>
