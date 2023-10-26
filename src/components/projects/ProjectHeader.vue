@@ -36,9 +36,7 @@
             <div>{{ stars }}</div>
           </div>
 
-          <div
-            class="project-header-title-extra-item project-header-title-extra-small"
-          >
+          <div class="project-header-title-extra-item">
             <fa-icon :icon="['far', 'eye']" />
             <div>{{ stars }}</div>
           </div>
@@ -180,7 +178,7 @@ svg.project-header-chevron {
 .project-header-title-extra-wrapper {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 12px;
 }
 
 .project-header-title-extra-item {
@@ -192,7 +190,8 @@ svg.project-header-chevron {
 }
 
 .project-header-title-extra-small {
-  flex-basis: 42px;
+  flex-basis: 60px;
+  min-width: 60px;
 }
 
 .project-header-title-extra-container {
