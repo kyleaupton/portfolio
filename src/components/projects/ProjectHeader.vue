@@ -99,7 +99,7 @@ export default defineComponent({
     },
 
     updatedText() {
-      return `Updated ${moment(this.project.data.pushed_at).fromNow()}`;
+      return `${moment(this.project.data.pushed_at).fromNow()}`;
     },
   },
 
