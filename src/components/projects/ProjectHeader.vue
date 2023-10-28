@@ -1,6 +1,6 @@
 <template>
   <div class="project-header" @click.self="handleExpanded">
-    <Icon class="project-header-chevron" icon="chevron" />
+    <!-- <Icon class="project-header-chevron" icon="chevron" /> -->
 
     <!-- Title -->
     <div class="project-header-title-wrapper" @click="handleExpanded">
@@ -18,6 +18,10 @@
             :icon="icon"
           />
         </div>
+      </div>
+
+      <div class="project-header-title-description">
+        {{ project.data.description }}
       </div>
 
       <div class="project-header-title-extra-container">
@@ -202,5 +206,10 @@ svg.project-header-chevron {
 
 .project-header-title-extra-updated {
   text-align: right;
+}
+
+.project-header-title-description {
+  color: var(--text2);
+  font-size: 14px;
 }
 </style>
