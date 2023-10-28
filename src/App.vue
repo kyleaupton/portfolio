@@ -1,49 +1,53 @@
-<script setup lang="ts">
+<template>
+  <div class="app-wrapper">
+    <Titlebar />
+
+    <div class="content">
+      <LandingAnimation />
+
+      <div class="text-1">
+        Full Stack Dev | Open-Source Contributer | TypeScript Enthusiast
+      </div>
+
+      <div class="tech-wrapper">
+        <Technologies />
+      </div>
+
+      <div class="projects-wrapper">
+        <Projects />
+      </div>
+    </div>
+
+    <Modal />
+    <Toasts />
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+
 import Titlebar from './components/Titlebar.vue';
 import LandingAnimation from './components/LandingAnimation.vue';
 import Technologies from './components/Technologies.vue';
 import Projects from './components/projects/Projects.vue';
 import Toasts from './components/toasts/Toasts.vue';
+import Modal from './components/modals/Modal.vue';
+
+export default defineComponent({
+  name: 'App',
+
+  components: {
+    Titlebar,
+    LandingAnimation,
+    Technologies,
+    Projects,
+    Toasts,
+    Modal,
+  },
+});
 </script>
 
-<template>
-  <Titlebar />
-
-  <div class="content">
-    <LandingAnimation />
-
-    <div class="text-1">
-      Full Stack Dev | Open-Source Contributer | TypeScript Enthusiast
-    </div>
-
-    <div class="tech-wrapper">
-      <Technologies />
-    </div>
-
-    <div class="projects-wrapper">
-      <Projects />
-    </div>
-  </div>
-
-  <Toasts />
-</template>
-
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+<style scoped></style>
 
 <style>
 :root {

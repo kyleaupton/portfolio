@@ -4,6 +4,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faClockRotateLeft as faSolidClockRotateLeft,
   faStar as faSolidStar,
+  faXmark as faSolidXmark,
 } from '@fortawesome/free-solid-svg-icons';
 
 // Regular
@@ -16,6 +17,7 @@ library.add(
   // Solid
   faSolidClockRotateLeft,
   faSolidStar,
+  faSolidXmark,
 
   // Regular
   faRegEye,

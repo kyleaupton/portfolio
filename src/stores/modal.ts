@@ -1,8 +1,7 @@
 import { defineStore } from 'pinia';
+import { ModalReadMe } from '../components/modals/ModalReadMe.vue';
 
-type t_modal = {
-  element: any;
-};
+export type t_modal = ModalReadMe;
 
 type state = {
   item: t_modal | undefined;
@@ -15,6 +14,12 @@ export const useModalStore = defineStore('modal', {
     }) as state,
 
   actions: {
-    openModal() {},
+    openModal(modal: t_modal) {
+      this.item = modal;
+    },
+
+    closeModal() {
+      this.item = undefined;
+    },
   },
 });

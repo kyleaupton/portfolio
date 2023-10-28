@@ -40,9 +40,10 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { mapState } from 'pinia';
+import { mapState, mapActions } from 'pinia';
 
 import { useGitHubStore, t_project } from '../../stores/github';
+import { useModalStore } from '../../stores/modal';
 
 import ProjectHeader from './ProjectHeader.vue';
 import ProjectReadMe from './ProjectReadMe.vue';
@@ -79,12 +80,17 @@ export default defineComponent({
   },
 
   methods: {
+    ...mapActions(useModalStore, ['openModal']),
+
     goToLink() {
       window.open(this.project.data.html_url);
     },
 
     handleExpand() {
-      console.log('got here');
+      this.openModal({
+        name: 'ModalReadMe',
+        data: { project: this.project.data.full_name },
+      });
     },
   },
 });

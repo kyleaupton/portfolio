@@ -40,7 +40,7 @@ export default defineComponent({
 
 <style scoped>
 .project-markdown {
-  padding: 0 32px;
+  padding: 0 32px 32px 32px;
   overflow: auto;
 }
 </style>
