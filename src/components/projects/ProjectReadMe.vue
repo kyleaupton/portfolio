@@ -80,4 +80,11 @@ export default defineComponent({
   margin-inline-start: 0;
   margin-inline-end: 0;
 }
+
+.project-markdown ul {
+  padding-inline-start: 0;
+}
+.project-markdown li:has(input)::marker {
+  content: '';
+}
 </style>
