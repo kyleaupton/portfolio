@@ -12,7 +12,7 @@
 
 ## Overview
 
-This is my portfolio site to showcase various projects I work on. It's written with vite + vue 3 + ts, and deployed on Netlify. Most things are written from scratch, however I do use a few libraries. `fitty` is used to calculate the landing animations current size, `floating-vue` for the tooltips, and `marked` + `highlight.js` for the markdown readmes.
+This is my portfolio site to showcase various projects I work on. It's written with vite + vue 3 + ts, and deployed on Netlify. Most things are written from scratch, however I do use a few libraries. `fitty` is used to calculate the landing animation's current size, `floating-vue` for the tooltips, and `marked` + `highlight.js` for the markdown readmes.
 
 While this project is open-source for the purpose of visibility, it was not created as a template for other people rip. If you choose to do that please at least change things up a good bit.
 
