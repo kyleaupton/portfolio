@@ -43,11 +43,25 @@ export default defineComponent({
     },
   },
 
+  created() {
+    document.addEventListener('keydown', this.keydownHandler);
+  },
+
+  beforeUnmount() {
+    document.removeEventListener('keydown', this.keydownHandler);
+  },
+
   methods: {
     ...mapActions(useModalStore, ['closeModal']),
 
     handleRemove() {
       this.closeModal();
+    },
+
+    keydownHandler(event: KeyboardEvent) {
+      if (this.item && event.key === 'Escape') {
+        this.handleRemove();
+      }
     },
   },
 });
