@@ -81,9 +81,10 @@ export default defineComponent({
   margin-inline-end: 0;
 }
 
-.project-markdown ul {
+.project-markdown ul:has(li):has(input) {
   padding-inline-start: 0;
 }
+
 .project-markdown li:has(input)::marker {
   content: '';
 }
