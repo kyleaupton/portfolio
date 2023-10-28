@@ -85,7 +85,7 @@ export default defineComponent({
   padding-inline-start: 0;
 }
 
-.project-markdown li:has(input)::marker {
-  content: '';
+.project-markdown li:has(input) {
+  list-style-type: none;
 }
 </style>
