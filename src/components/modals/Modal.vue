@@ -1,6 +1,6 @@
 <template>
-  <div v-if="comp" class="modal-wrapper" @click.self="handleRemove">
-    <div class="modal">
+  <transition name="slide">
+    <div v-if="comp" class="modal">
       <div class="modal-titlebar">
         <div class="modal-titlebar-close-wrapper" @click="handleRemove">
           <fa-icon
@@ -13,7 +13,7 @@
 
       <component :is="comp" />
     </div>
-  </div>
+  </transition>
 </template>
 
 <script lang="ts">
@@ -64,6 +64,7 @@ export default defineComponent({
 }
 
 .modal {
+  z-index: 9000;
   position: fixed;
   top: 10%;
   left: 50%;
@@ -118,4 +119,35 @@ export default defineComponent({
   border-radius: 100%;
   color: var(--surface-0);
 }
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.3s ease-in-out;
+}
+
+/* .slide-enter-active {
+  animation: bounce-in 0.3s;
+}
+
+.slide-leave-active {
+  animation: bounce-in 0.3s reverse;
+} */
+
+.slide-enter-from,
+.slide-leave-to {
+  opacity: 0;
+  transform: translate(-50%, 50%) scale(0.5);
+}
+
+/* @keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+} */
 </style>
