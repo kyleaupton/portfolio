@@ -1,30 +1,34 @@
 <template>
-  <div class="app-wrapper">
-    <Titlebar />
+  <Titlebar />
 
-    <div class="content">
-      <LandingAnimation />
+  <div class="content">
+    <LandingAnimation />
 
-      <div class="text-1">
-        Full Stack Dev | Open-Source Contributer | TypeScript Enthusiast
-      </div>
-
-      <div class="tech-wrapper">
-        <Technologies />
-      </div>
-
-      <div class="projects-wrapper">
-        <Projects />
-      </div>
+    <div class="text-1">
+      Full Stack Dev | Open-Source Contributer | TypeScript Enthusiast
     </div>
 
-    <Modal />
-    <Toasts />
+    <div class="tech-wrapper">
+      <Technologies />
+    </div>
+
+    <div class="projects-wrapper">
+      <Projects />
+    </div>
   </div>
+
+  <Modal />
+  <Toasts />
+  <Transition name="fade">
+    <div v-if="item" class="app-dimmer" />
+  </Transition>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { mapState } from 'pinia';
+
+import { useModalStore } from './stores/modal';
 
 import Titlebar from './components/Titlebar.vue';
 import LandingAnimation from './components/LandingAnimation.vue';
@@ -43,6 +47,14 @@ export default defineComponent({
     Projects,
     Toasts,
     Modal,
+  },
+
+  computed: {
+    ...mapState(useModalStore, ['item']),
+
+    test() {
+      return true;
+    },
   },
 });
 </script>
@@ -150,18 +162,23 @@ button:focus-visible {
   overflow: auto;
 }
 
-/* @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
+.app-dimmer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.75);
+}
 
-  a:hover {
-    color: #747bff;
-  }
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease-in-out;
+}
 
-  button {
-    background-color: #f9f9f9;
-  }
-} */
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
 </style>
