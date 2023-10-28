@@ -2,9 +2,9 @@
   <div
     class="project"
     :class="[{ 'project-expanded': expanded }]"
-    @click.self="expanded = !expanded"
+    @click.self="handleExpand"
   >
-    <ProjectHeader :project="project" @toggle-expanded="expanded = !expanded" />
+    <ProjectHeader :project="project" @toggle-expanded="handleExpand" />
 
     <div v-if="expanded" class="project-extended-wrap">
       <div class="project-expanded-actions">
@@ -82,6 +82,10 @@ export default defineComponent({
     goToLink() {
       window.open(this.project.data.html_url);
     },
+
+    handleExpand() {
+      console.log('got here');
+    },
   },
 });
 </script>
@@ -94,6 +98,8 @@ export default defineComponent({
   padding: 16px;
   text-align: left;
   cursor: pointer;
+  background-color: var(--surface-min-10);
+  border-radius: 8px;
 }
 
 .project-extended-wrap {

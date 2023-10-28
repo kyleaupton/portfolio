@@ -1,12 +1,12 @@
 <template>
-  <div class="projects">
+  <div class="projects-wrapper">
     <p class="projects-title">Projects</p>
 
     <div v-if="loading">
       <Spinner />
     </div>
 
-    <div v-else class="projects-card">
+    <div v-else class="projects">
       <Project
         v-for="repo of sortedProjects"
         :key="repo.data.id"
@@ -69,13 +69,16 @@ export default defineComponent({
   font-weight: 600;
 }
 
-.projects-card {
+.projects {
   /* background-color: var(--surface-min-10); */
-  border: 1px solid var(--surface-min-20);
-  border-radius: 8px;
+  /* border: 1px solid var(--surface-min-20); */
+  /* border-radius: 8px; */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.projects-card-project:first-child {
+/* .projects-card-project:first-child {
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 }
@@ -87,5 +90,5 @@ export default defineComponent({
 
 .projects-card-project:not(:last-child) {
   border-bottom: 1px solid var(--surface-min-20);
-}
+} */
 </style>

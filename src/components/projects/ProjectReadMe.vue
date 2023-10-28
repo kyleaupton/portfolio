@@ -53,7 +53,7 @@ export default defineComponent({
 .project-markdown code {
   border-radius: 8px;
   background-color: var(--surface-min-10);
-  font-size: 16px;
+  font-size: 14px;
   cursor: text;
 }
 
