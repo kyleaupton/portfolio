@@ -5,59 +5,61 @@
     <p class="technologies-divider">|</p>
 
     <template v-for="tech in techs" :key="tech.key">
-      <ClickableIcon
-        v-tooltip="{ content: tech.tooltip, delay: 800 }"
-        class="technology"
-        :class="`technology-${tech.key}`"
-        :icon="tech.icon"
-        :clickable="false"
-      />
+      <div class="technology">
+        <img
+          class="technology-image"
+          :class="`technology-image-${tech.key}`"
+          :src="tech.icon"
+        />
+      </div>
     </template>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import ClickableIcon from './icons/ClickableIcon.vue';
+
+import javascript from '@/assets/javascript.png';
+import typescript from '@/assets/typescript.png';
+import vue from '@/assets/vue.png';
+import node from '@/assets/node.png';
+import electron from '@/assets/electron.png';
+import python from '@/assets/python.png';
 
 export default defineComponent({
   name: 'Technologies',
-
-  components: {
-    ClickableIcon,
-  },
 
   data() {
     return {
       techs: [
         {
           key: 'js',
-          icon: 'javascript',
+          icon: javascript,
           tooltip: 'JavaScript',
         },
         {
           key: 'ts',
-          icon: 'typescript',
+          icon: typescript,
           tooltip: 'TypeScript',
         },
         {
           key: 'vue',
-          icon: 'vue',
+          icon: vue,
           tooltip: 'Vue',
         },
         {
           key: 'node',
-          icon: 'node',
+          icon: node,
           tooltip: 'Node.js',
         },
         {
           key: 'electron',
-          icon: 'electron',
+          icon: electron,
           tooltip: 'Electron.js',
         },
         {
           key: 'python',
-          icon: 'python',
+          icon: python,
           tooltip: 'Python',
         },
       ],
@@ -66,7 +68,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
 .technologies {
   display: flex;
   justify-content: center;
@@ -79,12 +81,28 @@ export default defineComponent({
   font-weight: 600;
 }
 
+.technology {
+  padding: 4px;
+  background: var(--surface-min-20);
+  border-radius: 100%;
+  display: grid;
+  place-content: center;
+  height: 2.5em;
+  width: 2.5em;
+  cursor: pointer;
+  transition: 0.2s border-radius;
+}
+
+.technology:hover {
+  border-radius: 16px;
+}
+
 .technology img {
   height: 28px;
 }
 
-.technology-vue img {
-  height: 22px;
+.technology-image-vue {
+  height: 22px !important;
 }
 
 @media only screen and (max-width: 674px) {

@@ -2,13 +2,31 @@
   <transition name="slide">
     <div v-if="comp" class="modal">
       <div class="modal-titlebar">
-        <div class="modal-titlebar-close-wrapper" @click="handleRemove">
+        <div
+          v-if="_item.titlebarIcons && _item.titlebarIcons.length"
+          class="modal-titlebar-extra-icons"
+        >
+          <ClickableIcon
+            v-for="icon of _item.titlebarIcons"
+            :key="icon.icon[0]"
+            v-tooltip="{ content: icon.tooltip, delay: 500 }"
+            :link="icon.link || ''"
+          >
+            <fa-icon
+              :icon="icon.icon"
+              size="xl"
+              style="color: var(--surface-0)"
+            />
+          </ClickableIcon>
+        </div>
+
+        <ClickableIcon @click="handleRemove">
           <fa-icon
-            class="modal-titlebar-close"
             :icon="['fas', 'xmark']"
             size="xl"
+            style="color: var(--surface-0)"
           />
-        </div>
+        </ClickableIcon>
       </div>
 
       <component :is="comp" />
@@ -19,15 +37,29 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { mapState, mapActions } from 'pinia';
-import { useModalStore } from '../../stores/modal';
 
-import ModalReadMe from './ModalReadMe.vue';
+import { useModalStore } from '@/stores/modal';
+
+import ClickableIcon from '@/components/icons/ClickableIcon.vue';
+import ModalReadMe from '@/components/modals/ModalReadMe.vue';
 
 export default defineComponent({
   name: 'Modal',
 
+  components: {
+    ClickableIcon,
+  },
+
   computed: {
     ...mapState(useModalStore, ['item']),
+
+    _item() {
+      if (!this.item) {
+        throw Error('No item');
+      }
+
+      return this.item;
+    },
 
     comp() {
       if (this.item) {
@@ -106,32 +138,14 @@ export default defineComponent({
 .modal-titlebar {
   width: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 12px;
   box-sizing: border-box;
 }
 
-.modal-titlebar-close-wrapper {
-  padding: 4px;
-  background: var(--surface-min-20);
-  border-radius: 100%;
-  display: grid;
-  place-content: center;
-  height: 24px;
-  width: 24px;
-}
-
-.modal-titlebar-close-wrapper:hover {
-  background-color: var(--surface-min-30);
-}
-
-.modal-titlebar-close-wrapper:active {
-  background-color: var(--surface-min-40);
-}
-
-.modal-titlebar-close {
-  border-radius: 100%;
-  color: var(--surface-0);
+.modal-titlebar-extra-icons {
+  display: flex;
+  gap: 4px;
 }
 
 .slide-enter-active,

@@ -17,8 +17,8 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import Icon from '../icons/Icon.vue';
-import { t_toast } from '../../stores/toasts';
+import { t_toast } from '@/stores/toasts';
+import Icon from '@/components/icons/Icon.vue';
 
 export default defineComponent({
   name: 'Toast',

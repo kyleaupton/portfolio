@@ -6,6 +6,7 @@
   >
     <ProjectHeader :project="project" @toggle-expanded="handleExpand" />
 
+    <!-- NOT USED ANYMORE -->
     <div v-if="expanded" class="project-extended-wrap">
       <div class="project-expanded-actions">
         <!-- NPM -->
@@ -42,12 +43,13 @@
 import { defineComponent, PropType } from 'vue';
 import { mapState, mapActions } from 'pinia';
 
-import { useGitHubStore, t_project } from '../../stores/github';
-import { useModalStore } from '../../stores/modal';
+import { useGitHubStore, t_project } from '@/stores/github';
+import { useModalStore } from '@/stores/modal';
+import { t_modal_titlebar_icon } from '@/types/modal';
 
+import ClickableIcon from '@/components/icons/ClickableIcon.vue';
 import ProjectHeader from './ProjectHeader.vue';
 import ProjectReadMe from './ProjectReadMe.vue';
-import ClickableIcon from '../icons/ClickableIcon.vue';
 
 export default defineComponent({
   name: 'Project',
@@ -87,9 +89,26 @@ export default defineComponent({
     },
 
     handleExpand() {
+      const icons: t_modal_titlebar_icon[] = [
+        {
+          icon: ['fab', 'github'],
+          tooltip: 'View on GitHub',
+          link: this.project.data.html_url,
+        },
+      ];
+
+      if (this.project.npm) {
+        icons.push({
+          icon: ['fab', 'npm'],
+          tooltip: 'View on npm',
+          link: this.project.npm,
+        });
+      }
+
       this.openModal({
         name: 'ModalReadMe',
         data: { project: this.project.data.full_name },
+        titlebarIcons: icons,
       });
     },
   },

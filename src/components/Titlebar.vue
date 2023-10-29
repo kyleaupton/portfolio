@@ -1,32 +1,50 @@
 <template>
   <div class="titlebar">
     <ClickableIcon
-      v-tooltip="{ content: 'Copy Email', delay: 800 }"
-      icon="envelope"
+      v-tooltip="{ content: 'Copy Email', delay: 500 }"
+      style="height: 2em; width: 2em"
       @click="copyEmail"
-    />
-
-    <a href="https://linkedin.com/in/kyle-upton-50bb1a188" target="_blank">
-      <ClickableIcon
-        v-tooltip="{ content: 'Open LinkedIn', delay: 800 }"
-        icon="linkedin"
+    >
+      <fa-icon
+        :icon="['fas', 'envelope']"
+        size="xl"
+        style="color: var(--surface-0)"
       />
-    </a>
+    </ClickableIcon>
 
-    <a href="https://github.com/kyleaupton" target="_blank">
-      <ClickableIcon
-        v-tooltip="{ content: 'Open GitHub', delay: 800 }"
-        icon="github"
+    <ClickableIcon
+      v-tooltip="{ content: 'Open LinkedIn', delay: 500 }"
+      style="height: 2em; width: 2em"
+      link="https://linkedin.com/in/kyle-upton-50bb1a188"
+    >
+      <fa-icon
+        :icon="['fab', 'linkedin']"
+        size="xl"
+        style="color: var(--surface-0)"
       />
-    </a>
+    </ClickableIcon>
+
+    <ClickableIcon
+      v-tooltip="{ content: 'Open GitHub', delay: 500 }"
+      style="height: 2em; width: 2em"
+      link="https://github.com/kyleaupton"
+    >
+      <fa-icon
+        :icon="['fab', 'github']"
+        size="xl"
+        style="color: var(--surface-0)"
+      />
+    </ClickableIcon>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { mapActions } from 'pinia';
-import { useToastsStore } from '../stores/toasts';
-import ClickableIcon from './icons/ClickableIcon.vue';
+
+import { useToastsStore } from '@/stores/toasts';
+
+import ClickableIcon from '@/components/icons/ClickableIcon.vue';
 
 export default defineComponent({
   name: 'Titlebar',

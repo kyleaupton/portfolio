@@ -7,13 +7,16 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { mapState } from 'pinia';
-import { useModalStore } from '../../stores/modal';
-import { useGitHubStore } from '../../stores/github';
 
-import ProjectReadMe from '../projects/ProjectReadMe.vue';
+import { useModalStore } from '@/stores/modal';
+import { useGitHubStore } from '@/stores/github';
+import { t_modal_titlebar_icon } from '@/types/modal';
+
+import ProjectReadMe from '@/components/projects/ProjectReadMe.vue';
 
 export type ModalReadMe = {
   name: 'ModalReadMe';
+  titlebarIcons?: t_modal_titlebar_icon[];
   data: {
     project: string;
   };

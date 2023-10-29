@@ -1,29 +1,24 @@
 <template>
-  <div class="clickable-icon" :class="[{ clickable: clickable }]">
-    <Icon :icon="icon" />
-  </div>
+  <component
+    :is="link ? 'a' : 'div'"
+    :href="link"
+    target="_blank"
+    class="clickable-icon"
+  >
+    <slot />
+  </component>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import Icon from './Icon.vue';
 
 export default defineComponent({
   name: 'ClickableIcon',
 
-  components: {
-    Icon,
-  },
-
   props: {
-    icon: {
+    link: {
       type: String,
-      required: true,
-    },
-
-    clickable: {
-      type: Boolean,
-      default: true,
+      default: '',
     },
   },
 });
@@ -31,32 +26,23 @@ export default defineComponent({
 
 <style scoped>
 .clickable-icon {
+  padding: 4px;
   background: var(--surface-min-20);
+  border-radius: 100%;
   display: grid;
   place-content: center;
-  height: 3rem;
-  width: 3rem;
-  border-radius: 100%;
-  transition: all 0.2s linear;
-}
-
-.clickable-icon.clickable {
-  cursor: pointer;
-}
-
-.clickable-icon svg {
   height: 24px;
+  width: 24px;
+  cursor: pointer;
+  transition: 0.2s border-radius;
 }
 
 .clickable-icon:hover {
+  background-color: var(--surface-min-30);
   border-radius: 8px;
 }
 
-.clickable.clickable-icon:active {
-  background: var(--surface-min-30);
-}
-
-.clickable-icon svg {
-  fill: var(--surface-0);
+.clickable-icon:active {
+  background-color: var(--surface-min-40);
 }
 </style>
