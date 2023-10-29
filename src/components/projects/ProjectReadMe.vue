@@ -43,6 +43,12 @@ export default defineComponent({
   padding: 0 32px 32px 32px;
   overflow: auto;
 }
+
+@media only screen and (max-width: 600px) {
+  .project-markdown {
+    padding: 0 16px 16px 16px;
+  }
+}
 </style>
 
 <style>
