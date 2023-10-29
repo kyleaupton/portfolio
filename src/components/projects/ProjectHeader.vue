@@ -59,9 +59,8 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import moment from 'moment';
-import { t_project } from '../../stores/github';
-
-import Icon from '../icons/Icon.vue';
+import { t_project } from '@/stores/github';
+import Icon from '@/components/icons/Icon.vue';
 
 export default defineComponent({
   name: 'ProjectHeader',
