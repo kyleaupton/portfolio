@@ -163,8 +163,8 @@ svg.project-header-chevron {
 }
 
 .project-language-react {
-  height: 30px;
-  width: 30px;
+  height: 28px;
+  width: 28px;
 }
 
 .project-header-language-wrapper {
