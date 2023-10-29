@@ -20,22 +20,22 @@
   <Modal />
   <Toasts />
   <Transition name="fade">
-    <div v-if="item" class="app-dimmer" />
+    <div v-if="item" class="app-dimmer" @click.self="handleDimmerClick" />
   </Transition>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { mapState } from 'pinia';
+import { mapState, mapActions } from 'pinia';
 
-import { useModalStore } from './stores/modal';
+import { useModalStore } from '@/stores/modal';
 
-import Titlebar from './components/Titlebar.vue';
-import LandingAnimation from './components/LandingAnimation.vue';
-import Technologies from './components/Technologies.vue';
-import Projects from './components/projects/Projects.vue';
-import Toasts from './components/toasts/Toasts.vue';
-import Modal from './components/modals/Modal.vue';
+import Titlebar from '@/components/Titlebar.vue';
+import LandingAnimation from '@/components/LandingAnimation.vue';
+import Technologies from '@/components/Technologies.vue';
+import Projects from '@/components/projects/Projects.vue';
+import Toasts from '@/components/toasts/Toasts.vue';
+import Modal from '@/components/modals/Modal.vue';
 
 export default defineComponent({
   name: 'App',
@@ -51,9 +51,15 @@ export default defineComponent({
 
   computed: {
     ...mapState(useModalStore, ['item']),
+  },
 
-    test() {
-      return true;
+  methods: {
+    ...mapActions(useModalStore, ['closeModal']),
+
+    handleDimmerClick() {
+      if (this.item) {
+        this.closeModal();
+      }
     },
   },
 });
