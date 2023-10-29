@@ -47,9 +47,9 @@ import { useGitHubStore, t_project } from '@/stores/github';
 import { useModalStore } from '@/stores/modal';
 import { t_modal_titlebar_icon } from '@/types/modal';
 
+import ClickableIcon from '@/components/icons/ClickableIcon.vue';
 import ProjectHeader from './ProjectHeader.vue';
 import ProjectReadMe from './ProjectReadMe.vue';
-import ClickableIcon from '../icons/ClickableIcon.vue';
 
 export default defineComponent({
   name: 'Project',

@@ -20,9 +20,9 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { mapState, mapActions } from 'pinia';
+import { useGitHubStore } from '@/stores/github';
 import Project from './Project.vue';
 import Spinner from '../Spinner.vue';
-import { useGitHubStore } from '../../stores/github';
 
 export default defineComponent({
   name: 'Projects',

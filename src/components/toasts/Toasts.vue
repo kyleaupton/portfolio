@@ -7,7 +7,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { mapState } from 'pinia';
-import { useToastsStore } from '../../stores/toasts';
+import { useToastsStore } from '@/stores/toasts';
 import Toast from './Toast.vue';
 
 export default defineComponent({
