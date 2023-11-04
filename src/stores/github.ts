@@ -154,6 +154,9 @@ const rawRepos = [
     id: 'kyleaupton/witte-quote-generator-desktop',
     icons: ['vue', 'electron', 'javascript'],
   },
+  {
+    id: 'kyleaupton/windows-iso-downloader',
+  },
 ];
 
 export type t_project = {
