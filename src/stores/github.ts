@@ -126,7 +126,7 @@ const rawRepos = [
   },
   {
     id: 'kyleaupton/resume',
-    icons: ['react'],
+    icons: ['react', 'typescript'],
   },
   {
     id: 'kyleaupton/node-rsync',
