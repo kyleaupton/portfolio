@@ -1,6 +1,18 @@
 <template>
   <div class="titlebar">
     <ClickableIcon
+      v-tooltip="{ content: 'Open Resume', delay: 500 }"
+      style="height: 2em; width: 2em"
+      link="https://kyleupton.info/resume"
+    >
+      <fa-icon
+        :icon="['fas', 'id-card']"
+        size="xl"
+        style="color: var(--surface-0)"
+      />
+    </ClickableIcon>
+
+    <ClickableIcon
       v-tooltip="{ content: 'Copy Email', delay: 500 }"
       style="height: 2em; width: 2em"
       @click="copyEmail"
