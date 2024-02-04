@@ -155,7 +155,7 @@ const rawRepos = [
     icons: ['vue', 'electron', 'javascript'],
   },
   {
-    id: 'kyleaupton/windows-iso-downloader',
+    id: 'kyleaupton/win-iso',
   },
 ];
 
