@@ -157,6 +157,9 @@ const rawRepos = [
   {
     id: 'kyleaupton/win-iso',
   },
+  {
+    id: 'kyleaupton/leetcode-reminder',
+  },
 ];
 
 export type t_project = {
