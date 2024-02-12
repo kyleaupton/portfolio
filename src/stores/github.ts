@@ -121,7 +121,7 @@ interface License {
 
 const rawRepos = [
   {
-    id: 'kyleaupton/os-install-maker',
+    id: 'kyleaupton/boot-builder',
     icons: ['vue', 'electron', 'typescript'],
   },
   {
