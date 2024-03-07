@@ -158,7 +158,7 @@ const rawRepos = [
     id: 'kyleaupton/win-iso',
   },
   {
-    id: 'kyleaupton/leetcode-reminder',
+    id: 'kyleaupton/leet-scold',
   },
 ];
 
