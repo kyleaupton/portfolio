@@ -5,6 +5,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
+import C from './items/C.vue';
 import Check from './items/Check.vue';
 import Chevron from './items/Chevron.vue';
 import Electron from './items/Electron.vue';
@@ -37,6 +38,8 @@ export default defineComponent({
   computed: {
     component() {
       switch (this.icon) {
+        case 'c':
+          return C;
         case 'check':
           return Check;
         case 'chevron':

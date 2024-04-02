@@ -166,6 +166,10 @@ svg.project-header-chevron {
   width: 28px;
 }
 
+.project-language-c {
+  height: 26px;
+}
+
 .project-header-language-wrapper {
   display: flex;
   align-items: center;

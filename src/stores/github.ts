@@ -160,6 +160,9 @@ const rawRepos = [
   {
     id: 'kyleaupton/leet-scold',
   },
+  {
+    id: 'kyleaupton/node-wimlib-split',
+  },
 ];
 
 export type t_project = {
