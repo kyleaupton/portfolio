@@ -1,18 +1,57 @@
 <template>
-  <div>projects</div>
+  <div class="projects-wrapper">
+    <p class="text-2xl font-medium py-6">Projects</p>
+
+    <div v-if="loading">
+      <Spinner />
+    </div>
+
+    <div class="flex flex-col gap-2" v-else>
+      <LandingProjectCard
+        v-for="repo in repos"
+        :key="repo.data.id"
+        :repo="repo"
+      />
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { getRepos, type Repos } from "./utils";
 
 export default defineComponent({
   name: "Projects",
 
-  async created() {
-    const { data } = await useFetch("/api/repos");
-    console.log(data);
+  data() {
+    return {
+      loading: true,
+      repos: null as null | Repos,
+    };
+  },
+
+  async mounted() {
+    const data = await getRepos();
+    this.repos = data;
+
+    this.loading = false;
   },
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.projects-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 24px 0;
+}
+
+.projects {
+  /* background-color: var(--surface-min-10); */
+  /* border: 1px solid var(--surface-min-20); */
+  /* border-radius: 8px; */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+</style>

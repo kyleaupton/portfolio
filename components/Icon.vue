@@ -5,21 +5,21 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-const C = resolveComponent("C");
-const Check = resolveComponent("Check");
-const Chevron = resolveComponent("Chevron");
-const Electron = resolveComponent("Electron");
-const Envelope = resolveComponent("Envelope");
-const GitHub = resolveComponent("GitHub");
-const JavaScript = resolveComponent("JavaScript");
-const LinkedIn = resolveComponent("LinkedIn");
-const Node = resolveComponent("Node");
-const Npm = resolveComponent("Npm");
-const Python = resolveComponent("Python");
-const React = resolveComponent("React");
-const TypeScript = resolveComponent("TypeScript");
-const Vue = resolveComponent("Vue");
-const Xmark = resolveComponent("Xmark");
+const C = resolveComponent("IconsC");
+const Check = resolveComponent("IconsCheck");
+const Chevron = resolveComponent("IconsChevron");
+const Electron = resolveComponent("IconsElectron");
+const Envelope = resolveComponent("IconsEnvelope");
+const GitHub = resolveComponent("IconsGitHub");
+const JavaScript = resolveComponent("IconsJavaScript");
+const LinkedIn = resolveComponent("IconsLinkedIn");
+const Node = resolveComponent("IconsNode");
+const Npm = resolveComponent("IconsNpm");
+const Python = resolveComponent("IconsPython");
+const React = resolveComponent("IconsReact");
+const TypeScript = resolveComponent("IconsTypeScript");
+const Vue = resolveComponent("IconsVue");
+const Xmark = resolveComponent("IconsXmark");
 
 export default defineComponent({
   name: "Icon",
@@ -65,6 +65,7 @@ export default defineComponent({
         case "xmark":
           return Xmark;
         default:
+          console.error(`No icon found for ${this.icon}`);
           throw Error();
       }
     },

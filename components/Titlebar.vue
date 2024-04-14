@@ -52,11 +52,12 @@ export default defineComponent({
   gap: 12px;
   height: 48px;
   padding: 24px;
+  margin-bottom: 2rem;
 }
 
 .titlebar-icon {
-  height: 2em;
-  width: 2em;
+  height: 3em;
+  width: 3em;
 }
 
 .titlebar-icon svg {

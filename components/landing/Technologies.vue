@@ -1,13 +1,15 @@
 <template>
   <div class="technologies">
-    <p class="technology-title">Technologies</p>
+    <p class="technology-title text-2xl font-medium">Technologies</p>
 
     <p class="technologies-divider">|</p>
 
     <template v-for="tech in techs" :key="tech.key">
-      <div class="technology">
+      <div
+        class="p-3 bg-slate-800 box-content rounded-full grid place-content-center w-6 h-6 cursor-pointer hover:bg-slate-700 active:bg-slate-600 hover:rounded-lg"
+      >
         <img
-          class="technology-image"
+          class=""
           :class="`technology-image-${tech.key}`"
           :src="tech.icon"
         />
@@ -74,35 +76,6 @@ export default defineComponent({
   justify-content: center;
   align-items: center;
   gap: 2rem;
-}
-
-.technology-title {
-  font-size: 22px;
-  font-weight: 600;
-}
-
-.technology {
-  padding: 4px;
-  background: var(--surface-min-20);
-  border-radius: 100%;
-  display: grid;
-  place-content: center;
-  height: 2.5em;
-  width: 2.5em;
-  cursor: pointer;
-  transition: 0.2s border-radius;
-}
-
-.technology:hover {
-  border-radius: 16px;
-}
-
-.technology img {
-  height: 28px;
-}
-
-.technology-image-vue {
-  height: 22px !important;
 }
 
 @media only screen and (max-width: 674px) {

@@ -56,10 +56,11 @@ if (!process.env.GITHUB_TOKEN) {
 }
 
 const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
-let cache: Record<string, Repo> | null = null;
+let cache: Record<string, Repo> = {};
 
 // Exported utility function
 export const getRepoData = async () => {
+  console.log(cache);
   return cache;
 };
 
