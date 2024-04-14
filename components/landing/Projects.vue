@@ -1,12 +1,17 @@
 <template>
-  <img src="~/assets/c.png" />
+  <div>projects</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "C",
+  name: "Projects",
+
+  async created() {
+    const { data } = await useFetch("/api/repos");
+    console.log(data);
+  },
 });
 </script>
 

@@ -1,10 +1,10 @@
 <template>
-  <img src="../../../assets/javascript.png" />
+  <img src="~/assets/javascript.png" />
 </template>
 
 <script lang="ts">
 export default {
-  name: 'JavaScript',
+  name: "JavaScript",
 };
 </script>
 

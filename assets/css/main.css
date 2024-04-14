@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --surface-min-80: #d3d3d3;
   --surface-min-70: #bdbdbd;

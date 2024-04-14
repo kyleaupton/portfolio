@@ -1,10 +1,10 @@
 <template>
-  <img src="../../../assets/vue.png" />
+  <img src="~/assets/vue.png" />
 </template>
 
 <script lang="ts">
 export default {
-  name: 'Vue',
+  name: "Vue",
 };
 </script>
 

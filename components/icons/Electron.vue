@@ -1,10 +1,10 @@
 <template>
-  <img src="../../../assets/electron.png" />
+  <img src="~/assets/electron.png" />
 </template>
 
 <script lang="ts">
 export default {
-  name: 'Electron',
+  name: "Electron",
 };
 </script>
 
