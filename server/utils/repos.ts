@@ -60,14 +60,11 @@ let cache: Record<string, Repo> = {};
 
 // Exported utility function
 export const getRepoData = async () => {
-  console.log(cache);
   return cache;
 };
 
 const refreshData = async () => {
-  console.log("refreshing data");
-
-  cache = {};
+  console.log("utils/repos.ts: Refreshing repo data");
 
   for (const repo of repos) {
     try {
