@@ -28,14 +28,15 @@
         </div>
 
         <!-- Third row -->
-        <div class="flex gap-4">
-          <div
-            v-for="stat of repoStatIcons"
-            class="flex items-center gap-2 text-gray-400"
-          >
-            <fa-icon :icon="stat.icon" />
-            <div>{{ stat.text }}</div>
+        <div class="flex justify-between text-gray-400">
+          <div class="flex gap-6">
+            <div v-for="stat of repoStatIcons" class="flex items-center gap-2">
+              <fa-icon :icon="stat.icon" />
+              <div>{{ stat.text }}</div>
+            </div>
           </div>
+
+          <div>{{ updated }}</div>
         </div>
       </div>
     </DrawerTrigger>
@@ -48,6 +49,7 @@
 
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
+import moment from "moment";
 import { Marked } from "marked";
 import { markedHighlight } from "marked-highlight";
 import hljs from "highlight.js";
@@ -107,6 +109,10 @@ export default defineComponent({
           text: this.repo.data.watchers,
         },
       ];
+    },
+
+    updated() {
+      return moment(this.repo.data.pushed_at).fromNow();
     },
   },
 });

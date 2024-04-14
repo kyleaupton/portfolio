@@ -8,7 +8,7 @@
 
     <div class="flex flex-col gap-2" v-else>
       <LandingProjectCard
-        v-for="repo in repos"
+        v-for="repo in sortedRepos"
         :key="repo.data.id"
         :repo="repo"
       />
@@ -28,6 +28,19 @@ export default defineComponent({
       loading: true,
       repos: null as null | Repos,
     };
+  },
+
+  computed: {
+    sortedRepos() {
+      if (!this.repos) return [];
+
+      return Object.values(this.repos).sort((a, b) => {
+        const aTime = new Date(a.data.pushed_at).getTime();
+        const bTime = new Date(b.data.pushed_at).getTime();
+
+        return +bTime - +aTime;
+      });
+    },
   },
 
   async mounted() {
