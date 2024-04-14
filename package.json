@@ -1,50 +1,27 @@
 {
-  "name": "portfolio",
+  "name": "nuxt-app",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
-  "license": "Unlicense",
   "scripts": {
-    "dev": "vite --open",
-    "build": "vue-tsc && vite build",
-    "postbuild": "node scripts/postBuild.mjs",
-    "preview": "vite preview"
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.4.2",
-    "@fortawesome/free-brands-svg-icons": "^6.4.2",
-    "@fortawesome/free-regular-svg-icons": "^6.4.2",
-    "@fortawesome/free-solid-svg-icons": "^6.4.2",
-    "@fortawesome/vue-fontawesome": "^3.0.3",
-    "fitty": "^2.3.7",
-    "floating-vue": "^2.0.0-beta.24",
-    "highlight.js": "^11.8.0",
-    "marked": "^9.0.3",
-    "marked-highlight": "^2.0.6",
-    "moment": "^2.29.4",
-    "nanoid": "^5.0.1",
-    "octokit": "^3.1.0",
-    "pinia": "^2.1.6",
-    "vue": "^3.3.4",
-    "vue-writer": "^1.2.0"
+    "@fortawesome/fontawesome-svg-core": "^6.5.2",
+    "@fortawesome/free-brands-svg-icons": "^6.5.2",
+    "@fortawesome/free-regular-svg-icons": "^6.5.2",
+    "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@fortawesome/vue-fontawesome": "^3.0.6",
+    "nuxt": "^3.11.2",
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0"
   },
   "devDependencies": {
-    "@kyleupton/glob-copy": "^0.0.1",
-    "@typescript-eslint/eslint-plugin": "^6.4.0",
-    "@typescript-eslint/parser": "^6.7.2",
-    "@vitejs/plugin-vue": "^4.2.3",
-    "@vue/eslint-config-typescript": "^12.0.0",
-    "eslint": "^8.0.1",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-import": "^2.25.2",
-    "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
-    "eslint-plugin-prettier": "^5.0.0",
-    "eslint-plugin-promise": "^6.0.0",
-    "eslint-plugin-vue": "^9.17.0",
-    "prettier": "^3.0.3",
-    "typescript": "*",
-    "vite": "^4.4.5",
-    "vue-eslint-parser": "^9.3.1",
-    "vue-tsc": "^1.8.5"
+    "@nuxt/eslint-config": "^0.3.6",
+    "eslint": "^9.0.0",
+    "typescript": "*"
   }
 }

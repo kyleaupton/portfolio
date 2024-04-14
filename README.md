@@ -1,14 +1,75 @@
-# Portfolio Site of Kyle Upton
+# Nuxt 3 Minimal Starter
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/e36cf977-aaaa-40d9-904b-42d14111d19e/deploy-status)](https://app.netlify.com/sites/lustrous-nougat-969a99/deploys)
+Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
+## Setup
 
-## Introduction
+Make sure to install the dependencies:
 
-Welcome to my professional portfolio. This platform serves as a showcase for the various projects I have developed and contributed to. The site is built using a robust technology stack that includes Vite, Vue 3, and TypeScript, and is hosted on Netlify.
+```bash
+# npm
+npm install
 
-While the majority of the components on this site are custom-built, a few external libraries have been utilized to enhance functionality. These include `fitty` for dynamic landing animation sizing, `floating-vue` for tooltip management, and `marked` + `highlight.js` for rendering markdown READMEs.
+# pnpm
+pnpm install
 
-## Continuous Deployment
+# yarn
+yarn install
 
-The site is configured for Continuous Deployment (CD) via Netlify. Any commit to the `main` branch automatically triggers a new build, ensuring the live site is always up-to-date with the latest changes. For development purposes, a separate `develop` branch is maintained. This allows for committing and testing new changes without triggering a build on the live site.
+# bun
+bun install
+```
+
+## Development Server
+
+Start the development server on `http://localhost:3000`:
+
+```bash
+# npm
+npm run dev
+
+# pnpm
+pnpm run dev
+
+# yarn
+yarn dev
+
+# bun
+bun run dev
+```
+
+## Production
+
+Build the application for production:
+
+```bash
+# npm
+npm run build
+
+# pnpm
+pnpm run build
+
+# yarn
+yarn build
+
+# bun
+bun run build
+```
+
+Locally preview production build:
+
+```bash
+# npm
+npm run preview
+
+# pnpm
+pnpm run preview
+
+# yarn
+yarn preview
+
+# bun
+bun run preview
+```
+
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
