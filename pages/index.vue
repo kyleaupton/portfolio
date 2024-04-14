@@ -9,8 +9,25 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 definePageMeta({
   colorMode: "dark",
+});
+
+useSeoMeta({
+  title: "Kyle Upton",
+  description:
+    "Full Stack Developer | Open-Source Contributor | TypeScript Enthusiast",
+});
+
+useHead({
+  title: "Kyle Upton",
+  link: [
+    {
+      rel: "icon",
+      type: "image/png",
+      href: "/favicon.svg",
+    },
+  ],
 });
 </script>
