@@ -4,7 +4,7 @@
 
 import { Octokit } from "octokit";
 
-const REFRESH_INTERVAL = 1000 * 60 * 15; // 15 minutes
+const REFRESH_INTERVAL = 1000 * 60 * 10; // 10 minutes
 
 type PersistedRepo = {
   id: string;
