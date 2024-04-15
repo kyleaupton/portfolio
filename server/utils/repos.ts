@@ -145,7 +145,7 @@ const fetchRepo = async (repo: RawRepo) => {
         pushed_at: repoData.pushed_at,
       },
       commits,
-      readme,
+      readme: "<h1>Test</h1>",
       icons: repo.icons,
       npm: repo.npm,
     });
