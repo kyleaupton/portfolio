@@ -4,5 +4,11 @@
       "path": "/api/repos-set",
       "schedule": "0 10 * * *"
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/resume",
+      "destination": "https://upton-public-assets.s3.amazonaws.com/Kyle_Upton_Resume.pdf"
+    }
   ]
 }
