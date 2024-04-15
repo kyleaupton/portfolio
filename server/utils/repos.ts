@@ -1,5 +1,9 @@
 import { Octokit } from "octokit";
 
+/**
+ * Module that exports utility functions for fetching data about my GitHub repos
+ */
+
 // List of repos to fetch
 const repos: {
   id: string;

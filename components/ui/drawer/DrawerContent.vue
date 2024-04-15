@@ -21,7 +21,7 @@ const forwarded = useForwardPropsEmits(props, emits);
       v-bind="forwarded"
       :class="
         cn(
-          'drawer-content fixed inset-x-0 max-w-screen-lg bottom-0 z-50 mt-24 flex flex-col rounded-t-[10px] border bg-background mx-auto select-none',
+          'drawer-content fixed inset-x-0 bottom-0 z-50 mt-24 flex flex-col rounded-t-[10px] border bg-background mx-auto select-none',
           props.class
         )
       "
@@ -37,5 +37,10 @@ const forwarded = useForwardPropsEmits(props, emits);
 <style scoped>
 .drawer-content {
   height: calc(100vh * 0.9);
+  max-width: min(1024px, calc(100vw - 16px));
+}
+
+.drawer-content:focus-visible {
+  outline: none;
 }
 </style>

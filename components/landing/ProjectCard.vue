@@ -14,9 +14,9 @@
           <div class="flex items-center justify-center gap-4">
             <Icon
               v-for="icon in languageIcons"
+              :key="icon"
               class="h-6 w-6"
               :class="`language-icon-${icon}`"
-              :key="icon"
               :icon="icon"
             />
           </div>
@@ -24,13 +24,19 @@
 
         <!-- Second row -->
         <div>
-          <p class="font-normal text-gray-400">{{ repo.data.description }}</p>
+          <p class="font-normal text-gray-400">
+            {{ repo.data.description }}
+          </p>
         </div>
 
         <!-- Third row -->
         <div class="flex justify-between text-gray-400">
           <div class="flex gap-6">
-            <div v-for="stat of repoStatIcons" class="flex items-center gap-2">
+            <div
+              v-for="stat of repoStatIcons"
+              :key="stat.icon"
+              class="flex items-center gap-2"
+            >
               <fa-icon :icon="stat.icon" />
               <div>{{ stat.text }}</div>
             </div>
@@ -42,7 +48,7 @@
     </DrawerTrigger>
 
     <DrawerContent>
-      <div class="project-markdown" v-html="renderedReadme"></div>
+      <div class="project-markdown" v-html="renderedReadme" />
     </DrawerContent>
   </Drawer>
 </template>

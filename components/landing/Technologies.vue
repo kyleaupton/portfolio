@@ -8,7 +8,7 @@
       <div
         class="p-3 bg-slate-800 box-content rounded-full grid place-content-center w-6 h-6 cursor-pointer hover:bg-slate-700 active:bg-slate-600 hover:rounded-lg"
       >
-        <img :class="`language-icon-${tech.key}`" :src="tech.icon" />
+        <Icon :class="`language-icon-${tech.key}`" :icon="tech.key" />
       </div>
     </template>
   </div>
@@ -17,13 +17,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import javascript from "~/assets/javascript.png";
-import typescript from "~/assets/typescript.png";
-import vue from "~/assets/vue.png";
-import node from "~/assets/node.png";
-import electron from "~/assets/electron.png";
-import python from "~/assets/python.png";
-
 export default defineComponent({
   name: "Technologies",
 
@@ -31,33 +24,27 @@ export default defineComponent({
     return {
       techs: [
         {
-          key: "js",
-          icon: javascript,
+          key: "javascript",
           tooltip: "JavaScript",
         },
         {
-          key: "ts",
-          icon: typescript,
+          key: "typescript",
           tooltip: "TypeScript",
         },
         {
           key: "vue",
-          icon: vue,
           tooltip: "Vue",
         },
         {
           key: "node",
-          icon: node,
           tooltip: "Node.js",
         },
         {
           key: "electron",
-          icon: electron,
           tooltip: "Electron.js",
         },
         {
           key: "python",
-          icon: python,
           tooltip: "Python",
         },
       ],
