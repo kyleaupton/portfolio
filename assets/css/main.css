@@ -127,3 +127,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+.v-popper--theme-tooltip .v-popper__inner {
+  @apply bg-background text-foreground border !important;
+}
+
+.v-popper__arrow-container {
+  display: none;
+}

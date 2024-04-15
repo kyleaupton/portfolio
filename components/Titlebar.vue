@@ -11,6 +11,9 @@
     <div class="flex justify-center gap-2">
       <Button
         v-for="icon in icons"
+        v-tooltip="{
+          content: icon.tooltip,
+        }"
         :key="icon.key[1]"
         variant="outline"
         size="icon"
@@ -35,13 +38,16 @@
 import { defineComponent } from "vue";
 import { useToast } from "@/components/ui/toast/use-toast";
 
-type IconLink = {
+type IconBase = {
   key: [string, string];
+  tooltip?: string;
+};
+
+type IconLink = IconBase & {
   link: string;
 };
 
-type IconClick = {
-  key: [string, string];
+type IconClick = IconBase & {
   onClick: () => void;
 };
 
@@ -56,18 +62,22 @@ export default defineComponent({
         {
           key: ["fas", "id-card"],
           link: "https://kyleupton.info/resume",
+          tooltip: "Open Resume",
         },
         {
           key: ["fas", "envelope"],
           onClick: this.copyEmail,
+          tooltip: "Copy Email",
         },
         {
           key: ["fab", "linkedin"],
           link: "https://linkedin.com/in/kyle-upton-50bb1a188",
+          tooltip: "Open LinkedIn",
         },
         {
           key: ["fab", "github"],
           link: "https://github.com/kyleaupton",
+          tooltip: "Open GitHub",
         },
       ];
     },

@@ -14,7 +14,7 @@ export default defineNuxtConfig({
   build: {
     transpile: ["@fortawesome/vue-fontawesome"],
   },
-  modules: ["@nuxtjs/color-mode", "shadcn-nuxt"],
+  modules: ["@nuxtjs/color-mode", "shadcn-nuxt", "floating-vue/nuxt"],
   colorMode: {
     preference: "dark",
     fallback: "dark",
