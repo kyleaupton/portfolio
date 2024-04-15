@@ -72,6 +72,9 @@ const refreshData = async () => {
 
   for (const repo of repos) {
     try {
+      console.log(`utils/repo.ts: Fetching data for ${repo.id}`);
+      const start = Date.now();
+
       // Main repo data
       const { data: repoData } = await octokit.rest.repos.get({
         owner: "kyleaupton",
@@ -107,6 +110,12 @@ const refreshData = async () => {
         "utf-8"
       );
 
+      console.log(
+        `utils/repo.ts: Adding ${repo.id} to cache. Took ${
+          Date.now() - start
+        }ms.`
+      );
+
       cache[repo.id] = {
         data: repoData,
         commits,
@@ -119,6 +128,12 @@ const refreshData = async () => {
       console.error(e);
     }
   }
+
+  console.log(
+    `utils/repos.ts: Finished refreshing repo data. ${
+      Object.keys(cache).length
+    } repos in cache.`
+  );
 };
 
 // Upon module load, fetch the data
