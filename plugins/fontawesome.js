@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import {
   faClockRotateLeft as faSolidClockRotateLeft,
   faEnvelope as faSolidEnvelope,
+  faGear as faSolidGear,
   faIdCard as faSolidIdCard,
   faStar as faSolidStar,
   faXmark as faSolidXmark,
@@ -31,6 +32,7 @@ library.add(
   // Solid
   faSolidClockRotateLeft,
   faSolidEnvelope,
+  faSolidGear,
   faSolidIdCard,
 
   faSolidStar,
