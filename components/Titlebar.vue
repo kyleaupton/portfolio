@@ -23,6 +23,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { useToast } from "@/components/ui/toast/use-toast";
 
 export default defineComponent({
   name: "Titlebar",
@@ -30,11 +31,13 @@ export default defineComponent({
   methods: {
     async copyEmail() {
       console.log("copying email");
+      const { toast } = useToast();
+
       try {
         await navigator.clipboard.writeText("kyleaupton@gmail.com");
-        // this.showToast({ message: "Email Copied to Clipboard" });
+        toast({ title: "Email Copied to Clipboard" });
       } catch (e) {
-        // this.showToast({ message: "Failed to Copy Email", type: "error" });
+        toast({ title: "Failed to Copy Email", variant: "destructive" });
       }
     },
 

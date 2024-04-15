@@ -7,6 +7,8 @@
     <LandingTechnologies />
     <LandingProjects />
   </div>
+
+  <Toaster />
 </template>
 
 <script setup lang="ts">
