@@ -198,6 +198,10 @@ export default defineComponent({
   padding-left: 2em;
 }
 
+.project-markdown pre {
+  margin-bottom: 16px;
+}
+
 .project-markdown code:not(.hljs) {
   padding: 0.2em 0.4em;
 }
