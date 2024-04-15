@@ -66,12 +66,12 @@ for (const envVar of requiredEnvVars) {
 const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
 export const getRepoData = async () => {
-  const payload = [];
+  const payload: Repo[] = [];
 
   for (const repo of repos) {
-    const string = await kv.get<string>(`repos:${repo.id}`);
-    if (string) {
-      payload.push(JSON.parse(string) as Repo);
+    const data = await kv.get<Repo>(`repos:${repo.id}`);
+    if (data) {
+      payload.push(data);
     }
   }
 
@@ -134,6 +134,7 @@ const fetchRepo = async (repo: RawRepo) => {
       }s.`
     );
 
+    // I insert as a string but I get back as an object for some reason...
     await kv.set(
       `repos:${repo.id}`,
       JSON.stringify({
@@ -147,7 +148,7 @@ const fetchRepo = async (repo: RawRepo) => {
           pushed_at: repoData.pushed_at,
         },
         commits,
-        readme: "<h1>Test</h1>",
+        readme,
         icons: repo.icons,
         npm: repo.npm,
       })
