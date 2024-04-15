@@ -72,28 +72,33 @@ export const getRepoData = async () => {
 };
 
 const fetchAll = async () => {
-  console.log("utils/repos.ts: Refreshing repo data");
+  console.log("GET_REPOS: Refreshing repo data");
 
-  await Promise.race([
-    new Promise((_, reject) =>
-      setTimeout(
-        () => reject(new Error("fetchAll() timed out")),
-        REFRESH_INTERVAL
-      )
-    ),
-    Promise.all(repos.map(fetchRepo)),
-  ]);
+  try {
+    await Promise.race([
+      new Promise((_, reject) =>
+        setTimeout(
+          () => reject(new Error("fetchAll() timed out")),
+          REFRESH_INTERVAL
+        )
+      ),
+      Promise.all(repos.map(fetchRepo)),
+    ]);
 
-  console.log(
-    `utils/repos.ts: Finished refreshing repo data. ${
-      Object.keys(cache).length
-    } repos in cache.`
-  );
+    console.log(
+      `GET_REPOS: Finished fetching all repos. ${
+        Object.keys(cache).length
+      } repos in cache.`
+    );
+  } catch (e) {
+    console.error("GET_REPOS: Failed to fetch all repos");
+    console.error(e);
+  }
 };
 
 const fetchRepo = async (repo: PersistedRepo) => {
   try {
-    console.log(`utils/repo.ts: Fetching data for ${repo.id}`);
+    console.log(`GET_REPOS: Fetching data for ${repo.id}`);
     const start = Date.now();
 
     // Main repo data
@@ -130,7 +135,9 @@ const fetchRepo = async (repo: PersistedRepo) => {
     const readme = Buffer.from(readmeData.content, "base64").toString("utf-8");
 
     console.log(
-      `utils/repo.ts: Adding ${repo.id} to cache. Took ${Date.now() - start}ms.`
+      `GET_REPOS: Adding ${repo.id} to cache. Took ${
+        (Date.now() - start) / 1000
+      }s.`
     );
 
     cache[repo.id] = {
@@ -141,7 +148,7 @@ const fetchRepo = async (repo: PersistedRepo) => {
       npm: repo.npm,
     };
   } catch (e) {
-    console.error(`Failed to fetch repo data for ${repo.id}`);
+    console.error(`GET_REPOS: Failed to fetch repo data for ${repo.id}`);
     console.error(e);
   }
 };
