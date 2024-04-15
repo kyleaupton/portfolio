@@ -1,75 +1,9 @@
-# Nuxt 3 Minimal Starter
+# Portfolio Site of Kyle Upton
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Introduction
 
-## Setup
+Welcome to my professional portfolio. This platform serves as a showcase for the various projects I have developed and contributed to. The site is built using a robust technology stack that includes Nuxt, Vue 3, and TypeScript, and is hosted on Vercel.
 
-Make sure to install the dependencies:
+## Continuous Deployment
 
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+The site is configured for Continuous Deployment (CD) to Vercel. Any commit to the `main` branch automatically triggers a new build, ensuring the live site is always up-to-date with the latest changes. For development purposes, a separate `develop` branch is maintained. This allows for committing and testing new changes without triggering a build on the live site.
