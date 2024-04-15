@@ -3,17 +3,10 @@
  */
 
 import { Octokit } from "octokit";
-
-const REFRESH_INTERVAL = 1000 * 60 * 10; // 10 minutes
-
-type PersistedRepo = {
-  id: string;
-  icons?: string[];
-  npm?: string;
-};
+import { kv } from "@vercel/kv";
 
 // List of repos to fetch
-const repos: PersistedRepo[] = [
+const repos: RawRepo[] = [
   {
     id: "boot-builder",
     icons: ["vue", "electron", "typescript"],
@@ -59,44 +52,45 @@ const repos: PersistedRepo[] = [
   },
 ];
 
-if (!process.env.GITHUB_TOKEN) {
-  throw new Error("GITHUB_TOKEN environment variable is required");
+const requiredEnvVars = [
+  "GITHUB_TOKEN",
+  "KV_REST_API_URL",
+  "KV_REST_API_TOKEN",
+];
+for (const envVar of requiredEnvVars) {
+  if (!process.env[envVar]) {
+    throw new Error(`Missing required environment variable: ${envVar}`);
+  }
 }
 
 const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
-let cache: Record<string, Repo> = {};
 
-// Exported utility function
 export const getRepoData = async () => {
-  return cache;
+  const payload = [];
+
+  for (const repo of repos) {
+    const data = await kv.get<Repo>(`repos:${repo.id}`);
+    if (data) {
+      payload.push(data);
+    }
+  }
+
+  return payload;
 };
 
-const fetchAll = async () => {
+export const setRepoData = async () => {
   console.log("GET_REPOS: Refreshing repo data");
 
   try {
-    await Promise.race([
-      new Promise((_, reject) =>
-        setTimeout(
-          () => reject(new Error("fetchAll() timed out")),
-          REFRESH_INTERVAL
-        )
-      ),
-      Promise.all(repos.map(fetchRepo)),
-    ]);
-
-    console.log(
-      `GET_REPOS: Finished fetching all repos. ${
-        Object.keys(cache).length
-      } repos in cache.`
-    );
+    Promise.all(repos.map(fetchRepo));
+    console.log("GET_REPOS: Finished fetching all repos");
   } catch (e) {
     console.error("GET_REPOS: Failed to fetch all repos");
     console.error(e);
   }
 };
 
-const fetchRepo = async (repo: PersistedRepo) => {
+const fetchRepo = async (repo: RawRepo) => {
   try {
     console.log(`GET_REPOS: Fetching data for ${repo.id}`);
     const start = Date.now();
@@ -140,26 +134,26 @@ const fetchRepo = async (repo: PersistedRepo) => {
       }s.`
     );
 
-    cache[repo.id] = {
+    await kv.hset(`repos:${repo.id}`, {
       data: repoData,
       commits,
       readme,
       icons: repo.icons,
       npm: repo.npm,
-    };
+    });
   } catch (e) {
     console.error(`GET_REPOS: Failed to fetch repo data for ${repo.id}`);
     console.error(e);
   }
 };
 
-// Upon module load, fetch the data
-fetchAll();
-
-// Refresh the data every 15 minutes
-setInterval(fetchAll, REFRESH_INTERVAL);
-
 // Types
+type RawRepo = {
+  id: string;
+  icons?: string[];
+  npm?: string;
+};
+
 type Repo = {
   data: Awaited<ReturnType<typeof octokit.rest.repos.get>>["data"];
   commits: number;
