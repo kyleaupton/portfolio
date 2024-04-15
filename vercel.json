@@ -2,7 +2,7 @@
   "crons": [
     {
       "path": "/api/repos-set",
-      "schedule": "*/15 * * * *"
+      "schedule": "0 10 * * *"
     }
   ]
 }
