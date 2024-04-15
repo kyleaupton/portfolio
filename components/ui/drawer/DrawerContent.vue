@@ -37,7 +37,7 @@ const forwarded = useForwardPropsEmits(props, emits);
 <style scoped>
 .drawer-content {
   height: calc(100vh * 0.9);
-  max-width: min(1024px, calc(100vw - 16px));
+  max-width: min(1024px, calc(100vw - 24px));
 }
 
 .drawer-content:focus-visible {
