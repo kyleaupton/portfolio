@@ -69,9 +69,9 @@ export const getRepoData = async () => {
   const payload = [];
 
   for (const repo of repos) {
-    const data = await kv.get<Repo>(`repos:${repo.id}`);
-    if (data) {
-      payload.push(data);
+    const string = await kv.get<string>(`repos:${repo.id}`);
+    if (string) {
+      payload.push(JSON.parse(string) as Repo);
     }
   }
 
@@ -134,21 +134,24 @@ const fetchRepo = async (repo: RawRepo) => {
       }s.`
     );
 
-    await kv.hset(`repos:${repo.id}`, {
-      data: {
-        id: repoData.id,
-        name: repoData.name,
-        description: repoData.description,
-        language: repoData.language,
-        stargazers_count: repoData.stargazers_count,
-        watchers: repoData.watchers,
-        pushed_at: repoData.pushed_at,
-      },
-      commits,
-      readme: "<h1>Test</h1>",
-      icons: repo.icons,
-      npm: repo.npm,
-    });
+    await kv.set(
+      `repos:${repo.id}`,
+      JSON.stringify({
+        data: {
+          id: repoData.id,
+          name: repoData.name,
+          description: repoData.description,
+          language: repoData.language,
+          stargazers_count: repoData.stargazers_count,
+          watchers: repoData.watchers,
+          pushed_at: repoData.pushed_at,
+        },
+        commits,
+        readme: "<h1>Test</h1>",
+        icons: repo.icons,
+        npm: repo.npm,
+      })
+    );
   } catch (e) {
     console.error(`GET_REPOS: Failed to fetch repo data for ${repo.id}`);
     console.error(e);
