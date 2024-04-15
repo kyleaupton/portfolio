@@ -55,7 +55,7 @@ export default defineComponent({
   gap: 12px;
   height: 48px;
   padding: 24px;
-  margin-bottom: 2rem;
+  margin-bottom: 4rem;
 }
 
 .titlebar-icon {
