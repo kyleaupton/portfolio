@@ -82,7 +82,7 @@ export const setRepoData = async () => {
   console.log("GET_REPOS: Refreshing repo data");
 
   try {
-    Promise.all(repos.map(fetchRepo));
+    await Promise.all(repos.map(fetchRepo));
     console.log("GET_REPOS: Finished fetching all repos");
   } catch (e) {
     console.error("GET_REPOS: Failed to fetch all repos");
