@@ -27,7 +27,7 @@ const forwarded = useForwardPropsEmits(props, emits);
       "
     >
       <div
-        class="cursor-pointer mx-auto my-4 h-3 w-[100px] rounded-full bg-muted"
+        class="cursor-pointer mx-auto my-4 shrink-0 h-3 w-[100px] rounded-full bg-muted"
       />
       <slot />
     </DrawerContent>
