@@ -135,7 +135,15 @@ const fetchRepo = async (repo: RawRepo) => {
     );
 
     await kv.hset(`repos:${repo.id}`, {
-      data: repoData,
+      data: {
+        id: repoData.id,
+        name: repoData.name,
+        description: repoData.description,
+        language: repoData.language,
+        stargazers_count: repoData.stargazers_count,
+        watchers: repoData.watchers,
+        pushed_at: repoData.pushed_at,
+      },
       commits,
       readme,
       icons: repo.icons,
@@ -155,7 +163,15 @@ type RawRepo = {
 };
 
 type Repo = {
-  data: Awaited<ReturnType<typeof octokit.rest.repos.get>>["data"];
+  data: {
+    id: number;
+    name: string;
+    description: string;
+    language: string;
+    stargazers_count: number;
+    watchers: number;
+    pushed_at: string;
+  };
   commits: number;
   readme: string;
   icons?: string[];
