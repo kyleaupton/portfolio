@@ -38,7 +38,7 @@
 
     <Card class="graph-card">
       <CardHeader>
-        <CardTitle>Frameworks</CardTitle>
+        <CardTitle>Technologies</CardTitle>
       </CardHeader>
       <CardContent>
         <VisXYContainer

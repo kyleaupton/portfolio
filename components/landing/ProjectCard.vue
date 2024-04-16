@@ -154,21 +154,21 @@ export default defineComponent({
 
 .project-markdown code {
   border-radius: 8px;
-  background-color: rgb(24, 33, 47);
   font-size: 14px;
   cursor: text;
+  @apply bg-neutral-800;
 }
 
 .project-markdown h1 {
   padding-bottom: 0.3em;
   font-size: 2em;
-  border-bottom: 1px solid rgb(24, 33, 47);
+  @apply border-b;
 }
 
 .project-markdown h2 {
   padding-bottom: 0.3em;
   font-size: 1.5em;
-  border-bottom: 1px solid rgb(24, 33, 47);
+  @apply border-b;
 }
 
 .project-markdown h1,
@@ -214,10 +214,10 @@ export default defineComponent({
 
 .project-markdown blockquote {
   padding: 0 1em;
-  border-left: 0.25em solid var(--surface-min-60);
-  color: var(--surface-min-60);
   margin-inline-start: 0;
   margin-inline-end: 0;
+
+  @apply border-l-4 text-neutral-400;
 }
 
 .project-markdown ul:has(li):has(input) {
