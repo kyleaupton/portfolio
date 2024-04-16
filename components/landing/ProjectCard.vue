@@ -4,51 +4,17 @@
       <Card class="text-start cursor-pointer bg-neutral-900 hover:bg-accent">
         <CardHeader>
           <CardTitle>{{ repo.data.name }}</CardTitle>
-          <CardDescription>{{ repo.data.description }}</CardDescription>
-        </CardHeader>
-        <!-- <CardContent>test</CardContent> -->
-      </Card>
-
-      <!-- <div
-        class="cursor-pointer p-6 border rounded-lg shadow bg-gray-800 border-gray-700 hover:bg-gray-700 text-start flex flex-col gap-2"
-      >
-        <div class="flex justify-between">
-          <p class="text-2xl font-bold text-white">
-            {{ repo.data.name }}
-          </p>
-
-          <div class="flex items-center justify-center gap-4">
-            <Icon
-              v-for="icon in languageIcons"
-              :key="icon"
-              class="h-6 w-6"
-              :class="`language-icon-${icon}`"
-              :icon="icon"
-            />
-          </div>
-        </div>
-
-        <div>
-          <p class="font-normal text-gray-400">
-            {{ repo.data.description }}
-          </p>
-        </div>
-
-        <div class="flex justify-between text-gray-400">
-          <div class="flex gap-6">
-            <div
-              v-for="stat of repoStatIcons"
-              :key="stat.icon"
-              class="flex items-center gap-2"
-            >
-              <fa-icon :icon="stat.icon" />
-              <div>{{ stat.text }}</div>
+          <CardDescription>
+            <div class="mb-2">{{ repo.data.description }}</div>
+            <div class="flex justify-between items-center w-full">
+              <div class="flex gap-2">
+                <Badge v-for="badge of technologBadges">{{ badge.name }}</Badge>
+              </div>
+              <div>{{ updated }}</div>
             </div>
-          </div>
-
-          <div>{{ updated }}</div>
-        </div>
-      </div> -->
+          </CardDescription>
+        </CardHeader>
+      </Card>
     </DrawerTrigger>
 
     <DrawerContent>
@@ -64,8 +30,17 @@ import { Marked } from "marked";
 import { markedHighlight } from "marked-highlight";
 import hljs from "highlight.js";
 import "highlight.js/styles/github-dark.css";
+import technologies from "~/lib/technologies";
 
 import { type Repo } from "./utils";
+
+type TechBadge = {
+  key: string;
+  name: string;
+  description: string;
+  icon: string;
+  color: string;
+};
 
 export default defineComponent({
   name: "ProjectCard",
@@ -75,6 +50,12 @@ export default defineComponent({
       type: Object as PropType<Repo>,
       required: true,
     },
+  },
+
+  data() {
+    return {
+      technologies,
+    };
   },
 
   computed: {
@@ -92,16 +73,37 @@ export default defineComponent({
       return marked.parse(this.repo.readme);
     },
 
-    languageIcons() {
+    technologBadges(): TechBadge[] {
+      const payload = [];
+
       if (this.repo.icons) {
-        return this.repo.icons;
+        for (const lang of this.repo.icons) {
+          const _lang = lang as keyof typeof this.technologies;
+
+          if (this.technologies[_lang]) {
+            payload.push({
+              key: lang,
+              ...this.technologies[_lang],
+            });
+          }
+        }
+
+        return payload;
       }
 
       if (this.repo.data.language) {
-        return [this.repo.data.language.toLowerCase()];
+        const _lang =
+          this.repo.data.language.toLowerCase() as keyof typeof this.technologies;
+
+        if (this.technologies[_lang]) {
+          payload.push({
+            key: _lang,
+            ...this.technologies[_lang],
+          });
+        }
       }
 
-      return [];
+      return payload;
     },
 
     repoStatIcons() {

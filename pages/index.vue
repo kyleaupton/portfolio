@@ -5,7 +5,7 @@
       Full Stack Dev | Open-Source Contributer | TypeScript Enthusiast
     </div>
     <!-- <LandingTechnologies /> -->
-    <LandingLanguages />
+    <LandingTechnologies />
     <LandingProjects />
   </div>
 

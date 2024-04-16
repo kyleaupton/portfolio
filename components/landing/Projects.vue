@@ -1,8 +1,8 @@
 <template>
-  <div class="flex flex-col items-center projects-wrapper">
+  <div class="flex gap-4 flex-col items-center projects-wrapper">
     <p class="text-2xl font-medium py-6">Projects</p>
 
-    <div v-if="loading">
+    <div class="mt-2" v-if="loading">
       <Spinner />
     </div>
 

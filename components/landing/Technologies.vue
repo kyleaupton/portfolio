@@ -1,81 +1,179 @@
 <template>
-  <div class="technologies">
-    <p class="technology-title text-2xl font-medium">Technologies</p>
+  <div class="flex gap-4 justify-center flex-wrap">
+    <Card class="graph-card">
+      <CardHeader>
+        <CardTitle>Languages</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <VisXYContainer
+          :data="languages"
+          :style="{
+            opacity: 0.9,
+          }"
+        >
+          <VisStackedBar
+            orientation="horizontal"
+            :roundedCorners="8"
+            :color="(d: DataRecord) => d.color"
+            :x="(d: DataRecord) => d.i"
+            :y="(d: DataRecord) => d.percentage"
+          />
+          <VisAxis
+            type="y"
+            :tickFormat="formatLanguage"
+            :gridLine="false"
+            :tickLine="false"
+            :domainLine="false"
+          />
+          <VisAxis
+            type="x"
+            :gridLine="false"
+            :tickLine="false"
+            :domainLine="false"
+            :tickValues="[]"
+          />
+        </VisXYContainer>
+      </CardContent>
+    </Card>
 
-    <p class="technologies-divider">|</p>
-
-    <template v-for="tech in techs" :key="tech.key">
-      <Avatar>
-        <AvatarImage class="" :src="`/${tech.key}.png`" />
-        <AvatarFallback></AvatarFallback>
-      </Avatar>
-    </template>
+    <Card class="graph-card">
+      <CardHeader>
+        <CardTitle>Frameworks</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <VisXYContainer
+          :data="frameworks"
+          :style="{
+            opacity: 0.9,
+          }"
+        >
+          <VisStackedBar
+            orientation="horizontal"
+            :roundedCorners="8"
+            :color="(d: DataRecord) => d.color"
+            :x="(d: DataRecord) => d.i"
+            :y="(d: DataRecord) => d.percentage"
+          />
+          <VisAxis
+            type="y"
+            :tickFormat="formatFramework"
+            :gridLine="false"
+            :tickLine="false"
+            :domainLine="false"
+          />
+          <VisAxis
+            type="x"
+            :gridLine="false"
+            :tickLine="false"
+            :domainLine="false"
+            :tickValues="[]"
+          />
+        </VisXYContainer>
+      </CardContent>
+    </Card>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { VisXYContainer, VisStackedBar, VisAxis } from "@unovis/vue";
+
+type DataRecord = {
+  i: number;
+  language: string;
+  percentage: number;
+  color: string;
+};
 
 export default defineComponent({
-  name: "Technologies",
+  name: "LandingLanguages",
 
-  data() {
-    return {
-      techs: [
+  components: {
+    VisXYContainer,
+    VisStackedBar,
+    VisAxis,
+  },
+
+  computed: {
+    languages(): DataRecord[] {
+      return [
+        { i: 0, language: "C/C++", percentage: 20, color: "#044F88" },
+        { i: 1, language: "Java", percentage: 30, color: "#ED8B00" },
+        { i: 2, language: "Go", percentage: 35, color: "#00ADD8" },
+        { i: 3, language: "Python", percentage: 50, color: "#ffde57" },
+        { i: 4, language: "TypeScript", percentage: 100, color: "#3178c6" },
+        { i: 5, language: "JavaScrpt", percentage: 100, color: "#f0db4f" },
+      ];
+    },
+
+    frameworks(): DataRecord[] {
+      return [
         {
-          key: "javascript",
-          tooltip: "JavaScript",
+          i: 0,
+          language: "React",
+          percentage: 50,
+          color: "#149eca",
         },
         {
-          key: "typescript",
-          tooltip: "TypeScript",
+          i: 1,
+          language: "Express",
+          percentage: 50,
+          color: "hsl(var(--foreground))",
         },
         {
-          key: "vue",
-          tooltip: "Vue",
+          i: 2,
+          language: "Tailwind",
+          percentage: 60,
+          color: "#06b6d4",
         },
         {
-          key: "node",
-          tooltip: "Node.js",
+          i: 3,
+          language: "Nuxt",
+          percentage: 80,
+          color: "#42b883",
         },
         {
-          key: "electron",
-          tooltip: "Electron.js",
+          i: 4,
+          language: "Fastify",
+          percentage: 100,
+          color: "hsl(var(--foreground))",
         },
         {
-          key: "python",
-          tooltip: "Python",
+          i: 5,
+          language: "Electron",
+          percentage: 100,
+          color: "hsl(227, 25%, 35%)",
         },
-      ],
-    };
+        {
+          i: 6,
+          language: "Vue",
+          percentage: 100,
+          color: "#42b883",
+        },
+      ];
+    },
+  },
+
+  methods: {
+    formatLanguage(value: number) {
+      return (
+        this.languages.find((d) => d.i === value)?.language ?? String(value)
+      );
+    },
+
+    formatFramework(value: number) {
+      return (
+        this.frameworks.find((d) => d.i === value)?.language ?? String(value)
+      );
+    },
   },
 });
 </script>
 
 <style scoped>
-.technologies {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-}
-
-@media only screen and (max-width: 674px) {
-  .technologies {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 1fr;
-    place-items: center;
-    gap: 1rem;
-  }
-
-  .technology-title {
-    grid-column-start: 1;
-    grid-column-end: 4;
-  }
-
-  .technologies-divider {
-    display: none;
-  }
+.graph-card {
+  max-width: 556px;
+  min-height: 398px;
+  width: 100%;
 }
 </style>
