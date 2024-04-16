@@ -9,27 +9,27 @@
     />
 
     <div class="flex justify-center gap-2">
-      <Button
-        v-for="icon in icons"
-        v-tooltip="{
-          content: icon.tooltip,
-        }"
-        :key="icon.key[1]"
-        variant="outline"
-        size="icon"
-      >
-        <!-- If it's a link, surround with <a> tag -->
-        <template v-if="isLinkIcon(icon)">
-          <a :href="icon.link" target="_blank">
-            <fa-icon class="fa-xl" :icon="icon.key" />
-          </a>
-        </template>
-
-        <!-- Otherwise just raw-dog the icon -->
-        <template v-else>
-          <fa-icon class="fa-xl" :icon="icon.key" @click="icon.onClick" />
-        </template>
-      </Button>
+      <template v-for="icon in icons" :key="icon.key[1]">
+        <component
+          :is="isLinkIcon(icon) ? 'a' : 'span'"
+          :href="isLinkIcon(icon) ? icon.link : undefined"
+          target="_blank"
+        >
+          <Button
+            v-tooltip="{
+              content: icon.tooltip,
+            }"
+            variant="outline"
+            size="icon"
+          >
+            <fa-icon
+              class="fa-xl"
+              :icon="icon.key"
+              @click="isClickIcon(icon) ? icon.onClick : undefined"
+            />
+          </Button>
+        </component>
+      </template>
     </div>
   </div>
 </template>
