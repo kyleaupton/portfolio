@@ -14,6 +14,7 @@
           :is="isLinkIcon(icon) ? 'a' : 'span'"
           :href="isLinkIcon(icon) ? icon.link : undefined"
           target="_blank"
+          @click="handleClick(icon)"
         >
           <Button
             v-tooltip="{
@@ -22,11 +23,7 @@
             variant="outline"
             size="icon"
           >
-            <fa-icon
-              class="fa-xl"
-              :icon="icon.key"
-              @click="isClickIcon(icon) ? icon.onClick : undefined"
-            />
+            <fa-icon class="fa-xl" :icon="icon.key" />
           </Button>
         </component>
       </template>
@@ -97,6 +94,12 @@ export default defineComponent({
 
     openLink(link: string) {
       window.open(link);
+    },
+
+    handleClick(icon: Icon) {
+      if (this.isClickIcon(icon)) {
+        icon.onClick();
+      }
     },
 
     isLinkIcon(icon: Icon): icon is IconLink {
