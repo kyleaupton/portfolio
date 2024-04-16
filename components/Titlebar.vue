@@ -61,7 +61,7 @@ export default defineComponent({
       return [
         {
           key: ["fas", "id-card"],
-          link: "https://kyleupton.info/resume",
+          link: "https://kyleupton.dev/resume",
           tooltip: "Open Resume",
         },
         {
