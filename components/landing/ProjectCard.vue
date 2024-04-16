@@ -1,16 +1,22 @@
 <template>
   <Drawer>
     <DrawerTrigger as-child>
-      <div
+      <Card class="text-start cursor-pointer bg-neutral-900 hover:bg-accent">
+        <CardHeader>
+          <CardTitle>{{ repo.data.name }}</CardTitle>
+          <CardDescription>{{ repo.data.description }}</CardDescription>
+        </CardHeader>
+        <!-- <CardContent>test</CardContent> -->
+      </Card>
+
+      <!-- <div
         class="cursor-pointer p-6 border rounded-lg shadow bg-gray-800 border-gray-700 hover:bg-gray-700 text-start flex flex-col gap-2"
       >
-        <!-- First row -->
         <div class="flex justify-between">
           <p class="text-2xl font-bold text-white">
             {{ repo.data.name }}
           </p>
 
-          <!-- Icons -->
           <div class="flex items-center justify-center gap-4">
             <Icon
               v-for="icon in languageIcons"
@@ -22,14 +28,12 @@
           </div>
         </div>
 
-        <!-- Second row -->
         <div>
           <p class="font-normal text-gray-400">
             {{ repo.data.description }}
           </p>
         </div>
 
-        <!-- Third row -->
         <div class="flex justify-between text-gray-400">
           <div class="flex gap-6">
             <div
@@ -44,7 +48,7 @@
 
           <div>{{ updated }}</div>
         </div>
-      </div>
+      </div> -->
     </DrawerTrigger>
 
     <DrawerContent>

@@ -5,11 +5,10 @@
     <p class="technologies-divider">|</p>
 
     <template v-for="tech in techs" :key="tech.key">
-      <div
-        class="p-3 bg-slate-800 box-content rounded-full grid place-content-center w-6 h-6 cursor-pointer hover:bg-slate-700 active:bg-slate-600 hover:rounded-lg"
-      >
-        <Icon :class="`language-icon-${tech.key}`" :icon="tech.key" />
-      </div>
+      <Avatar>
+        <AvatarImage class="" :src="`/${tech.key}.png`" />
+        <AvatarFallback></AvatarFallback>
+      </Avatar>
     </template>
   </div>
 </template>
