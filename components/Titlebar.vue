@@ -1,6 +1,6 @@
 <template>
   <div
-    class="titlebar flex justify-between items-center bg-neutral-900 mb-8 border p-4"
+    class="titlebar flex justify-between items-center bg-neutral-900 mb-8 border px-4 py-4 sm:px-8"
   >
     <a href="/">
       <fa-icon
