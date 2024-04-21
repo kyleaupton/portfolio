@@ -10,7 +10,9 @@
               class="flex justify-between items-center w-full flex-wrap gap-2"
             >
               <div class="flex gap-2">
-                <Badge v-for="badge of technologBadges">{{ badge.name }}</Badge>
+                <Badge v-for="badge of technologyBadges">{{
+                  badge.name
+                }}</Badge>
               </div>
               <div>{{ updated }}</div>
             </div>
@@ -52,17 +54,22 @@ type TechBadge = {
 
 export default defineComponent({
   name: "ProjectCard",
+
+  components: { VisuallyHidden },
+
   props: {
     repo: {
       type: Object as PropType<Repo>,
       required: true,
     },
   },
+
   data() {
     return {
       technologies,
     };
   },
+
   computed: {
     renderedReadme() {
       const marked = new Marked(
@@ -74,34 +81,26 @@ export default defineComponent({
           },
         })
       );
+
       return marked.parse(this.repo.readme);
     },
-    technologBadges(): TechBadge[] {
-      const payload = [];
-      if (this.repo.icons) {
-        for (const lang of this.repo.icons) {
-          const _lang = lang as keyof typeof this.technologies;
-          if (this.technologies[_lang]) {
-            payload.push({
-              key: lang,
-              ...this.technologies[_lang],
-            });
-          }
-        }
-        return payload;
-      }
-      if (this.repo.data.language) {
-        const _lang =
-          this.repo.data.language.toLowerCase() as keyof typeof this.technologies;
-        if (this.technologies[_lang]) {
-          payload.push({
-            key: _lang,
-            ...this.technologies[_lang],
-          });
+
+    technologyBadges(): TechBadge[] {
+      const payload: TechBadge[] = [];
+      const keys: string[] = this.repo.icons || [
+        this.repo.data.language.toLowerCase(),
+      ];
+
+      for (const key of keys) {
+        const tech = technologies.find((t) => t.key === key);
+        if (tech) {
+          payload.push(tech);
         }
       }
+
       return payload;
     },
+
     repoStatIcons() {
       return [
         {
@@ -118,11 +117,11 @@ export default defineComponent({
         },
       ];
     },
+
     updated() {
       return moment(this.repo.data.pushed_at).fromNow();
     },
   },
-  components: { VisuallyHidden },
 });
 </script>
 
