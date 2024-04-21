@@ -85,7 +85,7 @@ export default defineComponent({
 
     technologyBadges(): TechBadge[] {
       const payload: TechBadge[] = [];
-      const keys: string[] = this.repo.icons || [
+      const keys: string[] = this.repo.technologies || [
         this.repo.data.language.toLowerCase(),
       ];
 

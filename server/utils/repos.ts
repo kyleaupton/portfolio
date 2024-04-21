@@ -9,46 +9,58 @@ import { kv } from "@vercel/kv";
 const repos: RawRepo[] = [
   {
     id: "boot-builder",
-    icons: ["vue", "electron", "typescript"],
+    display: "Boot Builder",
+    technologies: ["vue", "electron", "typescript"],
   },
   {
     id: "resume",
-    icons: ["react", "typescript"],
+    display: "Resume",
+    technologies: ["react", "typescript"],
   },
   {
     id: "node-rsync",
+    display: "Node Rsync",
     npm: "https://www.npmjs.com/package/@kyleupton/node-rsync",
   },
   {
     id: "glob-copy",
+    display: "Glob Copy",
     npm: "https://www.npmjs.com/package/@kyleupton/glob-copy",
   },
   {
     id: "portfolio",
-    icons: ["nuxt", "vue", "typescript"],
+    display: "Portfolio",
+    technologies: ["nuxt", "vue", "typescript"],
   },
   {
     id: "TransactionTracker",
+    display: "Transaction Tracker",
   },
   {
     id: "schedule-widget",
+    display: "Schedule Widget",
   },
   {
     id: "zerotier-utility",
-    icons: ["vue", "electron", "javascript"],
+    display: "ZeroTier Utility",
+    technologies: ["vue", "electron", "javascript"],
   },
   {
     id: "witte-quote-generator-desktop",
-    icons: ["vue", "electron", "javascript"],
+    display: "Witte Quote Generator Desktop",
+    technologies: ["vue", "electron", "javascript"],
   },
   {
     id: "win-iso",
+    display: "Win ISO",
   },
   {
     id: "leet-scold",
+    display: "Leet Scold",
   },
   {
     id: "node-wimlib-split",
+    display: "Node Wimlib Split",
   },
 ];
 
@@ -149,7 +161,7 @@ const fetchRepo = async (repo: RawRepo) => {
         },
         commits,
         readme,
-        icons: repo.icons,
+        technologies: repo.technologies,
         npm: repo.npm,
       })
     );
@@ -162,7 +174,8 @@ const fetchRepo = async (repo: RawRepo) => {
 // Types
 type RawRepo = {
   id: string;
-  icons?: string[];
+  display: string;
+  technologies?: string[];
   npm?: string;
 };
 
@@ -178,6 +191,6 @@ type Repo = {
   };
   commits: number;
   readme: string;
-  icons?: string[];
+  technologies?: string[];
   npm?: string;
 };
