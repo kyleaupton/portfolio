@@ -45,7 +45,7 @@ export default [
   },
   {
     key: "vue",
-    name: "Vue.js",
+    name: "Vue",
     description: "The Progressive JavaScript Framework",
     icon: "",
     color: "#42b883",
