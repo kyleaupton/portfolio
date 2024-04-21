@@ -6,7 +6,9 @@
           <CardTitle>{{ repo.data.name }}</CardTitle>
           <CardDescription>
             <div class="mb-2">{{ repo.data.description }}</div>
-            <div class="flex justify-between items-center w-full">
+            <div
+              class="flex justify-between items-center w-full flex-wrap gap-2"
+            >
               <div class="flex gap-2">
                 <Badge v-for="badge of technologBadges">{{ badge.name }}</Badge>
               </div>
