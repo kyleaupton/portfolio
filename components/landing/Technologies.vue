@@ -174,7 +174,7 @@ export default defineComponent({
 
 <style scoped>
 .graph-card {
-  max-width: 532px;
+  max-width: 516px;
   min-height: 398px;
   width: 100%;
 }
