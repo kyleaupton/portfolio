@@ -2,16 +2,17 @@
   <div class="flex gap-4 flex-col w-full items-center mb-4">
     <p class="text-2xl font-medium py-6">Projects</p>
 
-    <div class="mt-2" v-if="loading">
-      <Spinner />
-    </div>
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full" v-else>
-      <LandingProjectCard
-        v-for="repo in sortedRepos"
-        :key="repo.data.id"
-        :repo="repo"
-      />
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full">
+      <template v-if="loading">
+        <LandingProjectCardLoading v-for="(_, i) in ghostNumber" :key="i" />
+      </template>
+      <template v-else>
+        <LandingProjectCard
+          v-for="repo in sortedRepos"
+          :key="repo.data.id"
+          :repo="repo"
+        />
+      </template>
     </div>
   </div>
 </template>
@@ -26,6 +27,7 @@ export default defineComponent({
   data() {
     return {
       loading: true,
+      ghostNumber: 12,
       repos: null as null | Repos,
     };
   },
