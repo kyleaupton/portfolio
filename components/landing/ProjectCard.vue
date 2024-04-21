@@ -20,6 +20,11 @@
     </DrawerTrigger>
 
     <DrawerContent>
+      <VisuallyHidden>
+        <!-- This is here for accessibility purposes -->
+        <!-- Screen readers will read this out -->
+        <DrawerTitle>Readme of {{ repo.data.name }}</DrawerTitle>
+      </VisuallyHidden>
       <div class="project-markdown" v-html="renderedReadme" />
     </DrawerContent>
   </Drawer>
@@ -27,6 +32,7 @@
 
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
+import { VisuallyHidden } from "radix-vue";
 import moment from "moment";
 import { Marked } from "marked";
 import { markedHighlight } from "marked-highlight";
@@ -46,20 +52,17 @@ type TechBadge = {
 
 export default defineComponent({
   name: "ProjectCard",
-
   props: {
     repo: {
       type: Object as PropType<Repo>,
       required: true,
     },
   },
-
   data() {
     return {
       technologies,
     };
   },
-
   computed: {
     renderedReadme() {
       const marked = new Marked(
@@ -71,17 +74,13 @@ export default defineComponent({
           },
         })
       );
-
       return marked.parse(this.repo.readme);
     },
-
     technologBadges(): TechBadge[] {
       const payload = [];
-
       if (this.repo.icons) {
         for (const lang of this.repo.icons) {
           const _lang = lang as keyof typeof this.technologies;
-
           if (this.technologies[_lang]) {
             payload.push({
               key: lang,
@@ -89,14 +88,11 @@ export default defineComponent({
             });
           }
         }
-
         return payload;
       }
-
       if (this.repo.data.language) {
         const _lang =
           this.repo.data.language.toLowerCase() as keyof typeof this.technologies;
-
         if (this.technologies[_lang]) {
           payload.push({
             key: _lang,
@@ -104,10 +100,8 @@ export default defineComponent({
           });
         }
       }
-
       return payload;
     },
-
     repoStatIcons() {
       return [
         {
@@ -124,11 +118,11 @@ export default defineComponent({
         },
       ];
     },
-
     updated() {
       return moment(this.repo.data.pushed_at).fromNow();
     },
   },
+  components: { VisuallyHidden },
 });
 </script>
 
