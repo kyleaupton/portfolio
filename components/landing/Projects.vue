@@ -1,12 +1,12 @@
 <template>
-  <div class="flex gap-4 flex-col w-full items-center projects-wrapper">
+  <div class="flex gap-4 flex-col w-full items-center mb-4">
     <p class="text-2xl font-medium py-6">Projects</p>
 
     <div class="mt-2" v-if="loading">
       <Spinner />
     </div>
 
-    <div class="flex flex-col gap-2 w-full" v-else>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full" v-else>
       <LandingProjectCard
         v-for="repo in sortedRepos"
         :key="repo.data.id"

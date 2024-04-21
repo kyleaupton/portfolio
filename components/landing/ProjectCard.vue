@@ -1,23 +1,21 @@
 <template>
   <Drawer>
     <DrawerTrigger as-child>
-      <Card class="text-start cursor-pointer bg-neutral-900 hover:bg-accent">
+      <Card
+        class="flex flex-col justify-between text-start cursor-pointer bg-neutral-900 hover:bg-accent"
+      >
         <CardHeader>
           <CardTitle>{{ repo.data.name }}</CardTitle>
-          <CardDescription>
-            <div class="mb-2">{{ repo.data.description }}</div>
-            <div
-              class="flex justify-between items-center w-full flex-wrap gap-2"
-            >
-              <div class="flex gap-2">
-                <Badge v-for="badge of technologyBadges">{{
-                  badge.name
-                }}</Badge>
-              </div>
-              <div>{{ updated }}</div>
-            </div>
-          </CardDescription>
+          <CardDescription>{{ repo.data.description }}</CardDescription>
         </CardHeader>
+        <CardContent>
+          <div class="flex justify-between items-center w-full flex-wrap gap-2">
+            <div class="flex gap-2">
+              <Badge v-for="badge of technologyBadges">{{ badge.name }}</Badge>
+            </div>
+            <div class="text-sm text-muted-foreground">{{ updated }}</div>
+          </div>
+        </CardContent>
       </Card>
     </DrawerTrigger>
 
