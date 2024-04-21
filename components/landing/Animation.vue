@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper text-center w-full">
     <!-- Actual content -->
     <Writer
       class="fit writer-text"

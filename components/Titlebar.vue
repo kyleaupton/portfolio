@@ -1,12 +1,14 @@
 <template>
   <div
-    class="flex justify-between items-center bg-neutral-900 py-4 px-8 mb-8 border"
+    class="titlebar flex justify-between items-center bg-neutral-900 mb-8 border p-4"
   >
-    <fa-icon
-      class="fa-2x fa-spin"
-      style="--fa-animation-duration: 7s"
-      :icon="['fa-solid', 'fa-gear']"
-    />
+    <a href="/">
+      <fa-icon
+        class="fa-2x fa-spin"
+        style="--fa-animation-duration: 7s"
+        :icon="['fa-solid', 'fa-gear']"
+      />
+    </a>
 
     <div class="flex justify-center gap-2">
       <template v-for="icon in icons" :key="icon.key[1]">
@@ -92,10 +94,6 @@ export default defineComponent({
       }
     },
 
-    openLink(link: string) {
-      window.open(link);
-    },
-
     handleClick(icon: Icon) {
       if (this.isClickIcon(icon)) {
         icon.onClick();
@@ -112,14 +110,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style scoped>
-.titlebar-icon {
-  height: 3em;
-  width: 3em;
-}
-
-.titlebar-icon svg {
-  color: var(--surface-0);
-}
-</style>

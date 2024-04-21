@@ -1,5 +1,5 @@
 <template>
-  <div class="flex gap-4 justify-center flex-wrap">
+  <div class="flex gap-4 justify-center flex-wrap w-full text-center">
     <Card class="graph-card">
       <CardHeader>
         <CardTitle>Languages</CardTitle>
@@ -21,6 +21,7 @@
           <VisAxis
             type="y"
             :tickFormat="formatLanguage"
+            tickTextColor="rgb(163, 163, 163)"
             :gridLine="false"
             :tickLine="false"
             :domainLine="false"
@@ -57,6 +58,7 @@
           <VisAxis
             type="y"
             :tickFormat="formatFramework"
+            tickTextColor="rgb(163, 163, 163)"
             :gridLine="false"
             :tickLine="false"
             :domainLine="false"
@@ -172,7 +174,7 @@ export default defineComponent({
 
 <style scoped>
 .graph-card {
-  max-width: 556px;
+  max-width: 532px;
   min-height: 398px;
   width: 100%;
 }

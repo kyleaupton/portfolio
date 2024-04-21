@@ -25,7 +25,7 @@ const repos: RawRepo[] = [
   },
   {
     id: "portfolio",
-    icons: ["vue", "typescript"],
+    icons: ["nuxt", "vue", "typescript"],
   },
   {
     id: "TransactionTracker",

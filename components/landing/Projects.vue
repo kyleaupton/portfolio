@@ -1,12 +1,12 @@
 <template>
-  <div class="flex gap-4 flex-col items-center projects-wrapper">
+  <div class="flex gap-4 flex-col w-full items-center projects-wrapper">
     <p class="text-2xl font-medium py-6">Projects</p>
 
     <div class="mt-2" v-if="loading">
       <Spinner />
     </div>
 
-    <div class="flex flex-col gap-2 w-full max-w-4xl" v-else>
+    <div class="flex flex-col gap-2 w-full" v-else>
       <LandingProjectCard
         v-for="repo in sortedRepos"
         :key="repo.data.id"
@@ -51,20 +51,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style scoped>
-.projects-title {
-  font-size: 22px;
-  font-weight: 600;
-  margin: 24px 0;
-}
-
-.projects {
-  /* background-color: var(--surface-min-10); */
-  /* border: 1px solid var(--surface-min-20); */
-  /* border-radius: 8px; */
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-</style>
