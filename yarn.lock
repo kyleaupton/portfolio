@@ -8856,6 +8856,7 @@ __metadata:
     marked-highlight: "npm:^2.1.1"
     moment: "npm:^2.30.1"
     nuxt: "npm:^3.11.2"
+    nuxt-gtag: "npm:^2.0.5"
     octokit: "npm:^3.2.0"
     postcss: "npm:^8.4.38"
     radix-vue: "npm:^1.7.0"
@@ -8870,6 +8871,18 @@ __metadata:
     vue-writer: "npm:^2.0.1"
   languageName: unknown
   linkType: soft
+
+"nuxt-gtag@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "nuxt-gtag@npm:2.0.5"
+  dependencies:
+    "@nuxt/kit": "npm:^3.10.3"
+    defu: "npm:^6.1.4"
+    pathe: "npm:^1.1.2"
+    ufo: "npm:^1.4.0"
+  checksum: 10c0/57653fdaef5be32672aae5c683829a7321eecdad90ec3cfbd484837e1154deaee6d99752bfa348176f313f7c3702ca98e228c38e95d01dbf78a44e6ba3151327
+  languageName: node
+  linkType: hard
 
 "nuxt@npm:^3.11.2":
   version: 3.11.2
