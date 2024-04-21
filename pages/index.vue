@@ -31,7 +31,7 @@ useHead({
 });
 </script>
 
-<style scoped>
+<style>
 .page {
   padding: 0px 100px;
 }
