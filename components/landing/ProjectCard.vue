@@ -5,7 +5,7 @@
         class="flex flex-col justify-between text-start cursor-pointer bg-neutral-900 hover:bg-accent"
       >
         <CardHeader>
-          <CardTitle>{{ repo.data.name }}</CardTitle>
+          <CardTitle>{{ repo.display }}</CardTitle>
           <CardDescription>{{ repo.data.description }}</CardDescription>
         </CardHeader>
         <CardContent>

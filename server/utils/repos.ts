@@ -161,6 +161,7 @@ const fetchRepo = async (repo: RawRepo) => {
         },
         commits,
         readme,
+        display: repo.display,
         technologies: repo.technologies,
         npm: repo.npm,
       })
@@ -191,6 +192,7 @@ type Repo = {
   };
   commits: number;
   readme: string;
+  display: string;
   technologies?: string[];
   npm?: string;
 };
