@@ -1,11 +1,13 @@
 <template>
   <div class="hero flex flex-col gap-2 w-full">
     <div
-      class="text-neutral-400 -mb-4 animate-slidein [--slidein-delay:300ms] opacity-0"
+      class="text-neutral-400 -mb-2 animate-slidein [--slidein-delay:300ms] opacity-0"
     >
       Hi, I'm
     </div>
-    <h1 class="heading animate-slidein [--slidein-delay:300ms] opacity-0">
+    <h1
+      class="animate-slidein [--slidein-delay:300ms] opacity-0 text-4xl md:text-6xl -ml-[1px] md:-ml-[2px]"
+    >
       Kyle Upton
     </h1>
     <h3 class="text-lg animate-slidein [--slidein-delay:500ms] opacity-0">
