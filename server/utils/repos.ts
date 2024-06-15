@@ -64,11 +64,9 @@ const repos: RawRepo[] = [
   },
 ];
 
-const requiredEnvVars = [
-  "GITHUB_TOKEN",
-  "KV_REST_API_URL",
-  "KV_REST_API_TOKEN",
-];
+// Env validation
+const requiredEnvVars = ["GITHUB_TOKEN"];
+
 for (const envVar of requiredEnvVars) {
   if (!process.env[envVar]) {
     throw new Error(`Missing required environment variable: ${envVar}`);
@@ -76,18 +74,10 @@ for (const envVar of requiredEnvVars) {
 }
 
 const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+const repoCache: Array<Repo> = [];
 
 export const getRepoData = async () => {
-  const payload: Repo[] = [];
-
-  for (const repo of repos) {
-    const data = await kv.get<Repo>(`repos:${repo.id}`);
-    if (data) {
-      payload.push(data);
-    }
-  }
-
-  return payload;
+  return repoCache;
 };
 
 export const setRepoData = async () => {
@@ -146,26 +136,22 @@ const fetchRepo = async (repo: RawRepo) => {
       }s.`
     );
 
-    // I insert as a string but I get back as an object for some reason...
-    await kv.set(
-      `repos:${repo.id}`,
-      JSON.stringify({
-        data: {
-          id: repoData.id,
-          name: repoData.name,
-          description: repoData.description,
-          language: repoData.language,
-          stargazers_count: repoData.stargazers_count,
-          watchers: repoData.watchers,
-          pushed_at: repoData.pushed_at,
-        },
-        commits,
-        readme,
-        display: repo.display,
-        technologies: repo.technologies,
-        npm: repo.npm,
-      })
-    );
+    repoCache.push({
+      data: {
+        id: repoData.id,
+        name: repoData.name,
+        description: repoData.description || "",
+        language: repoData.language || "",
+        stargazers_count: repoData.stargazers_count,
+        watchers: repoData.watchers,
+        pushed_at: repoData.pushed_at,
+      },
+      commits,
+      readme,
+      display: repo.display,
+      technologies: repo.technologies,
+      npm: repo.npm,
+    });
   } catch (e) {
     console.error(`GET_REPOS: Failed to fetch repo data for ${repo.id}`);
     console.error(e);
