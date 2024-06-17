@@ -12,9 +12,10 @@
 
     <div class="flex justify-center gap-2">
       <template v-for="icon in icons" :key="icon.key[1]">
-        <component
-          :is="isLinkIcon(icon) ? 'a' : 'span'"
-          :href="isLinkIcon(icon) ? icon.link : undefined"
+        <!-- External Link -->
+        <a
+          v-if="isExternalLinkIcon(icon)"
+          :href="icon.link"
           target="_blank"
           @click="handleClick(icon)"
         >
@@ -27,7 +28,37 @@
           >
             <fa-icon class="fa-xl" :icon="icon.key" />
           </Button>
-        </component>
+        </a>
+
+        <!-- Internal Link -->
+        <NuxtLink
+          v-else-if="isInternalLinkIcon(icon)"
+          :to="icon.page"
+          target="_blank"
+        >
+          <Button
+            v-tooltip="{
+              content: icon.tooltip,
+            }"
+            variant="outline"
+            size="icon"
+          >
+            <fa-icon class="fa-xl" :icon="icon.key" />
+          </Button>
+        </NuxtLink>
+
+        <!-- Click -->
+        <span v-else @click="handleClick(icon)">
+          <Button
+            v-tooltip="{
+              content: icon.tooltip,
+            }"
+            variant="outline"
+            size="icon"
+          >
+            <fa-icon class="fa-xl" :icon="icon.key" />
+          </Button>
+        </span>
       </template>
     </div>
   </div>
@@ -42,15 +73,19 @@ type IconBase = {
   tooltip?: string;
 };
 
-type IconLink = IconBase & {
+type IconExternalLink = IconBase & {
   link: string;
+};
+
+type IconInternalLink = IconBase & {
+  page: string;
 };
 
 type IconClick = IconBase & {
   onClick: () => void;
 };
 
-type Icon = IconLink | IconClick;
+type Icon = IconExternalLink | IconInternalLink | IconClick;
 
 export default defineComponent({
   name: "Titlebar",
@@ -60,7 +95,7 @@ export default defineComponent({
       return [
         {
           key: ["fas", "id-card"],
-          link: "https://kyleupton.dev/resume",
+          page: "/resume",
           tooltip: "Open Resume",
         },
         {
@@ -100,12 +135,28 @@ export default defineComponent({
       }
     },
 
-    isLinkIcon(icon: Icon): icon is IconLink {
-      return (icon as IconLink).link !== undefined;
+    isExternalLinkIcon(icon: Icon): icon is IconExternalLink {
+      return (icon as IconExternalLink).link !== undefined;
+    },
+
+    isInternalLinkIcon(icon: Icon): icon is IconInternalLink {
+      return (icon as IconInternalLink).page !== undefined;
     },
 
     isClickIcon(icon: Icon): icon is IconClick {
       return (icon as IconClick).onClick !== undefined;
+    },
+
+    getComponent(icon: Icon) {
+      if (this.isClickIcon(icon)) {
+        return "span";
+      } else if (this.isExternalLinkIcon(icon)) {
+        return "a";
+      } else if (this.isInternalLinkIcon(icon)) {
+        return "NuxtLink";
+      }
+
+      throw new Error("Invalid Icon Type");
     },
   },
 });
