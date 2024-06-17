@@ -36,7 +36,7 @@ export default defineComponent({
     sortedRepos() {
       if (!this.repos) return [];
 
-      return this.repos.sort((a, b) => {
+      return Object.values(this.repos).sort((a, b) => {
         const aTime = new Date(a.data.pushed_at).getTime();
         const bTime = new Date(b.data.pushed_at).getTime();
 

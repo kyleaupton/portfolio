@@ -74,7 +74,7 @@ for (const envVar of requiredEnvVars) {
 }
 
 const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
-const repoCache: Array<Repo> = [];
+const repoCache: Record<string, Repo> = {};
 
 export const getRepoData = async () => {
   return repoCache;
@@ -136,7 +136,7 @@ const fetchRepo = async (repo: RawRepo) => {
       }s.`
     );
 
-    repoCache.push({
+    repoCache[repo.id] = {
       data: {
         id: repoData.id,
         name: repoData.name,
@@ -151,7 +151,7 @@ const fetchRepo = async (repo: RawRepo) => {
       display: repo.display,
       technologies: repo.technologies,
       npm: repo.npm,
-    });
+    };
   } catch (e) {
     console.error(`GET_REPOS: Failed to fetch repo data for ${repo.id}`);
     console.error(e);
