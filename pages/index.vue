@@ -1,13 +1,11 @@
 <template>
-  <div>
-    <div class="page flex flex-col items-center gap-16 mx-auto max-w-screen-xl">
-      <LandingHero />
-      <LandingTechnologies />
-      <LandingProjects />
-    </div>
-
-    <Toaster />
+  <div class="page flex flex-col items-center gap-16 mx-auto max-w-screen-xl">
+    <LandingHero />
+    <LandingTechnologies />
+    <LandingProjects />
   </div>
+
+  <Toaster />
 </template>
 
 <script setup lang="ts">
