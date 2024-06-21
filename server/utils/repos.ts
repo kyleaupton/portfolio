@@ -8,6 +8,11 @@ import { kv } from "@vercel/kv";
 // List of repos to fetch
 const repos: RawRepo[] = [
   {
+    id: "typed-electron-ipc",
+    display: "Typed Electron IPC",
+    technologies: ["typescript", "electron"],
+  },
+  {
     id: "boot-builder",
     display: "Boot Builder",
     technologies: ["vue", "electron", "typescript"],
