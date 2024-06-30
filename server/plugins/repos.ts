@@ -5,5 +5,5 @@ export default defineNitroPlugin(async () => {
   await setRepoData();
 
   // Setup refresh interval
-  setInterval(setRepoData, 1000 * 60 * 60); // 1 hour
+  setInterval(setRepoData, 1000 * 60 * 5); // 5 minutes
 });
