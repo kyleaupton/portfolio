@@ -10,25 +10,25 @@
 
 <script setup lang="ts">
 definePageMeta({
-  colorMode: "dark",
-});
+  colorMode: 'dark',
+})
 
 useSeoMeta({
-  title: "Kyle Upton",
+  title: 'Kyle Upton',
   description:
-    "Full Stack Developer | Open-Source Contributor | TypeScript Enthusiast",
-});
+    'Full Stack Developer | Open-Source Contributor | TypeScript Enthusiast',
+})
 
 useHead({
-  title: "Kyle Upton",
+  title: 'Kyle Upton',
   link: [
     {
-      rel: "icon",
-      type: "image/png",
-      href: "/favicon.svg",
+      rel: 'icon',
+      type: 'image/png',
+      href: '/favicon.svg',
     },
   ],
-});
+})
 </script>
 
 <style>
