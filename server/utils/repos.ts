@@ -3,7 +3,6 @@
  */
 
 import { Octokit } from "octokit";
-import { kv } from "@vercel/kv";
 
 // List of repos to fetch
 const repos: RawRepo[] = [
@@ -140,6 +139,10 @@ const fetchRepo = async (repo: RawRepo) => {
 
     const readme = Buffer.from(readmeData.content, "base64").toString("utf-8");
 
+    const { data: renderedReadMe } = await octokit.request("POST /markdown", {
+      text: readme,
+    });
+
     console.log(
       `GET_REPOS: Adding ${repo.id} to cache. Took ${
         (Date.now() - start) / 1000
@@ -157,7 +160,7 @@ const fetchRepo = async (repo: RawRepo) => {
         pushed_at: repoData.pushed_at,
       },
       commits,
-      readme,
+      readme: renderedReadMe,
       display: repo.display,
       technologies: repo.technologies,
       npm: repo.npm,

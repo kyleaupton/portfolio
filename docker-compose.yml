@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  portfolio:
+    build:
+      context: .
+    ports:
+      - "3001:3001"
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - NODE_ENV=development
+      - NUXT_HOST=0.0.0.0
+      - NUXT_PORT=3001
+    # command: ["yarn", "run", "dev"]

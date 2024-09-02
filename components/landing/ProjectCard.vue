@@ -25,7 +25,7 @@
         <!-- Screen readers will read this out -->
         <DrawerTitle>Readme of {{ repo.data.name }}</DrawerTitle>
       </VisuallyHidden>
-      <div class="project-markdown" v-html="renderedReadme" />
+      <div v-html="repo.readme" />
     </DrawerContent>
   </Drawer>
 </template>
