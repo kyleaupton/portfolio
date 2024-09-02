@@ -1,9 +1,9 @@
-import { setRepoData } from "../utils/repos";
+import { setRepoData } from '../utils/repos'
 
 export default defineNitroPlugin(async () => {
   // Initial setup
-  await setRepoData();
+  await setRepoData()
 
   // Setup refresh interval
-  setInterval(setRepoData, 1000 * 60 * 5); // 5 minutes
-});
+  setInterval(setRepoData, 1000 * 60 * 5) // 5 minutes
+})
