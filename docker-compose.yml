@@ -12,4 +12,5 @@ services:
       - NODE_ENV=development
       - NUXT_HOST=0.0.0.0
       - NUXT_PORT=3001
-    # command: ["yarn", "run", "dev"]
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+    command: yarn dev
