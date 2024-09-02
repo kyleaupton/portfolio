@@ -11,9 +11,6 @@ WORKDIR /usr/src/app
 RUN apk update && apk upgrade
 RUN apk add git make g++ libc6-compat
 
-# Add pipx installed binaries to PATH
-ENV PATH="/root/.local/bin:$PATH"
-
 # Copy items into the image.
 # Note the .dockerignore file which excludes the node_modules directory.
 COPY . .
