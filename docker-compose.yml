@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  portfolio:
+    build:
+      context: .
+    ports:
+      - "3001:3001"
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - NODE_ENV=development
+      - NUXT_HOST=0.0.0.0
+      - NUXT_PORT=3001
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+    command: tail -f /dev/null

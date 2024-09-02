@@ -1,0 +1,15 @@
+{
+  "name": "Portfolio Dev Container",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "portfolio",
+  "workspaceFolder": "/usr/src/app",
+  "shutdownAction": "stopCompose",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "editorconfig.editorconfig"
+      ]
+    }
+  }
+}

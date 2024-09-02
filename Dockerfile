@@ -1,25 +1,32 @@
-# Dockerfile
-FROM node:22-alpine
+# syntax=docker/dockerfile:1
 
-# create destination directory
-RUN mkdir -p /usr/src/nuxt-app
-WORKDIR /usr/src/nuxt-app
+ARG NODE_VERSION=20.17.0
 
-# update and install dependency
+FROM node:${NODE_VERSION}-alpine
+
+# Set working directory for all build stages.
+WORKDIR /usr/src/app
+
+# Update and install dependency
 RUN apk update && apk upgrade
-RUN apk add git
+RUN apk add git make g++ libc6-compat
 
-# install and use yarn
-RUN corepack enable && corepack prepare yarn@4.1.1
+# Copy items into the image.
+# Note the .dockerignore file which excludes the node_modules directory.
+COPY . .
 
-# copy the app, note .dockerignore
-COPY . /usr/src/nuxt-app/
+# Install dependencies
 RUN yarn install
+
+# Run the build script.
 RUN yarn build
 
-EXPOSE 3000
+# Use production node environment by default.
+ENV NODE_ENV production
+
+EXPOSE 3001
 
 ENV NUXT_HOST=0.0.0.0
 ENV NUXT_PORT=3001
 
-CMD [ "npm", "start" ]
+CMD yarn start
