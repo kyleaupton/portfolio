@@ -9,11 +9,7 @@ WORKDIR /usr/src/app
 
 # Update and install dependency
 RUN apk update && apk upgrade
-RUN apk add git make g++ libc6-compat pipx
-
-# Install grip
-# https://github.com/joeyespo/grip
-RUN pipx install grip
+RUN apk add git make g++ libc6-compat
 
 # Add pipx installed binaries to PATH
 ENV PATH="/root/.local/bin:$PATH"
