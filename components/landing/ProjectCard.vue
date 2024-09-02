@@ -11,9 +11,16 @@
         <CardContent>
           <div class="flex justify-between items-center w-full flex-wrap gap-2">
             <div class="flex gap-2">
-              <Badge v-for="badge of technologyBadges">{{ badge.name }}</Badge>
+              <Badge
+                v-for="badge of technologyBadges"
+                :key="badge.key"
+              >
+                {{ badge.name }}
+              </Badge>
             </div>
-            <div class="text-sm text-muted-foreground">{{ updated }}</div>
+            <div class="text-sm text-muted-foreground">
+              {{ updated }}
+            </div>
           </div>
         </CardContent>
       </Card>
@@ -25,33 +32,49 @@
         <!-- Screen readers will read this out -->
         <DrawerTitle>Readme of {{ repo.data.name }}</DrawerTitle>
       </VisuallyHidden>
-      <div v-html="repo.readme" />
+      <div
+        class=" overflow-scroll"
+      >
+        <div
+          v-if="readme"
+          class="markdown-body"
+          v-html="readme"
+        />
+        <div
+          v-else
+          class="flex justify-center items-center h-64"
+        >
+          <Spinner />
+        </div>
+      </div>
     </DrawerContent>
   </Drawer>
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType } from "vue";
-import { VisuallyHidden } from "radix-vue";
-import moment from "moment";
-import { Marked } from "marked";
-import { markedHighlight } from "marked-highlight";
-import hljs from "highlight.js";
-import "highlight.js/styles/github-dark.css";
-import technologies from "~/lib/technologies";
-
-import { type Repo } from "./utils";
+import 'github-markdown-css/github-markdown-dark.css'
+import { defineComponent, type PropType } from 'vue'
+import { VisuallyHidden } from 'radix-vue'
+import moment from 'moment'
+import type { Repo } from './utils'
+import marked from '~/lib/marked'
+import technologies from '~/lib/technologies'
 
 type TechBadge = {
-  key: string;
-  name: string;
-  description: string;
-  icon: string;
-  color: string;
-};
+  key: string
+  name: string
+  description: string
+  icon: string
+  color: string
+}
+
+type Data = {
+  technologies: TechBadge[]
+  readme: string | undefined
+}
 
 export default defineComponent({
-  name: "ProjectCard",
+  name: 'ProjectCard',
 
   components: { VisuallyHidden },
 
@@ -62,162 +85,80 @@ export default defineComponent({
     },
   },
 
-  data() {
+  data(): Data {
     return {
       technologies,
-    };
+      readme: undefined,
+    }
   },
 
   computed: {
-    renderedReadme() {
-      const marked = new Marked(
-        markedHighlight({
-          langPrefix: "hljs language-",
-          highlight: (code, lang) => {
-            const language = hljs.getLanguage(lang) ? lang : "plaintext";
-            return hljs.highlight(code, { language }).value;
-          },
-        })
-      );
-
-      return marked.parse(this.repo.readme);
-    },
-
     technologyBadges(): TechBadge[] {
-      const payload: TechBadge[] = [];
+      const payload: TechBadge[] = []
       const keys: string[] = this.repo.technologies || [
         this.repo.data.language.toLowerCase(),
-      ];
+      ]
 
       for (const key of keys) {
-        const tech = technologies.find((t) => t.key === key);
+        const tech = technologies.find(t => t.key === key)
         if (tech) {
-          payload.push(tech);
+          payload.push(tech)
         }
       }
 
-      return payload;
+      return payload
     },
 
     repoStatIcons() {
       return [
         {
-          icon: "fa-solid fa-clock-rotate-left",
+          icon: 'fa-solid fa-clock-rotate-left',
           text: this.repo.commits,
         },
         {
-          icon: "fa-solid fa-star",
+          icon: 'fa-solid fa-star',
           text: this.repo.data.stargazers_count,
         },
         {
-          icon: "fa-regular fa-eye",
+          icon: 'fa-regular fa-eye',
           text: this.repo.data.watchers,
         },
-      ];
+      ]
     },
 
     updated() {
-      return moment(this.repo.data.pushed_at).fromNow();
+      return moment(this.repo.data.pushed_at).fromNow()
     },
   },
-});
+
+  async mounted() {
+    await this.generateReadme()
+  },
+
+  methods: {
+    async generateReadme() {
+      this.readme = await marked.parse(this.repo.readme)
+    },
+  },
+})
 </script>
 
 <style>
-/* Icon size overrides */
-.language-icon-react,
-.language-icon-electron {
-  height: 28px;
-  width: 28px;
+.markdown-body {
+  @apply p-8 bg-card;
 }
 
-.language-icon-c {
-  height: 26px;
+.markdown-body img {
+  @apply bg-card;
 }
 
-/* Readme */
-.project-markdown {
-  padding: 0 32px 32px 32px;
-  overflow: auto;
+.markdown-body li:has(input) {
+  margin: 0 .2em .25em -1.4em;
 }
 
-.project-markdown img {
-  max-width: 100%;
+.markdown-body li:not(:has(input)) {
+  @apply list-disc;
 }
 
-.project-markdown code {
-  border-radius: 8px;
-  font-size: 14px;
-  cursor: text;
-  @apply bg-neutral-800;
-}
-
-.project-markdown h1 {
-  padding-bottom: 0.3em;
-  font-size: 2em;
-  @apply border-b;
-}
-
-.project-markdown h2 {
-  padding-bottom: 0.3em;
-  font-size: 1.5em;
-  @apply border-b;
-}
-
-.project-markdown h1,
-.project-markdown h2,
-.project-markdown h3,
-.project-markdown h4,
-.project-markdown h5,
-.project-markdown h6 {
-  margin-top: 24px;
-  margin-bottom: 16px;
-  line-height: 1.25;
-  font-weight: 600;
-}
-
-.project-markdown p {
-  margin-top: 0;
-  margin-bottom: 16px;
-}
-
-.project-markdown li {
-  margin-top: 4px;
-}
-
-.project-markdown ol {
-  list-style: decimal;
-  margin: 16px 0;
-  padding-left: 2em;
-}
-
-.project-markdown ul {
-  list-style: disc;
-  margin: 16px 0;
-  padding-left: 2em;
-}
-
-.project-markdown pre {
-  margin-bottom: 16px;
-}
-
-.project-markdown code:not(.hljs) {
-  padding: 0.2em 0.4em;
-}
-
-.project-markdown blockquote {
-  padding: 0 1em;
-  margin-inline-start: 0;
-  margin-inline-end: 0;
-
-  @apply border-l-4 text-neutral-400;
-}
-
-.project-markdown ul:has(li):has(input) {
-  padding-inline-start: 0;
-}
-
-.project-markdown li:has(input) {
-  list-style-type: none;
-}
+/* Override or add custom styles here if needed */
 </style>
