@@ -160,5 +160,16 @@ export default defineComponent({
   @apply list-disc;
 }
 
+.markdown-body img {
+  display: inline-block;
+  margin-right: 4px; /* Add some spacing between badges */
+  vertical-align: middle; /* Align badges to the middle */
+}
+
+/* Optional: Ensure links that contain images are also displayed inline */
+.markdown-body a img {
+  display: inline-block;
+}
+
 /* Override or add custom styles here if needed */
 </style>
