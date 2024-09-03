@@ -27,6 +27,7 @@
     "highlight.js": "^11.9.0",
     "lucide-vue-next": "^0.368.0",
     "marked": "^14.1.0",
+    "marked-alert": "^2.0.2",
     "marked-highlight": "^2.1.4",
     "moment": "^2.30.1",
     "nuxt": "^3.11.2",
