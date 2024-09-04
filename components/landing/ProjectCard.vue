@@ -33,7 +33,7 @@
         <DrawerTitle>Readme of {{ repo.data.name }}</DrawerTitle>
       </VisuallyHidden>
       <div
-        class=" overflow-scroll"
+        class=" overflow-y-auto"
       >
         <div
           v-if="readme"
