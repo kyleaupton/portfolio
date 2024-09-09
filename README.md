@@ -1,9 +1,35 @@
-# Portfolio Site of Kyle Upton
+# Portfolio
 
-## Introduction
+Welcome to the repository for my personal portfolio website, built using Nuxt, Vue 3, and TypeScript. This website showcases other projects I've worked on and offers a mechanism to view their READMEs.
 
-Welcome to my professional portfolio. This platform serves as a showcase for the various projects I have developed and contributed to. The site is built using a robust technology stack that includes Nuxt, Vue 3, and TypeScript, and is hosted on Vercel.
+## Getting Started
 
-## Continuous Deployment
+Ensure you have the following installed:
+* Node.js (v20 or higher)
+* yarn
 
-The site is configured for Continuous Deployment (CD) to Vercel. Any commit to the `main` branch automatically triggers a new build, ensuring the live site is always up-to-date with the latest changes. For development purposes, a separate `develop` branch is maintained. This allows for committing and testing new changes without triggering a build on the live site.
+```bash
+git clone https://github.com/kyleaupton/portfolio.git
+cd portfolio
+yarn
+```
+
+## Development
+
+To start the development server
+
+```bash
+yarn dev
+```
+
+## Production
+
+This project is intended to be ran in production with Docker.
+
+## Deployment
+
+The site is configured for Continuous Deployment (CD) to my self-hosted Coolify instance. Any commit to main will trigger a build there.
+
+# License
+
+Please refer to the [LICENSE](LICENSE) file for full details.
