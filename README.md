@@ -1,6 +1,6 @@
 # Portfolio
 
-Welcome to the repository for my personal portfolio website, built using Nuxt, Vue 3, and TypeScript. This website showcases other projects I've worked on and offers a mechanism to view their READMEs.
+Welcome to the repository for my personal portfolio website. This site is built using Nuxt, Vue 3, and TypeScript. This website showcases other projects I've worked on and offers a mechanism to view their READMEs.
 
 ## Getting Started
 
