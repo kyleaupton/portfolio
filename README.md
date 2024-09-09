@@ -9,7 +9,10 @@ Ensure you have the following installed:
 * yarn
 
 ```bash
+# Clone repo
 git clone https://github.com/kyleaupton/portfolio.git
+
+# Install deps
 cd portfolio
 yarn
 ```
