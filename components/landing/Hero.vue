@@ -20,7 +20,7 @@
         <span class="text-white">JavaScript</span>. From crafting elegant
         frontend interfaces to achitecting robust backend systems, my expertise
         spans the full spectrum of web development. Currently I'm working at
-        DigitalGlue on the creative.space platform.
+        7 Oaks Group creating industry leading software.
       </div>
     </div>
   </div>
