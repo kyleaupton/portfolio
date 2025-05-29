@@ -101,8 +101,8 @@ export default defineComponent({
       return [
         { i: 0, language: "C/C++", percentage: 20, color: "#044F88" },
         { i: 1, language: "Java", percentage: 30, color: "#ED8B00" },
-        { i: 2, language: "Go", percentage: 35, color: "#00ADD8" },
-        { i: 3, language: "Python", percentage: 50, color: "#ffde57" },
+        { i: 2, language: "Python", percentage: 50, color: "#ffde57" },
+        { i: 3, language: "Go", percentage: 60, color: "#00ADD8" },
         { i: 4, language: "TypeScript", percentage: 100, color: "#3178c6" },
         { i: 5, language: "JavaScrpt", percentage: 100, color: "#f0db4f" },
       ];
