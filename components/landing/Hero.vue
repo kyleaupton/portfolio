@@ -11,7 +11,7 @@
       Kyle Upton
     </h1>
     <h3 class="text-lg animate-slidein [--slidein-delay:500ms] opacity-0">
-      Senior Software Developer
+      Senior Software Engineer
     </h3>
     <div class="max-w-xl animate-slidein [--slidein-delay:700ms] opacity-0">
       <div class="text-neutral-400">
