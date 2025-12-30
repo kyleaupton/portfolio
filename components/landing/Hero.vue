@@ -20,7 +20,7 @@
         <span class="text-white">JavaScript</span>. From crafting elegant
         frontend interfaces to achitecting robust backend systems, my expertise
         spans the full spectrum of web development. Currently I'm working at
-        <span class="text-white">7 Oaks Group</span> creating industry leading software.
+        <span class="text-white">Red Oak Development</span> creating industry leading software.
       </div>
     </div>
   </div>
