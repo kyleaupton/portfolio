@@ -1,10 +1,22 @@
 export default [
   {
+    key: 'go',
+    name: 'Go',
+  },
+  {
+    key: 'postgresql',
+    name: 'Postgresql',
+  },
+  {
     key: 'c',
     name: 'C',
     description: 'A general-purpose, procedural computer programming language',
     icon: '',
     color: '#a8b9cc',
+  },
+  {
+    key: 'obj-c',
+    name: 'Objective-C',
   },
   {
     key: 'electron',

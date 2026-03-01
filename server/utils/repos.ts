@@ -7,6 +7,11 @@ import { Octokit } from 'octokit'
 // List of repos to fetch
 const repos: RawRepo[] = [
   {
+    id: 'arrflix',
+    display: 'Arrflix',
+    technologies: ['go', 'vue', 'postgresql'],
+  },
+  {
     id: 'bucket-browser',
     display: 'Bucket Browser',
     technologies: ['vue', 'electron', 'typescript'],
@@ -17,9 +22,9 @@ const repos: RawRepo[] = [
     technologies: ['typescript', 'electron'],
   },
   {
-    id: 'boot-builder',
-    display: 'Boot Builder',
-    technologies: ['vue', 'electron', 'typescript'],
+    id: 'flashit',
+    display: 'FlashIt',
+    technologies: ['go', 'c', 'obj-c', 'vue'],
   },
   {
     id: 'resume',
