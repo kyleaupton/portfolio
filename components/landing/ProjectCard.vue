@@ -57,7 +57,7 @@ import { defineComponent, type PropType } from 'vue'
 import { VisuallyHidden } from 'radix-vue'
 import moment from 'moment'
 import type { Repo } from './utils'
-import marked from '~/lib/marked'
+import { createMarked } from '~/lib/marked'
 import technologies from '~/lib/technologies'
 
 type TechBadge = {
@@ -137,6 +137,7 @@ export default defineComponent({
 
   methods: {
     async generateReadme() {
+      const marked = createMarked(this.repo.data.name)
       this.readme = await marked.parse(this.repo.readme)
     },
   },
