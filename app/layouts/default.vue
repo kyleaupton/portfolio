@@ -6,12 +6,24 @@ const email = 'kyleaupton@gmail.com'
 const route = useRoute()
 const toast = useToast()
 
+// Filter drafts even in dev so the nav matches production
+const { data: publishedPosts } = await useAsyncData('has-writing', () =>
+  queryCollection('writing').where('draft', '=', false).count(),
+)
+
 const items = computed<NavigationMenuItem[]>(() => [
   {
     label: 'Projects',
     to: '/projects',
     active: route.path.startsWith('/projects'),
   },
+  ...(publishedPosts.value
+    ? [{
+        label: 'Writing',
+        to: '/writing',
+        active: route.path.startsWith('/writing'),
+      }]
+    : []),
   {
     label: 'Resume',
     to: '/resume',
