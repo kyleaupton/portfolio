@@ -22,6 +22,10 @@ export default defineNuxtConfig({
     },
   },
 
+  routeRules: {
+    '/projects/flashit': { redirect: { to: '/flashit', statusCode: 301 } },
+  },
+
   compatibilityDate: '2026-10-01',
 
   eslint: {
