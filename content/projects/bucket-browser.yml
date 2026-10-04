@@ -1,0 +1,6 @@
+repo: bucket-browser
+name: Bucket Browser
+tier: project
+featured: true
+order: 2
+tech: [vue, electron, typescript]

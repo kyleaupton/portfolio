@@ -1,0 +1,4 @@
+repo: witte-quote-generator-desktop
+name: Witte Quote Generator Desktop
+tier: archive
+tech: [vue, electron, javascript]

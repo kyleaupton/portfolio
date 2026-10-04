@@ -1,0 +1,6 @@
+repo: arrflix
+name: Arrflix
+tier: project
+featured: true
+order: 1
+tech: [go, vue, postgresql]
