@@ -1,39 +1,39 @@
 # CLAUDE.md
 
-Kyle Upton's personal site (kyleupton.dev): project showcase, product pages (FlashIt), and writing.
+Guidance for Claude Code when working in this repository.
 
-**A rebuild is in progress on the `rebuild` branch.** `docs/rebuild/PLAN.md` is the source of truth for decisions, the site map, data design and phase ownership. Read it before doing rebuild work. The code may still be partway between the old Nuxt 3 / shadcn-vue site and the new stack.
+## Project Overview
 
-## Stack (target)
-
-Nuxt 4 (`app/` directory), Nuxt UI v4, Nuxt Content v3, Tailwind CSS v4, TypeScript. Package manager: **npm**.
+Personal portfolio for https://kyleupton.dev, built on Nuxt 4, Nuxt UI v4, Nuxt Content v3 and Tailwind CSS v4. The rebuild plan and phase ownership live in `docs/rebuild/PLAN.md`.
 
 ## Commands
 
-- `npm run dev`: dev server
-- `npm run build`: production build (`.output/`)
-- `npm run lint`: ESLint
-- `npx nuxi typecheck`: type check
+- `npm run dev`: development server
+- `npm run build`: production build (outputs to `.output/`)
+- `npm start`: run the production server
+- `npm run lint`: ESLint (`npx eslint . --fix` to autofix)
+- `npx nuxi typecheck`: type checking with vue-tsc
 
-There's no test suite. "Verified" means build, lint and typecheck pass and the affected pages render.
+Package manager is **npm**. No test suite is configured.
+
+## Architecture
+
+- `app/`: Nuxt 4 source directory (`app.vue` wraps everything in `UApp`; `layouts/default.vue` holds `UHeader`/`UMain`/`UFooter`; `pages/` is file-based routing).
+- `content/` plus `content.config.ts`: Nuxt Content collections. `projects` (`content/projects/*.yml`, data) and `writing` (`content/writing/*.md`, pages with `date`, `draft`, optional `cover`).
+- `server/`: Nitro API routes and utils (GitHub data via Octokit, `/resume` PDF proxy).
+- Runtime config: `githubToken` (`NUXT_GITHUB_TOKEN`), `resumeUrl` (`NUXT_RESUME_URL`), `public.siteUrl`. Defaults are empty on purpose; server code falls back to `process.env.GITHUB_TOKEN` / `RESUME_URL` at request time so secrets never end up in the build.
+- Content uses the native `node:sqlite` connector, so Node >= 22.5 is required.
 
 ## Conventions
 
-- `<script setup lang="ts">`. 2 spaces, no semicolons, single quotes.
-- Before writing UI, load the `nuxt-ui` skill, and check component APIs with the Nuxt UI MCP server (`mcp__nuxt-ui__*`). Don't guess props or slots.
-- Use semantic color tokens only (`text-muted`, `bg-elevated`, `text-highlighted`, `primary`, ...), never raw palette classes. The visual identity will be swapped in later through `app/app.config.ts` and CSS variables.
-- Icons come from Iconify (`i-lucide-*`, `i-simple-icons-*`).
-- Load server data with `useFetch`/`useAsyncData` so it's in the server-rendered HTML. GitHub access goes through cached Nitro functions.
-
-## Environment
-
-- `NUXT_GITHUB_TOKEN` (or `GITHUB_TOKEN`): GitHub API
-- `NUXT_RESUME_URL` (or `RESUME_URL`): resume PDF to proxy at `/resume`
+- `<script setup lang="ts">` everywhere.
+- 2-space indentation, no semicolons, single quotes, enforced by `@nuxt/eslint` stylistic rules.
+- Use Nuxt UI components before writing custom markup. Check APIs with the Nuxt UI MCP rather than from memory.
+- Semantic color tokens only (`text-muted`, `text-highlighted`, `bg-elevated`, `border-default`, `primary`, ...); never raw palette classes like `text-neutral-400`.
+- Theme colors live in `app/app.config.ts`; fonts and radius are CSS variables in `app/assets/css/main.css`.
+- Icons are Iconify names through Nuxt UI (`i-lucide-*`, `i-simple-icons-*`), bundled locally from `@iconify-json/*`.
+- Layouts must have a single root element.
 
 ## Deployment
 
-Docker image, deployed by Coolify on every push to `main`. Never push to `main` without Kyle's explicit go-ahead.
-
-## Git
-
-No AI attribution in commits or PRs.
+Docker image deployed through Coolify CD on commits to `main`. Do not push to `main` without explicit approval.

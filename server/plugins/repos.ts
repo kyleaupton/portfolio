@@ -1,9 +1,10 @@
 import { setRepoData } from '../utils/repos'
 
 export default defineNitroPlugin(async () => {
-  // Initial setup
+  // Nuxt Content prerenders during `nuxt build`; the interval would keep the build process alive
+  if (import.meta.prerender) return
+
   await setRepoData()
 
-  // Setup refresh interval
-  setInterval(setRepoData, 1000 * 60 * 5) // 5 minutes
+  setInterval(setRepoData, 1000 * 60 * 5)
 })

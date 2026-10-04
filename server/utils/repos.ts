@@ -78,16 +78,16 @@ const repos: RawRepo[] = [
   },
 ]
 
-// Env validation
-const requiredEnvVars = ['GITHUB_TOKEN']
-
-for (const envVar of requiredEnvVars) {
-  if (!process.env[envVar]) {
-    throw new Error(`Missing required environment variable: ${envVar}`)
+// Created lazily: this module is loaded during the build's prerender step, where no token exists
+let octokit: Octokit | undefined
+const getOctokit = () => {
+  if (!process.env.GITHUB_TOKEN) {
+    throw new Error('Missing required environment variable: GITHUB_TOKEN')
   }
+  octokit ??= new Octokit({ auth: process.env.GITHUB_TOKEN })
+  return octokit
 }
 
-const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN })
 const repoCache: Record<string, Repo> = {}
 
 export const getRepoData = async () => {
@@ -109,6 +109,7 @@ export const setRepoData = async () => {
 
 const fetchRepo = async (repo: RawRepo) => {
   try {
+    const octokit = getOctokit()
     console.log(`GET_REPOS: Fetching data for ${repo.id}`)
     const start = Date.now()
 
@@ -131,9 +132,9 @@ const fetchRepo = async (repo: RawRepo) => {
     let commits = 0
     const paginationLink = headers.link
     if (paginationLink) {
-      const lastPageMatch = paginationLink.match(/page=(\d+)>; rel="last"/)
-      if (lastPageMatch) {
-        commits = parseInt(lastPageMatch[1])
+      const lastPage = paginationLink.match(/page=(\d+)>; rel="last"/)?.[1]
+      if (lastPage) {
+        commits = parseInt(lastPage)
       }
     }
 
