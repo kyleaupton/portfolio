@@ -6,7 +6,7 @@ The old site is in git history (`main`). Use it for reference: content, the head
 
 ## Decisions
 
-- **Theme:** follows the system color mode, with a toggle. A custom visual identity comes later, so for now use Nuxt UI defaults with a neutral palette, and use **semantic tokens only** (`text-muted`, `bg-elevated`, `border-default`, `primary`, ...). Don't write raw palette classes like `text-neutral-400` or `text-white`. Colors go in `app/app.config.ts` and fonts/radius in CSS variables, so the theme can be swapped in one place.
+- **Theme:** follows the system color mode, with a toggle. Stone neutrals with an orange accent used sparingly (current-job dot, hovered rows, active nav link). Use **semantic tokens only** (`text-muted`, `bg-elevated`, `border-default`, `primary`, ...). Don't write raw palette classes like `text-neutral-400` or `text-white`. Colors go in `app/app.config.ts` and fonts/radius in CSS variables, so the theme can be swapped in one place.
 - **Package manager:** npm (`package-lock.json`). Yarn is removed.
 - **Domain:** `https://kyleupton.dev`
 - **Code style:** `<script setup lang="ts">` everywhere. 2 spaces, no semicolons, single quotes (ESLint stylistic via `@nuxt/eslint`).
@@ -72,7 +72,7 @@ Each phase lists the files it owns. If you need to change a file owned by anothe
 - Remove: shadcn-nuxt, radix-vue, vaul-vue, class-variance-authority, clsx, tailwind-merge, tailwindcss-animate, all FontAwesome packages, lucide-vue-next, floating-vue, fitty, moment, marked*, highlight.js, github-markdown-css, @unovis/*, autoprefixer/postcss config, `@nuxtjs/color-mode` (Nuxt UI includes it), `@nuxtjs/tailwindcss`, old `tailwind.config.js`, `components.json`, `lib/`, the old `components/`, `plugins/`.
 - `content.config.ts` with both collections and their schemas as described above. Add one draft post so the collection builds.
 - `nuxt.config.ts`: modules, runtimeConfig (`githubToken`, `resumeUrl`), site URL, `compatibilityDate`.
-- `app/app.vue` (`UApp`), `app/layouts/default.vue` with `UHeader`/`UMain`/`UFooter`, `app/app.config.ts` (neutral palette), `app/assets/css/main.css` (`@import "tailwindcss"; @import "@nuxt/ui";`).
+- `app/app.vue` (`UApp`), `app/layouts/default.vue` with `UHeader`/`UMain`/`UFooter`, `app/app.config.ts` (theme colors), `app/assets/css/main.css` (`@import "tailwindcss"; @import "@nuxt/ui";`).
 - `app/pages/index.vue`: hero only (the copy above, semantic tokens, a tasteful entrance animation is fine). Leave `server/` alone except for anything the upgrade forces.
 - Rewrite `CLAUDE.md` once the structure exists (commands, architecture, conventions).
 - **Done when:** `npm run build`, `npm run lint` and `npx nuxi typecheck` pass, `/` renders in light and dark, and the work is committed.

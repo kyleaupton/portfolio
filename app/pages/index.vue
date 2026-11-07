@@ -62,17 +62,17 @@ useSeoMeta({
       <HomeHero :profile="profile" />
 
       <div class="grid gap-12 md:grid-cols-2 md:gap-16">
-        <HomeSection title="Career">
+        <TitledSection title="Career">
           <UTimeline
             :items="careerItems"
             :default-value="0"
-            color="neutral"
+            color="primary"
             size="3xs"
             :ui="{ date: 'font-mono', title: 'text-base', description: 'text-sm' }"
           />
-        </HomeSection>
+        </TitledSection>
 
-        <HomeSection title="Tech">
+        <TitledSection title="Tech">
           <dl class="grid grid-cols-[6rem_1fr] gap-x-4 gap-y-3">
             <template
               v-for="group in profile.tech"
@@ -86,14 +86,14 @@ useSeoMeta({
               </dd>
             </template>
           </dl>
-        </HomeSection>
+        </TitledSection>
       </div>
 
-      <HomeSection
+      <TitledSection
         v-if="projectItems.length"
         title="Projects"
       >
-        <HomeList :items="projectItems" />
+        <LinkList :items="projectItems" />
         <UButton
           to="/projects"
           label="All projects"
@@ -102,13 +102,13 @@ useSeoMeta({
           variant="link"
           class="mt-3 px-0"
         />
-      </HomeSection>
+      </TitledSection>
 
-      <HomeSection
+      <TitledSection
         v-if="postItems.length"
         title="Writing"
       >
-        <HomeList :items="postItems" />
+        <LinkList :items="postItems" />
         <UButton
           to="/writing"
           label="All writing"
@@ -117,7 +117,7 @@ useSeoMeta({
           variant="link"
           class="mt-3 px-0"
         />
-      </HomeSection>
+      </TitledSection>
     </main>
   </div>
 </template>

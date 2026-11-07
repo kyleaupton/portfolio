@@ -15,7 +15,7 @@ defineProps<{
         class="group flex items-baseline gap-4 py-3"
       >
         <div class="min-w-0 flex-1 sm:flex sm:items-baseline sm:gap-4">
-          <p class="font-medium text-highlighted group-hover:underline sm:w-44 sm:shrink-0">
+          <p class="font-medium text-highlighted transition-colors group-hover:text-primary sm:w-44 sm:shrink-0">
             {{ item.title }}
           </p>
           <p
