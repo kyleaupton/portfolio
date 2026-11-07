@@ -18,16 +18,13 @@ The old site is in git history (`main`). Use it for reference: content, the head
 
 | Route | Phase | Notes |
 |---|---|---|
-| `/` | P1 hero, P4 complete | Hero, featured FlashIt, featured projects, latest writing (only once posts exist) |
+| `/` | P4 | Bare hero, career timeline beside a tech list, featured projects by last push, latest writing once posts exist. No site header. |
 | `/projects` | P2a | All non-archived projects, then a compact archive list |
 | `/projects/[slug]` | P2a | Project and archive tiers: README plus GitHub stats and links |
-| `/flashit` | P3 | Product landing page. Once it ships, `/projects/flashit` redirects here; until then FlashIt uses the normal project page |
-| `/flashit/download` | P3 | OS-aware download from the latest GitHub release |
-| `/flashit/download/latest/[platform]` | P3 | 302 redirect to the matching release asset |
-| `/flashit/docs/**` | later | Docs pulled from the flashit repo. Out of scope for now. |
 | `/writing`, `/writing/[slug]` | P2b | Hidden from the nav until a non-draft post exists |
 | `/rss.xml` | P2b | |
 | `/resume` | P2c | Existing PDF proxy (`RESUME_URL`) |
+| `/llms.txt` | P4 | Plain-text summary for AI tools, built from `profile.yml` and project data |
 
 **Header:** name, then Projects / Writing / Resume, then GitHub, LinkedIn, copy-email, color mode toggle.
 Email: kyleaupton@gmail.com. LinkedIn: https://linkedin.com/in/kyle-upton-50bb1a188. GitHub: https://github.com/kyleaupton.
@@ -39,17 +36,15 @@ Email: kyleaupton@gmail.com. LinkedIn: https://linkedin.com/in/kyle-upton-50bb1a
 ```yaml
 repo: flashit            # GitHub repo under kyleaupton
 name: FlashIt
-tier: product            # product | project | archive
-featured: true
-order: 0                 # optional manual sort among featured; otherwise sorted by last push
+tier: project            # project | archive
+featured: true           # shown on the home page; lists sort by last push
 tech: [go, vue, c, obj-c]
 pitch: Optional one-liner that overrides the GitHub description
 npm: https://...         # optional
 ```
 
 Tiers:
-- **product:** flashit
-- **project:** arrflix, bucket-browser, typed-electron-ipc, node-rsync, glob-copy, portfolio, resume, leet-scold, TransactionTracker
+- **project:** flashit, arrflix, bucket-browser, typed-electron-ipc, node-rsync, glob-copy, portfolio, resume, leet-scold, TransactionTracker
 - **archive:** zerotier-utility, witte-quote-generator-desktop, win-iso, node-wimlib-split, schedule-widget
 
 Featured: flashit, arrflix, bucket-browser, typed-electron-ipc, node-rsync, glob-copy.
@@ -65,7 +60,6 @@ Frontmatter fields: `title`, `description`, `date`, `draft` (default false), opt
 - Endpoints (the exact shape is up to the implementer):
   - `/api/projects`: content metadata merged with GitHub stats (description, stars, pushed_at, language).
   - `/api/projects/[slug]`: the above plus the README, parsed on the server into an MDC AST, with relative image/link URLs rewritten to `raw.githubusercontent.com/kyleaupton/<repo>/<default branch>/`.
-  - `/api/flashit/release`: latest release (version, date, notes, assets mapped to platform/arch).
 - Pages load data with `useFetch`/`useAsyncData`, so it's in the server-rendered HTML.
 
 ## Phases
@@ -95,13 +89,8 @@ A Medium-style reading page: one column about 68ch wide, large title, date and r
 Owns: `Dockerfile`, `.dockerignore`, `docker-compose.yml`, `server/routes/resume.ts`, `.devcontainer.json`.
 Multi-stage Node 22 build: `npm ci`, non-root user, copy only `.output` into the final image, port 3001. Simplify the resume proxy (`sendStream`/`proxyRequest`, `runtimeConfig.resumeUrl`).
 
-### P3: FlashIt (after launch)
-Ships as its own release after the site launches. When it does, restore the `/projects/flashit` → `/flashit` redirect and point the product tier's `to` at `/flashit` in `server/utils/github.ts`.
-
-Owns: `app/pages/flashit/**`, `app/components/flashit/**`, `server/api/flashit/**`, `server/routes/flashit/**`.
-- **Landing page:** hero (app icon from the flashit repo `build/appicon.png`, tagline "Create bootable USB installers for any OS, from any OS.", download button for the visitor's OS), features, platform support table, safety section, and a "pure Go WIM" highlight. Content source: `/Users/kyleupton/Documents/GitHub/flashit/README.md`.
-- **Download page:** OS and architecture detection (prefer `navigator.userAgentData`, fall back to the UA string), main button, all platforms, version and date, macOS 13.3+ requirement, rendered release notes.
-- **Asset mapping:** check the real asset names in the flashit release workflow (`.github/workflows/release.yml` and the `package-*.yml` files) before mapping them.
+### P3: FlashIt (dropped)
+FlashIt is getting its own domain, so it's a normal project here. Its project page links out through the repo's GitHub homepage field.
 
 ### P4: Home (after P2)
 Owns: `app/pages/index.vue`, `app/components/home/**`. The ⌘K search was cut: with this few pages, the nav is enough.

@@ -9,24 +9,12 @@ defineProps<{
 <template>
   <UPageCard
     :to="project.to"
+    :title="project.name"
     :description="project.description || undefined"
     spotlight
     spotlight-color="primary"
     class="h-full"
   >
-    <template #title>
-      <span class="flex items-center gap-2">
-        {{ project.name }}
-        <UBadge
-          v-if="project.tier === 'product'"
-          label="Product"
-          color="primary"
-          variant="subtle"
-          size="sm"
-        />
-      </span>
-    </template>
-
     <template #footer>
       <div class="flex w-full flex-col gap-3">
         <ProjectTech :tech="project.tech" />

@@ -65,7 +65,7 @@ async function copyEmail() {
             icon="i-simple-icons-linkedin"
             color="neutral"
             variant="ghost"
-            to="https://linkedin.com/in/kyle-upton-50bb1a188"
+            to="https://linkedin.com/in/kyle-upton-dev"
             target="_blank"
             aria-label="LinkedIn"
           />

@@ -34,9 +34,8 @@ export interface ProjectSummary {
   slug: string
   repo: string
   name: string
-  tier: 'product' | 'project' | 'archive'
+  tier: 'project' | 'archive'
   featured: boolean
-  order?: number
   tech: string[]
   npm?: string
   to: string
@@ -164,7 +163,6 @@ export function toSummary(entry: ProjectEntry, stats: RepoStats | null): Project
     name: entry.name,
     tier: entry.tier,
     featured: entry.featured,
-    order: entry.order ?? undefined,
     tech: entry.tech,
     npm: entry.npm ?? undefined,
     to: `/projects/${slug}`,
@@ -178,12 +176,8 @@ export function toSummary(entry: ProjectEntry, stats: RepoStats | null): Project
   }
 }
 
-const tierRank = { product: 0, project: 1, archive: 2 }
-
 export function compareProjects(a: ProjectSummary, b: ProjectSummary) {
-  return tierRank[a.tier] - tierRank[b.tier]
-    || Number(b.featured) - Number(a.featured)
-    || (a.order ?? Infinity) - (b.order ?? Infinity)
+  return Number(a.tier === 'archive') - Number(b.tier === 'archive')
     || (b.pushedAt ?? '').localeCompare(a.pushedAt ?? '')
     || a.name.localeCompare(b.name)
 }

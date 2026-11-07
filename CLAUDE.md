@@ -27,8 +27,8 @@ Package manager is **npm**. No test suite is configured.
 ## Architecture
 
 - `app/`: Nuxt 4 source directory (`app.vue` wraps everything in `UApp`; `layouts/default.vue` holds `UHeader`/`UMain`/`UFooter`; `pages/` is file-based routing).
-- `content/` plus `content.config.ts`: Nuxt Content collections. `projects` (`content/projects/*.yml`, data) and `writing` (`content/writing/*.md`, pages with `date`, `draft`, optional `cover`).
-- `server/`: Nitro API routes and utils (GitHub data via Octokit, `/resume` PDF proxy).
+- `content/` plus `content.config.ts`: Nuxt Content collections. `profile` (`content/profile.yml`: title, links, career and tech shown on the home page and in `/llms.txt`), `projects` (`content/projects/*.yml`, data) and `writing` (`content/writing/*.md`, pages with `date`, `draft`, optional `cover`).
+- `server/`: Nitro API routes and utils (GitHub data via Octokit, `/resume` PDF proxy, `/rss.xml`, `/llms.txt`).
 - Runtime config: `githubToken` (`NUXT_GITHUB_TOKEN`), `resumeUrl` (`NUXT_RESUME_URL`), `public.siteUrl`. Defaults are empty on purpose; server code falls back to `process.env.GITHUB_TOKEN` / `RESUME_URL` at request time so secrets never end up in the build.
 - Content uses the native `node:sqlite` connector, so Node >= 22.5 is required.
 

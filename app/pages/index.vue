@@ -1,11 +1,17 @@
 <script setup lang="ts">
-const { data: featured } = await useFetch('/api/projects', {
+// The hero carries the name and links, so the site header would only repeat them
+definePageMeta({ layout: false })
+
+const { data: profile } = await useAsyncData('profile', () => queryCollection('profile').first())
+
+if (!profile.value) {
+  throw createError({ statusCode: 500, statusMessage: 'Profile data missing', fatal: true })
+}
+
+const { data: projects } = await useFetch('/api/projects', {
   query: { featured: true },
   default: () => [],
 })
-
-const product = computed(() => featured.value.find(project => project.tier === 'product'))
-const projects = computed(() => featured.value.filter(project => project.tier !== 'product'))
 
 const { data: posts } = await useAsyncData('home-writing', () => {
   const query = queryCollection('writing')
@@ -16,98 +22,102 @@ const { data: posts } = await useAsyncData('home-writing', () => {
   return import.meta.dev ? query.all() : query.where('draft', '=', false).all()
 })
 
+const careerItems = computed(() => profile.value?.career.map((role, index) => ({
+  value: index,
+  date: `${role.start} – ${role.end ?? 'Present'}`,
+  title: role.title,
+  description: role.company,
+})) ?? [])
+
+const projectItems = computed(() => projects.value.map(project => ({
+  key: project.slug,
+  to: project.to,
+  title: project.name,
+  description: project.description,
+  date: project.pushedAt ?? undefined,
+})))
+
+const postItems = computed(() => (posts.value ?? []).map(post => ({
+  key: post.path,
+  to: post.path,
+  title: post.title,
+  description: post.description,
+  date: post.date,
+})))
+
 useSeoMeta({
-  title: 'Kyle Upton',
-  description: 'Senior Software Engineer building full stack TypeScript applications.',
+  title: profile.value.name,
+  description: `${profile.value.title}. ${profile.value.focus}.`,
 })
 </script>
 
 <template>
-  <div class="pb-8 sm:pb-12">
-    <UContainer class="pt-16 pb-8 sm:pt-24 sm:pb-10 lg:pt-32">
-      <div class="flex max-w-2xl flex-col gap-3">
-        <p
-          class="hero-enter text-muted"
-          style="--delay: 100ms"
-        >
-          Hi, I'm
-        </p>
-        <h1
-          class="hero-enter text-4xl font-semibold tracking-tight text-highlighted sm:text-6xl"
-          style="--delay: 150ms"
-        >
-          Kyle Upton
-        </h1>
-        <p
-          class="hero-enter text-lg text-toned"
-          style="--delay: 300ms"
-        >
-          Senior Software Engineer
-        </p>
-        <p
-          class="hero-enter mt-2 text-pretty text-muted"
-          style="--delay: 450ms"
-        >
-          I'm a full stack engineer specializing in
-          <span class="text-highlighted">TypeScript</span> and
-          <span class="text-highlighted">JavaScript</span>. From crafting elegant
-          frontend interfaces to architecting robust backend systems, my expertise
-          spans the full spectrum of web development. Currently I'm working at
-          <span class="text-highlighted">Red Oak Development</span> creating industry leading software.
-        </p>
-      </div>
-    </UContainer>
+  <div class="relative min-h-screen">
+    <UColorModeButton class="absolute top-4 right-4" />
 
-    <HomeSection
-      v-if="featured.length"
-      title="Projects"
+    <main
+      v-if="profile"
+      class="mx-auto flex max-w-4xl flex-col gap-14 px-6 py-16 sm:py-20"
     >
-      <div class="flex flex-col gap-6">
-        <HomeProduct
-          v-if="product"
-          :project="product"
+      <HomeHero :profile="profile" />
+
+      <div class="grid gap-12 md:grid-cols-2 md:gap-16">
+        <HomeSection title="Career">
+          <UTimeline
+            :items="careerItems"
+            :default-value="0"
+            color="neutral"
+            size="3xs"
+            :ui="{ date: 'font-mono', title: 'text-base', description: 'text-sm' }"
+          />
+        </HomeSection>
+
+        <HomeSection title="Tech">
+          <dl class="grid grid-cols-[6rem_1fr] gap-x-4 gap-y-3">
+            <template
+              v-for="group in profile.tech"
+              :key="group.label"
+            >
+              <dt class="text-sm text-muted">
+                {{ group.label }}
+              </dt>
+              <dd class="text-highlighted">
+                {{ group.items.join(', ') }}
+              </dd>
+            </template>
+          </dl>
+        </HomeSection>
+      </div>
+
+      <HomeSection
+        v-if="projectItems.length"
+        title="Projects"
+      >
+        <HomeList :items="projectItems" />
+        <UButton
+          to="/projects"
+          label="All projects"
+          trailing-icon="i-lucide-arrow-right"
+          color="neutral"
+          variant="link"
+          class="mt-3 px-0"
         />
+      </HomeSection>
 
-        <UPageGrid>
-          <ProjectCard
-            v-for="project in projects"
-            :key="project.slug"
-            :project="project"
-          />
-          <UPageCard
-            to="/projects"
-            title="All projects"
-            description="Libraries, experiments and the archive."
-            icon="i-lucide-arrow-right"
-            variant="subtle"
-            class="h-full"
-          />
-        </UPageGrid>
-      </div>
-    </HomeSection>
-
-    <HomeSection
-      v-if="posts?.length"
-      title="Latest writing"
-      to="/writing"
-      link-label="All writing"
-    >
-      <WritingList :posts="posts" />
-    </HomeSection>
+      <HomeSection
+        v-if="postItems.length"
+        title="Writing"
+      >
+        <HomeList :items="postItems" />
+        <UButton
+          to="/writing"
+          label="All writing"
+          trailing-icon="i-lucide-arrow-right"
+          color="neutral"
+          variant="link"
+          class="mt-3 px-0"
+        />
+      </HomeSection>
+    </main>
   </div>
 </template>
-
-<style scoped>
-@media (prefers-reduced-motion: no-preference) {
-  .hero-enter {
-    animation: hero-enter 600ms cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0ms) both;
-  }
-}
-
-@keyframes hero-enter {
-  from {
-    opacity: 0;
-    transform: translateY(0.5rem);
-  }
-}
-</style>

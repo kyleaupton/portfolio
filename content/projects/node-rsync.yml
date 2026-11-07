@@ -2,6 +2,5 @@ repo: node-rsync
 name: Node Rsync
 tier: project
 featured: true
-order: 4
 tech: [typescript, node]
 npm: https://www.npmjs.com/package/@kyleupton/node-rsync

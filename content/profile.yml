@@ -1,0 +1,33 @@
+name: Kyle Upton
+title: Senior Software Engineer at Red Oak Development
+focus: Full-stack and AI
+email: kyleaupton@gmail.com
+github: https://github.com/kyleaupton
+linkedin: https://linkedin.com/in/kyle-upton-dev
+career:
+  - title: Senior Software Engineer
+    company: Red Oak Development
+    start: Feb 2025
+  - title: Senior Software Developer
+    company: DigitalGlue
+    start: Feb 2023
+    end: Feb 2025
+  - title: Software Developer
+    company: DigitalGlue
+    start: Nov 2021
+    end: Feb 2023
+  - title: Intern
+    company: DigitalGlue
+    start: Oct 2018
+    end: Nov 2021
+tech:
+  - label: Languages
+    items: [TypeScript, Go, Python, SQL]
+  - label: Frontend
+    items: [Vue, Nuxt, React, Tailwind, Electron]
+  - label: Backend
+    items: [Node.js, PostgreSQL, REST, SSE]
+  - label: AI
+    items: [Agents and tool calling, MCP servers, Streaming chat UIs, Anthropic and OpenAI APIs, Claude Code]
+  - label: Infra
+    items: [Docker, Kubernetes, AWS, GitHub Actions]
