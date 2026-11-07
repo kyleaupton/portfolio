@@ -8,13 +8,21 @@ Personal portfolio for https://kyleupton.dev, built on Nuxt 4, Nuxt UI v4, Nuxt 
 
 ## Commands
 
-- `npm run dev`: development server
+- `npm run dev`: development server on http://localhost:4280 (fails instead of switching ports if 4280 is taken)
 - `npm run build`: production build (outputs to `.output/`)
 - `npm start`: run the production server
 - `npm run lint`: ESLint (`npx eslint . --fix` to autofix)
 - `npx nuxi typecheck`: type checking with vue-tsc
 
 Package manager is **npm**. No test suite is configured.
+
+## Dev server and UI checks
+
+- Kyle runs `npm run dev` himself. Never start a dev, preview, production or Docker server. If http://localhost:4280 isn't responding, ask Kyle to start it.
+- `npm run lint`, `npx nuxi typecheck` and `npm run build` are fine to run.
+- Use the Playwright MCP (`.mcp.json`) for UI checks: desktop 1280×900 and mobile 390×844, light and dark via `browser_emulate_media`, and check the console for errors.
+- For your own checks, take screenshots without a filename; the image comes back inline.
+- For screenshots Kyle should review, save them in `.playwright-mcp/` with descriptive names and tell him which files to open. That folder is gitignored and trims its oldest files past 50 MB.
 
 ## Architecture
 

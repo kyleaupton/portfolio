@@ -27,3 +27,5 @@ logs
 .netlify
 
 .vercel
+
+.playwright-mcp/
