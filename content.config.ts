@@ -1,5 +1,19 @@
+import { readdirSync, readFileSync } from 'node:fs'
 import { defineCollection, defineContentConfig } from '@nuxt/content'
 import { z } from 'zod'
+
+// Content builds every file into a database that's publicly downloadable, so
+// drafts have to be kept out of production builds, not just filtered in queries.
+function draftPosts() {
+  const dir = new URL('./content/writing/', import.meta.url)
+  return readdirSync(dir)
+    .filter((file) => {
+      if (!file.endsWith('.md')) return false
+      const frontmatter = readFileSync(new URL(file, dir), 'utf8').match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1]
+      return frontmatter && /^draft:\s*true\s*$/m.test(frontmatter)
+    })
+    .map(file => `writing/${file}`)
+}
 
 export default defineContentConfig({
   collections: {
@@ -40,7 +54,10 @@ export default defineContentConfig({
     }),
     writing: defineCollection({
       type: 'page',
-      source: 'writing/*.md',
+      source: {
+        include: 'writing/*.md',
+        exclude: process.env.NODE_ENV === 'production' ? draftPosts() : [],
+      },
       schema: z.object({
         date: z.date(),
         draft: z.boolean().default(false),

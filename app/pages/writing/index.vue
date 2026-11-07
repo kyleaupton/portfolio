@@ -7,6 +7,14 @@ const { data: posts } = await useAsyncData('writing-list', () => {
   return import.meta.dev ? query.all() : query.where('draft', '=', false).all()
 })
 
+const items = computed(() => (posts.value ?? []).map(post => ({
+  key: post.path,
+  to: post.path,
+  title: post.title,
+  description: post.description,
+  date: post.date,
+})))
+
 const siteUrl = useRuntimeConfig().public.siteUrl
 
 usePageSeo({
@@ -23,24 +31,26 @@ useHead({
 </script>
 
 <template>
-  <UContainer class="py-12 sm:py-16">
-    <div class="mx-auto max-w-[68ch]">
-      <h1 class="text-3xl font-semibold tracking-tight text-highlighted sm:text-4xl">
+  <div class="mx-auto flex max-w-4xl flex-col gap-14 px-6 py-12 sm:py-16">
+    <header>
+      <h1 class="text-3xl font-semibold tracking-tight text-highlighted">
         Writing
       </h1>
-
-      <WritingList
-        v-if="posts?.length"
-        :posts="posts"
-        class="mt-6"
-      />
-
-      <p
-        v-else
-        class="mt-10 text-muted"
-      >
-        Nothing published yet.
+      <p class="mt-2 text-muted">
+        Notes and articles.
       </p>
-    </div>
-  </UContainer>
+    </header>
+
+    <LinkList
+      v-if="items.length"
+      :items="items"
+    />
+
+    <p
+      v-else
+      class="text-muted"
+    >
+      Nothing published yet.
+    </p>
+  </div>
 </template>
