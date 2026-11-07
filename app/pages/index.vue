@@ -45,7 +45,7 @@ const postItems = computed(() => (posts.value ?? []).map(post => ({
   date: post.date,
 })))
 
-useSeoMeta({
+usePageSeo({
   title: profile.value.name,
   description: `${profile.value.title}. ${profile.value.focus}.`,
 })

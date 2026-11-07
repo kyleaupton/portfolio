@@ -4,8 +4,16 @@ useHead({
   link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
 })
 
+const siteUrl = useRuntimeConfig().public.siteUrl
+const route = useRoute()
+
 useSeoMeta({
-  titleTemplate: title => title && title !== 'Kyle Upton' ? `${title} · Kyle Upton` : 'Kyle Upton',
+  titleTemplate: withSiteName,
+  ogSiteName: SITE_NAME,
+  ogType: 'website',
+  ogUrl: () => `${siteUrl}${route.path}`,
+  ogImage: `${siteUrl}/og.png`,
+  twitterCard: 'summary_large_image',
 })
 </script>
 

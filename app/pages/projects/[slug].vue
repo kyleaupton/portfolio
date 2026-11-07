@@ -32,7 +32,7 @@ const stats = computed(() => {
   ].filter(stat => stat.value != null)
 })
 
-useSeoMeta({
+usePageSeo({
   title: () => project.value?.name,
   description: () => project.value?.description,
 })

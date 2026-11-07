@@ -9,8 +9,8 @@ const { data: posts } = await useAsyncData('writing-list', () => {
 
 const siteUrl = useRuntimeConfig().public.siteUrl
 
-useSeoMeta({
-  title: 'Writing · Kyle Upton',
+usePageSeo({
+  title: 'Writing',
   description: 'Notes and articles by Kyle Upton.',
 })
 

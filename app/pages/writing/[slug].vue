@@ -47,14 +47,16 @@ const formattedDate = computed(() => new Date(post.value!.date).toLocaleDateStri
 
 const canonical = `${siteUrl}${post.value.path}`
 
-useSeoMeta({
-  title: `${post.value.title} · Kyle Upton`,
+usePageSeo({
+  title: post.value.title,
   description: post.value.description,
-  ogTitle: post.value.title,
-  ogDescription: post.value.description,
+})
+
+useSeoMeta({
   ogType: 'article',
   ogUrl: canonical,
-  ogImage: post.value.cover,
+  // An undefined value would clear the site-wide default image instead of falling back to it
+  ...(post.value.cover ? { ogImage: post.value.cover } : {}),
   articlePublishedTime: new Date(post.value.date).toISOString(),
 })
 

@@ -14,7 +14,7 @@ const toItem = (project: ProjectSummary) => ({
 const active = computed(() => projects.value.filter(project => project.tier !== 'archive').map(toItem))
 const archived = computed(() => projects.value.filter(project => project.tier === 'archive').map(toItem))
 
-useSeoMeta({
+usePageSeo({
   title: 'Projects',
   description: 'Apps, libraries and experiments by Kyle Upton.',
 })
