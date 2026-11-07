@@ -39,7 +39,6 @@ export interface ProjectSummary {
   order?: number
   tech: string[]
   npm?: string
-  /** Internal page for the project (`/flashit` for the product, `/projects/<slug>` otherwise). */
   to: string
   description: string
   url: string
@@ -168,7 +167,7 @@ export function toSummary(entry: ProjectEntry, stats: RepoStats | null): Project
     order: entry.order ?? undefined,
     tech: entry.tech,
     npm: entry.npm ?? undefined,
-    to: entry.tier === 'product' ? `/${slug}` : `/projects/${slug}`,
+    to: `/projects/${slug}`,
     description: entry.pitch || stats?.description || '',
     url: stats?.url ?? `https://github.com/${GITHUB_OWNER}/${entry.repo}`,
     homepage: stats?.homepage ?? null,
@@ -206,9 +205,25 @@ function resolveUrl(url: unknown, base: string) {
   return new URL(url.replace(/^\//, ''), base).href
 }
 
+const BADGE_URL = /img\.shields\.io|\/badge\.svg/
+
+// READMEs styled as a centered logo/title/tagline block repeat what the page header shows.
+function stripCenteredBanner(children: MDCNode[]) {
+  const elements = children.filter(isElement)
+  const end = elements.findIndex(node => node.props?.align !== 'center')
+  const banner = elements.slice(0, end)
+  if (!banner.some(node => node.tag === 'h1')) return children
+
+  const dropped = new Set<MDCNode>(banner)
+  if (elements[end]?.tag === 'hr') dropped.add(elements[end])
+  return children.filter(node => !dropped.has(node))
+}
+
 function transformReadme(children: MDCNode[], repo: string, branch: string) {
   const rawBase = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${repo}/${branch}/`
   const blobBase = `https://github.com/${GITHUB_OWNER}/${repo}/blob/${branch}/`
+
+  children = stripCenteredBanner(children)
 
   // The page header already shows the project name
   const first = children.find(isElement)
@@ -225,6 +240,12 @@ function transformReadme(children: MDCNode[], repo: string, branch: string) {
       if (typeof props.srcset === 'string' && !props.srcset.includes(',')) {
         props.srcset = resolveUrl(props.srcset.trim(), rawBase)
       }
+    }
+    // ProseImg stretches any image without a width to the full column
+    if (node.tag === 'img' && typeof props.src === 'string' && BADGE_URL.test(props.src)) {
+      props.width = 'auto'
+      props.class = 'inline h-5'
+      props[':zoom'] = 'false'
     }
     if (node.tag === 'a') props.href = resolveUrl(props.href, blobBase)
 

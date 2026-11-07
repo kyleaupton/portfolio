@@ -21,7 +21,7 @@ The old site is in git history (`main`). Use it for reference: content, the head
 | `/` | P1 hero, P4 complete | Hero, featured FlashIt, featured projects, latest writing (only once posts exist) |
 | `/projects` | P2a | All non-archived projects, then a compact archive list |
 | `/projects/[slug]` | P2a | Project and archive tiers: README plus GitHub stats and links |
-| `/flashit` | P3 | Product landing page (`/projects/flashit` redirects here) |
+| `/flashit` | P3 | Product landing page. Once it ships, `/projects/flashit` redirects here; until then FlashIt uses the normal project page |
 | `/flashit/download` | P3 | OS-aware download from the latest GitHub release |
 | `/flashit/download/latest/[platform]` | P3 | 302 redirect to the matching release asset |
 | `/flashit/docs/**` | later | Docs pulled from the flashit repo. Out of scope for now. |
@@ -29,7 +29,7 @@ The old site is in git history (`main`). Use it for reference: content, the head
 | `/rss.xml` | P2b | |
 | `/resume` | P2c | Existing PDF proxy (`RESUME_URL`) |
 
-**Header:** name, then Projects / Writing / Resume, then GitHub, LinkedIn, copy-email, color mode toggle. The ⌘K search is added in P4.
+**Header:** name, then Projects / Writing / Resume, then GitHub, LinkedIn, copy-email, color mode toggle.
 Email: kyleaupton@gmail.com. LinkedIn: https://linkedin.com/in/kyle-upton-50bb1a188. GitHub: https://github.com/kyleaupton.
 
 ## Data design
@@ -95,14 +95,19 @@ A Medium-style reading page: one column about 68ch wide, large title, date and r
 Owns: `Dockerfile`, `.dockerignore`, `docker-compose.yml`, `server/routes/resume.ts`, `.devcontainer.json`.
 Multi-stage Node 22 build: `npm ci`, non-root user, copy only `.output` into the final image, port 3001. Simplify the resume proxy (`sendStream`/`proxyRequest`, `runtimeConfig.resumeUrl`).
 
-### P3: FlashIt (after P2a)
+### P3: FlashIt (after launch)
+Ships as its own release after the site launches. When it does, restore the `/projects/flashit` → `/flashit` redirect and point the product tier's `to` at `/flashit` in `server/utils/github.ts`.
+
 Owns: `app/pages/flashit/**`, `app/components/flashit/**`, `server/api/flashit/**`, `server/routes/flashit/**`.
 - **Landing page:** hero (app icon from the flashit repo `build/appicon.png`, tagline "Create bootable USB installers for any OS, from any OS.", download button for the visitor's OS), features, platform support table, safety section, and a "pure Go WIM" highlight. Content source: `/Users/kyleupton/Documents/GitHub/flashit/README.md`.
 - **Download page:** OS and architecture detection (prefer `navigator.userAgentData`, fall back to the UA string), main button, all platforms, version and date, macOS 13.3+ requirement, rendered release notes.
 - **Asset mapping:** check the real asset names in the flashit release workflow (`.github/workflows/release.yml` and the `package-*.yml` files) before mapping them.
 
-### P4: Home and search (after P2)
-Owns: `app/pages/index.vue`, `app/components/home/**`, and the ⌘K search (`UContentSearch`/`UCommandPalette`, indexing projects, posts and pages).
+### P4: Home (after P2)
+Owns: `app/pages/index.vue`, `app/components/home/**`. The ⌘K search was cut: with this few pages, the nav is enough.
+
+### Before launch
+A small-to-medium visual pass (font, accent color, spacing), a rewritten hero, social share images, and a first real post. The post is likely code-heavy, so check long code blocks on the reading page.
 
 ### P5: Review
 Run `/code-review` on the branch diff, then a dev-server pass with screenshots of every route in light and dark mode.

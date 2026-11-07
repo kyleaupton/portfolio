@@ -1,12 +1,6 @@
 <script setup lang="ts">
 import type { ButtonProps } from '@nuxt/ui'
 
-definePageMeta({
-  middleware: (to) => {
-    if (to.params.slug === 'flashit') return navigateTo('/flashit', { redirectCode: 301 })
-  },
-})
-
 const route = useRoute()
 const slug = computed(() => String(route.params.slug))
 
@@ -22,6 +16,7 @@ const links = computed(() => {
   const items: ButtonProps[] = [
     { label: 'GitHub', icon: 'i-simple-icons-github', to: p.url, target: '_blank' },
   ]
+  if (p.tier === 'product') items.unshift({ label: 'Download', icon: 'i-lucide-download', to: `${p.url}/releases/latest`, target: '_blank', color: 'primary' })
   if (p.npm) items.push({ label: 'npm', icon: 'i-simple-icons-npm', to: p.npm, target: '_blank' })
   if (p.homepage) items.push({ label: 'Website', icon: 'i-lucide-arrow-up-right', to: p.homepage, target: '_blank' })
   return items
