@@ -1,0 +1,47 @@
+# CLAUDE.md
+
+Guidance for Claude Code when working in this repository.
+
+## Project Overview
+
+Personal portfolio for https://kyleupton.dev, built on Nuxt 4, Nuxt UI v4, Nuxt Content v3 and Tailwind CSS v4. The rebuild plan and phase ownership live in `docs/rebuild/PLAN.md`.
+
+## Commands
+
+- `npm run dev`: development server on http://localhost:4280 (fails instead of switching ports if 4280 is taken)
+- `npm run build`: production build (outputs to `.output/`)
+- `npm start`: run the production server
+- `npm run lint`: ESLint (`npx eslint . --fix` to autofix)
+- `npx nuxi typecheck`: type checking with vue-tsc
+
+Package manager is **npm**. No test suite is configured.
+
+## Dev server and UI checks
+
+- Kyle runs `npm run dev` himself. Never start a dev, preview, production or Docker server. If http://localhost:4280 isn't responding, ask Kyle to start it.
+- `npm run lint`, `npx nuxi typecheck` and `npm run build` are fine to run. A build rewrites `.data/content/contents.sqlite` without drafts, and the running dev server keeps reading it, so tell Kyle to restart dev after you build.
+- Use the Playwright MCP (`.mcp.json`) for UI checks: desktop 1280×900 and mobile 390×844, light and dark via `browser_emulate_media`, and check the console for errors.
+- For your own checks, take screenshots without a filename; the image comes back inline.
+- For screenshots Kyle should review, save them in `.playwright-mcp/` with descriptive names and tell him which files to open. That folder is gitignored and trims its oldest files past 50 MB.
+
+## Architecture
+
+- `app/`: Nuxt 4 source directory (`app.vue` wraps everything in `UApp`; `layouts/default.vue` holds `UHeader`/`UMain`/`UFooter`; `pages/` is file-based routing).
+- `content/` plus `content.config.ts`: Nuxt Content collections. `profile` (`content/profile.yml`: title, links, career and tech shown on the home page and in `/llms.txt`), `projects` (`content/projects/*.yml`, data) and `writing` (`content/writing/*.md`, pages with `date`, `draft`, optional `cover`).
+- `server/`: Nitro API routes and utils (GitHub data via Octokit, `/resume` PDF proxy, `/rss.xml`, `/llms.txt`).
+- Runtime config: `githubToken` (`NUXT_GITHUB_TOKEN`), `resumeUrl` (`NUXT_RESUME_URL`), `public.siteUrl`. Defaults are empty on purpose; server code falls back to `process.env.GITHUB_TOKEN` / `RESUME_URL` at request time so secrets never end up in the build.
+- Content uses the native `node:sqlite` connector, so Node >= 22.5 is required.
+
+## Conventions
+
+- `<script setup lang="ts">` everywhere.
+- 2-space indentation, no semicolons, single quotes, enforced by `@nuxt/eslint` stylistic rules.
+- Use Nuxt UI components before writing custom markup. Check APIs with the Nuxt UI MCP rather than from memory.
+- Semantic color tokens only (`text-muted`, `text-highlighted`, `bg-elevated`, `border-default`, `primary`, ...); never raw palette classes like `text-neutral-400`.
+- Theme colors live in `app/app.config.ts`; fonts and radius are CSS variables in `app/assets/css/main.css`.
+- Icons are Iconify names through Nuxt UI (`i-lucide-*`, `i-simple-icons-*`), bundled locally from `@iconify-json/*`.
+- Layouts must have a single root element.
+
+## Deployment
+
+Docker image deployed through Coolify CD on commits to `main`. Do not push to `main` without explicit approval.

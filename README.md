@@ -1,12 +1,12 @@
 # Portfolio
 
-Welcome to the repository for my personal portfolio website. This site is built using Nuxt, Vue 3, and TypeScript. This website showcases other projects I've worked on and offers a mechanism to view their READMEs.
+Welcome to the repository for my personal portfolio website. This site is built using Nuxt 4, Nuxt UI, Nuxt Content, and TypeScript. This website showcases other projects I've worked on and offers a mechanism to view their READMEs.
 
 ## Getting Started
 
 Ensure you have the following installed:
-* Node.js (v20 or higher)
-* yarn
+* Node.js (v22.5 or higher)
+* npm
 
 ```bash
 # Clone repo
@@ -14,7 +14,7 @@ git clone https://github.com/kyleaupton/portfolio.git
 
 # Install deps
 cd portfolio
-yarn
+npm install
 ```
 
 ## Development
@@ -22,7 +22,7 @@ yarn
 To start the development server
 
 ```bash
-yarn dev
+npm run dev
 ```
 
 ## Production

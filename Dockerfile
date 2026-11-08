@@ -1,32 +1,31 @@
 # syntax=docker/dockerfile:1
 
+# Nuxt Content uses node:sqlite, which needs Node >= 22.13 to run without flags.
 ARG NODE_VERSION=22
 
-FROM node:${NODE_VERSION}-alpine
+FROM node:${NODE_VERSION}-alpine AS build
+WORKDIR /app
 
-# Set working directory for all build stages.
-WORKDIR /usr/src/app
+COPY package.json package-lock.json ./
+RUN npm ci
 
-# Update and install dependency
-RUN apk update && apk upgrade
-RUN apk add git make g++ libc6-compat
-
-# Copy items into the image.
-# Note the .dockerignore file which excludes the node_modules directory.
 COPY . .
+RUN npm run build
 
-# Install dependencies
-RUN yarn install
+FROM node:${NODE_VERSION}-alpine
+WORKDIR /app
 
-# Run the build script.
-RUN yarn build
+ENV NODE_ENV=production
+ENV HOST=0.0.0.0
+ENV PORT=3001
 
-# Use production node environment by default.
-ENV NODE_ENV production
+COPY --from=build --chown=node:node /app/.output ./.output
+
+# Nuxt Content writes its SQLite database under .data at runtime.
+RUN mkdir .data && chown node:node .data
+
+USER node
 
 EXPOSE 3001
 
-ENV NUXT_HOST=0.0.0.0
-ENV NUXT_PORT=3001
-
-CMD yarn start
+CMD ["node", ".output/server/index.mjs"]

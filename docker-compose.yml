@@ -1,16 +1,14 @@
-version: "3.8"
-
 services:
   portfolio:
-    build:
-      context: .
+    image: node:22-alpine
+    working_dir: /usr/src/app
     ports:
       - "3001:3001"
+      - "3000:3000"
     volumes:
       - .:/usr/src/app
     environment:
       - NODE_ENV=development
-      - NUXT_HOST=0.0.0.0
-      - NUXT_PORT=3001
-      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - NUXT_GITHUB_TOKEN=${NUXT_GITHUB_TOKEN:-}
+      - NUXT_RESUME_URL=${NUXT_RESUME_URL:-}
     command: tail -f /dev/null

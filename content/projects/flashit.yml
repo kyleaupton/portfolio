@@ -1,0 +1,6 @@
+repo: flashit
+name: FlashIt
+tier: project
+featured: true
+tech: [go, vue, c, obj-c]
+pitch: Create bootable USB installers for any OS, from any OS.

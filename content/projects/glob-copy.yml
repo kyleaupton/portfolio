@@ -1,0 +1,6 @@
+repo: glob-copy
+name: Glob Copy
+tier: project
+featured: true
+tech: [typescript, node]
+npm: https://www.npmjs.com/package/@kyleupton/glob-copy

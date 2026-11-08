@@ -1,6 +1,32 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  modules: ['@nuxt/ui', '@nuxt/content', '@nuxt/eslint', 'nuxt-gtag'],
+
   devtools: { enabled: false },
+
+  css: ['~/assets/css/main.css'],
+
+  content: {
+    experimental: {
+      // node:sqlite (Node >= 22.5) avoids compiling better-sqlite3 in the image
+      sqliteConnector: 'native',
+    },
+  },
+
+  // Set at runtime via NUXT_GITHUB_TOKEN / NUXT_RESUME_URL. Reading process.env here
+  // would bake the build machine's secrets into .output.
+  runtimeConfig: {
+    githubToken: '',
+    resumeUrl: '',
+    public: {
+      siteUrl: 'https://kyleupton.dev',
+    },
+  },
+
+  devServer: {
+    port: 4280,
+  },
+
+  compatibilityDate: '2026-10-01',
 
   eslint: {
     config: {
@@ -8,40 +34,8 @@ export default defineNuxtConfig({
     },
   },
 
-  css: [
-    '~/assets/css/main.css',
-    '@fortawesome/fontawesome-svg-core/styles.css',
-  ],
-
-  postcss: {
-    plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
-    },
-  },
-
-  build: {
-    transpile: ['@fortawesome/vue-fontawesome'],
-  },
-
-  modules: [
-    '@nuxtjs/color-mode',
-    'shadcn-nuxt',
-    'floating-vue/nuxt',
-    'nuxt-gtag',
-    '@nuxt/eslint',
-  ],
-
-  colorMode: {
-    preference: 'dark',
-    fallback: 'dark',
-    classSuffix: '',
-  },
-
-  // @ts-ignore
   gtag: {
+    enabled: process.env.NODE_ENV === 'production',
     id: 'G-W1E8B7RHGN',
   },
-
-  compatibilityDate: '2024-09-02',
 })

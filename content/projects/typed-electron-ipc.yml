@@ -1,0 +1,5 @@
+repo: typed-electron-ipc
+name: Typed Electron IPC
+tier: project
+featured: true
+tech: [typescript, electron]
