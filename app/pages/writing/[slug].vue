@@ -4,14 +4,14 @@ import type { ContentSurroundLink } from '@nuxt/ui'
 const route = useRoute()
 const siteUrl = useRuntimeConfig().public.siteUrl
 
-const { data: post } = await useAsyncData(route.path, () => {
+const { data: post, error } = await useAsyncData(route.path, async () => {
   const query = queryCollection('writing').path(route.path)
-  return import.meta.dev ? query.first() : query.where('draft', '=', false).first()
+  const post = await (import.meta.dev ? query.first() : query.where('draft', '=', false).first())
+  if (!post) throw createError({ statusCode: 404, statusMessage: 'Post not found' })
+  return post
 })
 
-if (!post.value) {
-  throw createError({ statusCode: 404, statusMessage: 'Post not found', fatal: true })
-}
+throwIfFailed(error.value)
 
 const { data: surround } = await useAsyncData(`${route.path}-surround`, () => {
   const query = queryCollectionItemSurroundings('writing', route.path, { fields: ['description'] })
@@ -45,24 +45,19 @@ const formattedDate = computed(() => new Date(post.value!.date).toLocaleDateStri
   timeZone: 'UTC',
 }))
 
-const canonical = `${siteUrl}${post.value.path}`
+if (post.value) {
+  usePageSeo({
+    title: post.value.title,
+    description: post.value.description,
+  })
 
-usePageSeo({
-  title: post.value.title,
-  description: post.value.description,
-})
-
-useSeoMeta({
-  ogType: 'article',
-  ogUrl: canonical,
-  // An undefined value would clear the site-wide default image instead of falling back to it
-  ...(post.value.cover ? { ogImage: post.value.cover } : {}),
-  articlePublishedTime: new Date(post.value.date).toISOString(),
-})
-
-useHead({
-  link: [{ rel: 'canonical', href: canonical }],
-})
+  useSeoMeta({
+    ogType: 'article',
+    // An undefined value would clear the site-wide default image instead of falling back to it
+    ...(post.value.cover ? { ogImage: new URL(post.value.cover, siteUrl).href } : {}),
+    articlePublishedTime: new Date(post.value.date).toISOString(),
+  })
+}
 </script>
 
 <template>

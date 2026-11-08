@@ -15,8 +15,6 @@ const items = computed(() => (posts.value ?? []).map(post => ({
   date: post.date,
 })))
 
-const siteUrl = useRuntimeConfig().public.siteUrl
-
 usePageSeo({
   title: 'Writing',
   description: 'Notes and articles by Kyle Upton.',
@@ -24,7 +22,6 @@ usePageSeo({
 
 useHead({
   link: [
-    { rel: 'canonical', href: `${siteUrl}/writing` },
     { rel: 'alternate', type: 'application/rss+xml', title: 'Kyle Upton', href: '/rss.xml' },
   ],
 })

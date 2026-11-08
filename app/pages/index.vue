@@ -2,11 +2,13 @@
 // The hero carries the name and links, so the site header would only repeat them
 definePageMeta({ layout: false })
 
-const { data: profile } = await useAsyncData('profile', () => queryCollection('profile').first())
+const { data: profile, error } = await useAsyncData('profile', async () => {
+  const profile = await queryCollection('profile').first()
+  if (!profile) throw createError({ statusCode: 500, statusMessage: 'Profile data missing' })
+  return profile
+})
 
-if (!profile.value) {
-  throw createError({ statusCode: 500, statusMessage: 'Profile data missing', fatal: true })
-}
+throwIfFailed(error.value)
 
 const { data: projects } = await useFetch('/api/projects', {
   query: { featured: true },
@@ -46,8 +48,8 @@ const postItems = computed(() => (posts.value ?? []).map(post => ({
 })))
 
 usePageSeo({
-  title: profile.value.name,
-  description: `${profile.value.title}. ${profile.value.focus}.`,
+  title: () => profile.value?.name,
+  description: () => profile.value && `${profile.value.title}. ${profile.value.focus}.`,
 })
 </script>
 

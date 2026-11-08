@@ -10,7 +10,7 @@ function draftPosts() {
     .filter((file) => {
       if (!file.endsWith('.md')) return false
       const frontmatter = readFileSync(new URL(file, dir), 'utf8').match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1]
-      return frontmatter && /^draft:\s*true\s*$/m.test(frontmatter)
+      return frontmatter && /^draft:\s*true\s*(?:#.*)?$/im.test(frontmatter)
     })
     .map(file => `writing/${file}`)
 }

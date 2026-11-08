@@ -229,6 +229,8 @@ function transformReadme(children: MDCNode[], repo: string, branch: string) {
     if (!isElement(node)) return node
     const props = node.props ?? {}
 
+    // ProseImg requires alt, and some READMEs use raw <img> tags without one
+    if (node.tag === 'img') props.alt ??= ''
     if (node.tag === 'img' || node.tag === 'source' || node.tag === 'video') {
       props.src = resolveUrl(props.src, rawBase)
       if (typeof props.srcset === 'string' && !props.srcset.includes(',')) {

@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import type { ButtonProps } from '@nuxt/ui'
 
-const route = useRoute()
-const slug = computed(() => String(route.params.slug))
+// Read once: a reactive URL would refetch with the next route's params while this page unmounts
+const slug = String(useRoute().params.slug)
 
-const { data: project } = await useFetch(() => `/api/projects/${slug.value}`)
+const { data: project, error } = await useFetch(`/api/projects/${slug}`)
 
-if (!project.value) {
-  throw createError({ statusCode: 404, statusMessage: 'Project not found', fatal: true })
-}
+throwIfFailed(error.value)
 
 const links = computed(() => {
   const p = project.value
