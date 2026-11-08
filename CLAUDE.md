@@ -19,7 +19,7 @@ Package manager is **npm**. No test suite is configured.
 ## Dev server and UI checks
 
 - Kyle runs `npm run dev` himself. Never start a dev, preview, production or Docker server. If http://localhost:4280 isn't responding, ask Kyle to start it.
-- `npm run lint`, `npx nuxi typecheck` and `npm run build` are fine to run.
+- `npm run lint`, `npx nuxi typecheck` and `npm run build` are fine to run. A build rewrites `.data/content/contents.sqlite` without drafts, and the running dev server keeps reading it, so tell Kyle to restart dev after you build.
 - Use the Playwright MCP (`.mcp.json`) for UI checks: desktop 1280×900 and mobile 390×844, light and dark via `browser_emulate_media`, and check the console for errors.
 - For your own checks, take screenshots without a filename; the image comes back inline.
 - For screenshots Kyle should review, save them in `.playwright-mcp/` with descriptive names and tell him which files to open. That folder is gitignored and trims its oldest files past 50 MB.

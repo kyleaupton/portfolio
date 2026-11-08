@@ -26,7 +26,6 @@ export interface RepoStats {
   url: string
   homepage: string | null
   defaultBranch: string
-  archived: boolean
   license: string | null
 }
 
@@ -53,7 +52,7 @@ export interface ProjectDetail extends ProjectSummary {
   defaultBranch: string | null
   license: string | null
   commits: number | null
-  readme: Pick<MDCParserResult, 'body' | 'data' | 'toc'> | null
+  readme: Pick<MDCParserResult, 'body' | 'data'> | null
 }
 
 let client: { token: string, octokit: Octokit } | undefined
@@ -94,7 +93,6 @@ const cachedRepo = defineCachedFunction(async (repo: string): Promise<RepoStats 
       url: data.html_url,
       homepage: data.homepage || null,
       defaultBranch: data.default_branch,
-      archived: data.archived,
       license: data.license?.spdx_id && data.license.spdx_id !== 'NOASSERTION' ? data.license.spdx_id : null,
     }
   }
@@ -122,12 +120,12 @@ const cachedReadme = defineCachedFunction(async (repo: string, branch: string): 
     throw error
   }
 
-  const { body, data, toc } = await parseMarkdown(markdown, {
+  const { body, data } = await parseMarkdown(markdown, {
     highlight: { highlighter },
-    toc: { depth: 3, searchDepth: 3 },
+    toc: false,
   })
   body.children = transformReadme(body.children, repo, branch)
-  return { body, data, toc }
+  return { body, data }
 }, { ...CACHE, name: 'readme', getKey: (repo: string, branch: string) => `${repo}@${branch}` })
 
 async function safely<T>(label: string, fn: () => Promise<T>): Promise<T | null> {

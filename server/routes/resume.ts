@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 500, statusMessage: 'Resume URL is not configured' })
   }
 
-  const response = await fetch(url).catch(() => null)
+  const response = await fetch(url, { signal: AbortSignal.timeout(10_000) }).catch(() => null)
 
   if (!response?.ok || !response.body) {
     throw createError({ statusCode: 502, statusMessage: 'Failed to fetch resume' })
@@ -14,6 +14,7 @@ export default defineEventHandler(async (event) => {
   setResponseHeaders(event, {
     'Content-Type': response.headers.get('Content-Type') || 'application/pdf',
     'Content-Disposition': 'inline; filename="Kyle-Uptons-Resume.pdf"',
+    'Cache-Control': 'public, max-age=600',
   })
 
   return response.body

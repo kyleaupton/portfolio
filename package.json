@@ -6,7 +6,6 @@
     "build": "nuxt build",
     "dev": "nuxt dev --strictPort",
     "start": "node .output/server/index.mjs",
-    "generate": "nuxt generate",
     "preview": "nuxt preview",
     "lint": "eslint .",
     "typecheck": "nuxt typecheck",

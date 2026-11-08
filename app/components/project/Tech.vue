@@ -1,10 +1,7 @@
 <script setup lang="ts">
-const props = withDefaults(defineProps<{
+const props = defineProps<{
   tech: string[]
-  size?: 'sm' | 'md'
-}>(), {
-  size: 'sm',
-})
+}>()
 
 const TECH: Record<string, { label: string, icon: string }> = {
   'go': { label: 'Go', icon: 'i-simple-icons-go' },
@@ -38,7 +35,7 @@ const items = computed(() => props.tech.map(key => ({ key, ...(TECH[key] ?? { la
         :icon="item.icon"
         color="neutral"
         variant="subtle"
-        :size="size"
+        size="sm"
       />
     </li>
   </ul>
