@@ -1,5 +1,0 @@
-repo: node-wimlib-split
-name: Node Wimlib Split
-tier: archive
-tech: [typescript, node]
-pitch: Split Windows WIM images into FAT32-sized parts from Node.js using wimlib.

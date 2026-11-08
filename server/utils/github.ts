@@ -244,6 +244,9 @@ function transformReadme(children: MDCNode[], repo: string, branch: string) {
       props[':zoom'] = 'false'
     }
     if (node.tag === 'a') props.href = resolveUrl(props.href, blobBase)
+    // The page header is the only h1, so README headings move down a level
+    const level = node.tag.match(/^h([1-5])$/)?.[1]
+    if (level) node = { ...node, tag: `h${Number(level) + 1}` }
 
     if (node.tag === 'blockquote') {
       const alert = toAlert(node)

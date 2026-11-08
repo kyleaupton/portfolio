@@ -70,7 +70,7 @@ usePageSeo({
             :default-value="0"
             color="primary"
             size="3xs"
-            :ui="{ date: 'font-mono', title: 'text-base', description: 'text-sm' }"
+            :ui="{ indicator: 'bg-accented', separator: 'bg-accented', date: 'font-mono', title: 'text-base', description: 'text-sm' }"
           />
         </TitledSection>
 

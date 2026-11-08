@@ -45,7 +45,7 @@ npm: https://...         # optional
 
 Tiers:
 - **project:** flashit, arrflix, bucket-browser, typed-electron-ipc, node-rsync, glob-copy, portfolio, resume, leet-scold, TransactionTracker
-- **archive:** zerotier-utility, witte-quote-generator-desktop, win-iso, node-wimlib-split, schedule-widget
+- **archive:** zerotier-utility, witte-quote-generator-desktop, win-iso, schedule-widget
 
 Featured: flashit, arrflix, bucket-browser, typed-electron-ipc, node-rsync, glob-copy.
 

@@ -37,11 +37,19 @@ usePageSeo({
 </script>
 
 <template>
-  <UContainer v-if="project">
+  <div
+    v-if="project"
+    class="mx-auto max-w-4xl px-6"
+  >
     <UPageHeader
       :title="project.name"
       :description="project.description || undefined"
       :links="links"
+      :ui="{
+        root: 'pt-12 pb-8 sm:pt-16',
+        title: 'text-3xl font-semibold tracking-tight sm:text-3xl',
+        description: 'mt-2 text-base',
+      }"
     >
       <template #headline>
         <UButton
@@ -65,7 +73,7 @@ usePageSeo({
       </template>
     </UPageHeader>
 
-    <UPage>
+    <UPage :ui="{ root: 'lg:grid-cols-[minmax(0,1fr)_12rem]', center: 'lg:col-span-1', right: 'lg:col-span-1' }">
       <UPageBody>
         <MDCRenderer
           v-if="project.readme"
@@ -137,5 +145,5 @@ usePageSeo({
         </aside>
       </template>
     </UPage>
-  </UContainer>
+  </div>
 </template>
